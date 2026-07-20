@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Undangan Pernikahan</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<script src="db-config.js"></script>
+<style>html,body{margin:0;height:100%;font-family:'Poppins',system-ui,sans-serif;background:#FBF8F3;color:#40372F}#r{display:flex;align-items:center;justify-content:center;height:100vh;font-size:14px;opacity:.7}</style>
+</head>
+<body>
+<div id="r">Memuat undangan…</div>
+<script>
+/* ROUTER STYLE (Fase 3A): satu link publik -> template style yang benar.
+   Tambah baris di TEMPLATES saat Anda menambah master style baru. */
+(function(){
+  var TEMPLATES={
+    'elegant-floral':'undangan-template-db.html',
+    'luxury-gold':'undangan-luxury-gold.html'
+  };
+  var DEFAULT='undangan-template-db.html';
+  var DB=window.WEDDING_DB||{}, API=(DB.url||'').replace(/\/+$/,''), KEY=DB.anonKey||'';
+  var q=new URLSearchParams(location.search);
+  var slug=q.get('site')||DB.defaultSlug||'';
+  function go(file){ location.replace(file+(location.search||'')); }
+  if(!API||!KEY||!slug){ return go(DEFAULT); }
+  fetch(API+'/rest/v1/sites?slug=eq.'+encodeURIComponent(slug)+'&select=config&limit=1',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}})
+   .then(function(r){return r.json()})
+   .then(function(rows){ var cfg=(rows&&rows[0]&&rows[0].config)||{}; go(TEMPLATES[cfg.style]||DEFAULT); })
+   .catch(function(){ go(DEFAULT); });
+})();
+</script>
+</body>
+</html>

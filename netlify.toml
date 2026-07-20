@@ -1,0 +1,43 @@
+# ============================================================
+# netlify.toml — FASE 3B
+# Deploy folder ini ke Netlify. Fungsi pembayaran otomatis
+# tersedia di:
+#   /.netlify/functions/create-payment
+#   /.netlify/functions/payment-webhook
+# ------------------------------------------------------------
+# Set env di Netlify > Site settings > Environment variables:
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+#   PAYMENT_PROVIDER = midtrans | xendit
+#   MIDTRANS_SERVER_KEY, MIDTRANS_IS_PRODUCTION
+#   XENDIT_SECRET_KEY, XENDIT_CALLBACK_TOKEN
+#   PUBLIC_BASE_URL = https://undanganku.com
+# ============================================================
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Alias pendek untuk endpoint fungsi (opsional)
+[[redirects]]
+  from = "/api/pay"
+  to = "/.netlify/functions/create-payment"
+  status = 200
+[[redirects]]
+  from = "/api/webhook"
+  to = "/.netlify/functions/payment-webhook"
+  status = 200
+
+# Wildcard subdomain -> index.html (router style Fase 3A membaca subdomain sbg slug)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = []}
+
+# ------------------------------------------------------------
+# FASE 4 (Tahap 2): fungsi TERJADWAL untuk masa aktif undangan.
+#   - Auto-expire undangan yang sudah lewat masa aktif.
+#   - Kirim pengingat perpanjangan (<= 7 hari sebelum berakhir).
+# Butuh env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (opsional EXPIRY_REMIND_DAYS).
+# ------------------------------------------------------------
+[functions."expiry-cron"]
+  schedule = "@daily"
