@@ -135,7 +135,7 @@ tr:last-child td{border-bottom:0}
   function loadAll(){
     panelMsg('Memuat data…','');
     Promise.all([
-      get('sites?select=id,slug,subdomain,owner_id,package,status,style,paletteId,amount,paid,expires_at,created_at&order=created_at.desc'),
+      get('sites?select=id,slug,subdomain,owner_id,package,status,config,amount,paid,expires_at,created_at&order=created_at.desc'),
       get('orders?select=id,site_id,owner_id,package,amount,currency,status,provider,provider_ref,payment_url,months,created_at&order=created_at.desc'),
       get('themes?select=id,nama,template_file,palettes,sort,active&order=sort.asc'),
       get('songs?select=id,nama,artist,url,sort,active&order=sort.asc'),
@@ -181,7 +181,7 @@ tr:last-child td{border-bottom:0}
     if(!sites.length){ el('view').innerHTML='<p class="muted">Belum ada undangan.</p>'; return; }
     var rows=sites.map(function(s){
       return '<tr>'+
-        '<td><b>'+esc(s.slug||'—')+'</b><br><small class="muted">'+esc(s.style||'—')+' / '+esc(s.paletteId||'—')+'</small></td>'+
+        '<td><b>'+esc(s.slug||'—')+'</b><br><small class="muted">'+esc((s.config&&s.config.style)||'—')+' / '+esc((s.config&&s.config.paletteId)||'—')+'</small></td>'+
         '<td>'+esc(ownerEmail(s.owner_id))+'</td>'+
         '<td><span class="badge '+s.status+'">'+s.status+'</span></td>'+
         '<td>'+esc(s.package||'—')+'</td>'+
