@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Undangan Pernikahan</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600&family=Parisienne&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--sage:#c79a9a;--sage-dark:#a97e7e;--gold:#b98e79;--gold-soft:#ecdad2;--blush:#f5e7e3;--ivory:#ffffff;--cream:#faf5f3;--ink:#40383a;--ink-soft:#8a8082;--serif:'Cormorant',serif;--script:'Parisienne',cursive;--sans:'Inter',sans-serif;--bg:#ffffff;--card:#ffffff;--line:#eee6e3;--cover-bg:linear-gradient(180deg,#ffffff,#f5e7e3);--petal-1:#f0d6cf;--petal-2:#ecdad2;--cover-tint:rgba(250,245,243,.6)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;line-height:1.65}
+body.locked{overflow:hidden;height:100vh}
+img{max-width:100%;display:block}
+a{color:inherit}
+.reveal{opacity:0;transform:translateY(26px);transition:.85s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+section{padding:66px 22px;max-width:720px;margin:0 auto;position:relative}
+.label{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 26px;font-weight:600}
+.label:before{content:'';width:26px;height:1px;background:var(--gold);opacity:.6}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;margin:0;line-height:1.2;color:var(--ink)}
+.amp{color:var(--gold);font-style:italic}
+/* petals */
+#petals{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.petal{position:absolute;top:-8vh;border-radius:60% 40% 62% 38%;background:linear-gradient(180deg,var(--petal-1),var(--petal-2));animation:fall linear infinite}
+@keyframes fall{0%{transform:translateY(-10vh) rotate(0);opacity:.7}100%{transform:translateY(112vh) rotate(380deg);opacity:.2}}
+/* music */
+#musicBtn{position:fixed;right:16px;bottom:16px;z-index:230;width:46px;height:46px;border-radius:50%;border:none;background:var(--gold);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#musicBtn.playing{animation:spin 4.5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#bgm{display:none}
+/* navdots */
+#navdots{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:120;display:flex;flex-direction:column;gap:9px}
+#navdots a{width:8px;height:8px;border-radius:50%;background:var(--gold-soft);opacity:.55;transition:.3s}
+#navdots a.active{opacity:1;transform:scale(1.6);background:var(--gold)}
+@media(max-width:680px){#navdots{display:none}}
+/* cover */
+#cover{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;transition:opacity .9s ease,transform .9s ease;background:var(--cover-bg)}
+#cover.open{opacity:0;visibility:hidden;transform:scale(1.08);pointer-events:none}
+#cover .the-wedding{font-family:var(--sans);letter-spacing:.4em;text-transform:uppercase;font-size:12px;color:var(--gold);margin:0 0 14px}
+#cover .names{font-family:var(--serif);font-size:52px;margin:6px 0;color:var(--ink)}
+#cover .kepada{margin:26px 0 4px;font-size:13px;color:var(--ink-soft)}
+#cover #guestName{font-family:var(--serif);font-size:22px;margin:0 0 26px;color:var(--ink)}
+#openBtn{border:none;cursor:pointer;background:var(--gold);color:#fff;padding:13px 26px;border-radius:40px;font-family:var(--sans);font-size:14px;letter-spacing:.05em;box-shadow:0 8px 22px rgba(0,0,0,.18);transition:.3s}
+#openBtn:hover{transform:translateY(-2px)}
+#openBtn .ico{margin-right:6px}
+/* hero */
+#hero{text-align:center;padding-top:96px}
+#hero .bism{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:19px;margin:0 0 20px}
+#hero .names{font-size:50px;margin:0 0 18px}
+#hero .date-pill{display:inline-block;border:1px solid var(--gold);border-radius:40px;padding:8px 20px;font-size:13px;letter-spacing:.08em;color:var(--ink-soft)}
+/* quote */
+#quote{text-align:center}
+#quote .ayat{font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.7;color:var(--ink)}
+#quote .src{margin-top:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+/* couple */
+.cpl{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+.person{flex:1;min-width:220px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 22px;box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.person .initial{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:var(--gold-soft);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:28px}
+.person h3{font-size:24px;margin-bottom:6px}
+.person .role{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.person .parents{color:var(--ink-soft);font-size:14px;margin:0 0 10px}
+.person .parents .ps{color:var(--ink);font-weight:600}
+.person .social{font-size:13px;color:var(--gold)}
+.amp-big{font-family:var(--script);font-size:52px;color:var(--gold)}
+@media(max-width:560px){.amp-big{display:none}}
+/* countdown */
+#countdown{text-align:center}
+.cd{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:8px 0 22px}
+.cd>div{background:var(--card);border:1px solid var(--line);border-radius:14px;min-width:74px;padding:14px 6px}
+.cd b{display:block;font-family:var(--serif);font-size:32px;color:var(--ink)}
+.cd span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+#calBtn{display:inline-block;border:1px solid var(--gold);color:var(--gold);border-radius:40px;padding:9px 20px;text-decoration:none;font-size:13px}
+/* story */
+.tl{position:relative;padding-left:26px}
+.tl:before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--gold-soft)}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-item:before{content:'';position:absolute;left:-26px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--bg)}
+.tl-item .yr{font-family:var(--serif);color:var(--gold);font-size:18px}
+.tl-item h4{font-size:18px;margin:2px 0 4px}
+.tl-item p{margin:0;color:var(--ink-soft);font-size:15px}
+/* events */
+.ev-wrap{display:flex;flex-direction:column;gap:18px}
+.event-card{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.event-card .big{flex:0 0 auto;font-family:var(--serif);font-size:40px;line-height:1;color:var(--gold);text-align:center}
+.event-card .badge{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 4px}
+.event-card h3{font-size:20px;margin:0 0 8px}
+.event-card .row{margin:2px 0;color:var(--ink-soft);font-size:14px}
+.map-btn{flex:0 0 auto;align-self:center;border:1px solid var(--gold);color:var(--gold);border-radius:30px;padding:8px 14px;text-decoration:none;font-size:12px;white-space:nowrap}
+@media(max-width:520px){.event-card{flex-wrap:wrap}.map-btn{width:100%;text-align:center}}
+/* gallery */
+#gallery .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#gallery .gal-grid .cell{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:12px;background:var(--cream)}
+#gallery .gal-grid .cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.5s}
+#gallery .gal-grid .cell:hover img{transform:scale(1.06)}
+#gallery .gal-grid.gl-grid{display:grid !important;grid-template-columns:repeat(3,1fr);grid-auto-rows:auto;gap:12px}
+#gallery .gal-grid.gl-grid .cell{grid-column:auto !important;grid-row:auto !important;aspect-ratio:3/4}
+#gallery .gal-grid.gl-mosaic{display:grid !important;grid-template-columns:repeat(4,1fr);grid-auto-rows:120px;gap:12px}
+#gallery .gal-grid.gl-mosaic .cell{aspect-ratio:auto;grid-column:span 2;grid-row:span 1}
+#gallery .gal-grid.gl-mosaic .cell:nth-child(5n+1){grid-column:span 2;grid-row:span 2}
+#gallery .gal-grid.gl-masonry{display:block !important;column-count:3;column-gap:12px}
+#gallery .gal-grid.gl-masonry .cell{aspect-ratio:auto !important;width:100%;margin:0 0 12px;break-inside:avoid;display:inline-block}
+#gallery .gal-grid.gl-masonry .cell img{position:static !important;width:100%;height:auto !important;display:block}
+#gallery .gal-grid.gl-film{display:flex !important;grid-template-columns:none;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;padding-bottom:8px}
+#gallery .gal-grid.gl-film .cell{flex:0 0 66%;aspect-ratio:4/3;scroll-snap-align:center}
+#gallery .gal-grid.gl-collage{display:grid !important;grid-template-columns:repeat(6,1fr);grid-auto-rows:88px;gap:10px}
+#gallery .gal-grid.gl-collage .cell{aspect-ratio:auto}
+#gallery .gal-grid.gl-collage .cell:nth-child(3n+1){grid-column:span 3;grid-row:span 2}
+#gallery .gal-grid.gl-collage .cell:nth-child(3n+2){grid-column:span 3;grid-row:span 1}
+#gallery .gal-grid.gl-collage .cell:nth-child(3n+3){grid-column:span 2;grid-row:span 2}
+#gallery .gal-grid.gl-polaroid{display:flex !important;grid-template-columns:none;flex-wrap:wrap;justify-content:center;gap:16px}
+#gallery .gal-grid.gl-polaroid .cell{aspect-ratio:1/1;width:150px;background:#fff;padding:8px 8px 26px;border-radius:3px;box-shadow:0 8px 20px rgba(0,0,0,.16);transform:rotate(var(--rot,-3deg))}
+#gallery .gal-grid.gl-polaroid .cell:nth-child(even){--rot:3deg}
+#gallery .gal-grid.gl-polaroid .cell img{position:static !important;border-radius:2px;width:100%;height:100%;object-fit:cover}
+@media(max-width:640px){#gallery .gal-grid.gl-mosaic,#gallery .gal-grid.gl-collage{grid-template-columns:repeat(2,1fr)}#gallery .gal-grid.gl-masonry{column-count:2}#gallery .gal-grid.gl-film .cell{flex:0 0 80%}}
+/* forms */
+.form-card,.wish-form{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.field{margin-bottom:14px;text-align:left}
+.field label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-family:var(--sans);font-size:15px;background:var(--bg);color:var(--ink)}
+.field textarea{min-height:90px;resize:vertical}
+.two{display:flex;gap:12px}.two .field{flex:1}
+.submit{width:100%;border:none;cursor:pointer;background:var(--gold);color:#fff;padding:13px;border-radius:40px;font-family:var(--sans);font-size:15px;letter-spacing:.04em;margin-top:6px}
+.rsvp-note{text-align:center;font-size:14px;color:var(--gold);margin:12px 0 0;min-height:18px}
+.wish-count{text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:22px 0 14px}
+.wish-list{display:flex;flex-direction:column;gap:12px;max-height:420px;overflow:auto}
+.wish{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
+.wish .top{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.wish .av{width:38px;height:38px;border-radius:50%;background:var(--gold-soft);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--serif)}
+.wish .who{font-weight:600;font-size:15px}
+.wish .att{font-size:12px;color:var(--gold)}
+.wish .msg{font-size:14px;color:var(--ink-soft);margin:0}
+.wish .time{font-size:11px;color:var(--ink-soft);opacity:.7;margin-top:6px}
+/* gift */
+.gift-wrap{display:flex;gap:16px;flex-wrap:wrap}
+.gift-card{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.gift-card .bank{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+.gift-card .no{font-family:var(--serif);font-size:24px;letter-spacing:.06em;color:var(--ink);margin:0 0 4px}
+.gift-card .an{font-size:13px;color:var(--ink-soft);margin:0 0 14px}
+.copy-btn{border:1px solid var(--gold);color:var(--gold);background:none;cursor:pointer;border-radius:30px;padding:8px 18px;font-size:13px}
+/* info */
+.info-wrap{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.info-card{flex:1;min-width:150px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 16px}
+.info-card .ic{font-size:30px;margin-bottom:8px}
+.info-card h4{font-size:16px;margin:0 0 6px}
+.info-card p{font-size:13px;color:var(--ink-soft);margin:0}
+/* thanks */
+#thanks{text-align:center}
+#thanks .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+#thanks>p{max-width:520px;margin:0 auto 22px;color:var(--ink-soft)}
+#thanks .names{font-size:44px;margin:10px 0}
+#thanks .fam{color:var(--ink-soft);font-size:15px;margin:0 0 22px}
+.share{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.share-btn{border:1px solid var(--gold);color:var(--gold);background:none;cursor:pointer;border-radius:40px;padding:11px 22px;text-decoration:none;font-size:14px}
+#thanks .credit{font-size:12px;color:var(--ink-soft);opacity:.7}
+#madeBy{text-align:center;padding:16px 12px 28px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;color:var(--ink)}
+
+#cover .names{font-family:var(--script);font-size:64px;color:var(--sage-dark);font-weight:400}
+#hero{padding-top:120px}#hero .names,#thanks .names{font-family:var(--script);color:var(--sage-dark);font-weight:400;font-size:56px}
+section{max-width:640px;padding:76px 24px}
+.label{justify-content:flex-start}
+.person,.event-card,.gift-card,.info-card,.form-card,.wish-form{box-shadow:none;border:1px solid var(--line)}
+.person .initial{background:var(--blush)}
+</style>
+</head>
+<body class="locked">
+<button id="musicBtn" title="Musik">&#9834;</button>
+<audio id="bgm" loop></audio>
+<div id="petals"></div>
+<nav id="navdots"></nav>
+<div id="cover">
+  <p class="the-wedding">The Wedding Of</p>
+  <h1 class="names">Sekar <span class="amp">&amp;</span> Bimo</h1>
+  <p class="kepada">Kepada Yth.</p>
+  <p id="guestName">Bapak / Ibu / Saudara/i</p>
+  <button id="openBtn"><span class="ico">&#9993;</span> Buka Undangan</button>
+</div>
+<section id="hero">
+  <p class="bism reveal">Bismillahirrahmanirrahim</p>
+  <h1 class="names reveal">Sekar<span class="amp">&amp;</span>Bimo</h1>
+  <p class="date-pill reveal">Sabtu, 12 Desember 2026</p>
+</section>
+<section id="quote">
+  <p class="label reveal">01 &middot; Doa</p>
+  <p class="ayat reveal">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."</p>
+  <p class="src reveal">QS. Ar-Rum : 21</p>
+</section>
+<section id="couple">
+  <p class="label reveal">02 &middot; Mempelai</p>
+  <div class="cpl">
+    <div class="person reveal"><div class="initial">S</div><h3>Sekar Ayu Pramesti</h3><p class="role">Putri Pertama</p><p class="parents">Putri dari<br>Bapak Suryanto &amp; Ibu Widati</p><span class="social">@sekar.ayu</span></div>
+    <div class="amp-big reveal">&amp;</div>
+    <div class="person reveal"><div class="initial">B</div><h3>Bimo Arya Nugraha</h3><p class="role">Putra Kedua</p><p class="parents">Putra dari<br>Bapak Hendra &amp; Ibu Lestari</p><span class="social">@bimo.arya</span></div>
+  </div>
+</section>
+<section id="countdown">
+  <p class="label reveal" style="justify-content:center">03 &middot; Menghitung Hari</p>
+  <div class="cd reveal">
+    <div><b id="cd-d">0</b><span>Hari</span></div>
+    <div><b id="cd-h">00</b><span>Jam</span></div>
+    <div><b id="cd-m">00</b><span>Menit</span></div>
+    <div><b id="cd-s">00</b><span>Detik</span></div>
+  </div>
+  <a id="calBtn" href="#" target="_blank" rel="noopener" class="reveal">+ Simpan ke Kalender</a>
+</section>
+<section id="story">
+  <p class="label reveal">04 &middot; Perjalanan Kami</p>
+  <div class="tl">
+    <div class="tl-item reveal"><div class="yr">2019</div><h4>Pertama Bertemu</h4><p>Dipertemukan dalam satu kegiatan kampus.</p></div>
+    <div class="tl-item reveal"><div class="yr">2022</div><h4>Menjalin Hubungan</h4><p>Memutuskan untuk saling menguatkan dalam suka dan duka.</p></div>
+    <div class="tl-item reveal"><div class="yr">2026</div><h4>Melangkah ke Pelaminan</h4><p>Menyatukan dua hati dalam ikatan suci pernikahan.</p></div>
+  </div>
+</section>
+<section id="events">
+  <p class="label reveal">05 &middot; Waktu &amp; Tempat</p>
+  <div class="ev-wrap">
+    <div class="event-card reveal">
+      <div class="big">12<br><span style="font-size:14px;letter-spacing:.2em">DES</span></div>
+      <div><p class="badge">Akad Nikah</p><h3>Akad Nikah</h3><p class="row">&#128336; 08.00 - 10.00 WIB</p><p class="row">&#128205; Masjid Al-Ikhlas, Jakarta</p></div>
+      <a class="map-btn" href="#" target="_blank" rel="noopener">Lihat Peta</a>
+    </div>
+    <div class="event-card reveal">
+      <div class="big">12<br><span style="font-size:14px;letter-spacing:.2em">DES</span></div>
+      <div><p class="badge">Resepsi</p><h3>Resepsi</h3><p class="row">&#128336; 11.00 - 14.00 WIB</p><p class="row">&#128205; Ballroom Graha Mawar, Jakarta</p></div>
+      <a class="map-btn" href="#" target="_blank" rel="noopener">Lihat Peta</a>
+    </div>
+  </div>
+</section>
+<section id="gallery">
+  <p class="label reveal">06 &middot; Galeri</p>
+  <div class="gal-grid reveal">
+    <div class="cell"><img style="display:none" alt=""></div>
+    <div class="cell"><img style="display:none" alt=""></div>
+    <div class="cell"><img style="display:none" alt=""></div>
+    <div class="cell"><img style="display:none" alt=""></div>
+    <div class="cell"><img style="display:none" alt=""></div>
+    <div class="cell"><img style="display:none" alt=""></div>
+  </div>
+</section>
+<section id="rsvp">
+  <p class="label reveal" style="justify-content:center">07 &middot; Konfirmasi Kehadiran</p>
+  <form class="form-card reveal" id="rsvpForm">
+    <div class="field"><label>Nama Lengkap</label><input type="text" id="rsvpName" required placeholder="Nama Anda"></div>
+    <div class="two">
+      <div class="field"><label>Kehadiran</label><select id="rsvpAttend" required><option value="">Pilih...</option><option>Hadir</option><option>Tidak Hadir</option></select></div>
+      <div class="field"><label>Jumlah Tamu</label><select id="rsvpCount"><option>1 Orang</option><option>2 Orang</option><option>3 Orang</option><option>4 Orang</option></select></div>
+    </div>
+    <button type="submit" class="submit">Kirim Konfirmasi</button>
+    <p class="rsvp-note" id="rsvpNote"></p>
+  </form>
+</section>
+<section id="wishes">
+  <p class="label reveal" style="justify-content:center">08 &middot; Ucapan &amp; Doa</p>
+  <form class="wish-form reveal" id="wishForm">
+    <div class="field"><label>Nama Anda</label><input type="text" id="wishName" required placeholder="Dari siapa doa ini?"></div>
+    <div class="field"><label>Kehadiran</label><select id="wishAttend"><option value="Turut mendoakan">Turut mendoakan</option><option value="Insya Allah hadir">Insya Allah hadir</option><option value="Belum bisa hadir">Belum bisa hadir</option></select></div>
+    <div class="field"><label>Ucapan &amp; Doa</label><textarea id="wishMsg" required placeholder="Tuliskan doa restu Anda di sini..."></textarea></div>
+    <button type="submit" class="submit">Kirim Ucapan</button>
+  </form>
+  <p class="wish-count" id="wishCount"></p>
+  <div class="wish-list" id="wishList"></div>
+</section>
+<section id="gift">
+  <p class="label reveal" style="justify-content:center">09 &middot; Tanda Kasih</p>
+  <div class="gift-wrap">
+    <div class="gift-card reveal"><p class="bank">Bank BCA</p><div class="no" id="acc1">1234 5678 90</div><p class="an">a.n. Sekar Ayu Pramesti</p><button class="copy-btn" data-acc="acc1">Salin Nomor</button></div>
+    <div class="gift-card reveal"><p class="bank">Bank Mandiri</p><div class="no" id="acc2">0987 6543 21</div><p class="an">a.n. Bimo Arya Nugraha</p><button class="copy-btn" data-acc="acc2">Salin Nomor</button></div>
+  </div>
+</section>
+<section id="info">
+  <p class="label reveal" style="justify-content:center">10 &middot; Informasi</p>
+  <div class="info-wrap">
+    <div class="info-card reveal"><div class="ic">&#128087;</div><h4>Dress Code</h4><p>Earth tone / warna netral</p></div>
+    <div class="info-card reveal"><div class="ic">&#127873;</div><h4>Hadiah</h4><p>Kehadiran Anda adalah hadiah terindah bagi kami</p></div>
+    <div class="info-card reveal"><div class="ic">&#127359;</div><h4>Parkir</h4><p>Area parkir tersedia luas di lokasi acara</p></div>
+  </div>
+</section>
+<section id="thanks">
+  <p class="eyebrow reveal">Terima Kasih</p>
+  <p class="reveal">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+  <h1 class="names reveal">Sekar <span class="amp">&amp;</span> Bimo</h1>
+  <p class="fam reveal">Kel. Bapak Suryanto &amp; Kel. Bapak Hendra</p>
+  <div class="share reveal">
+    <a id="waShare" class="share-btn" target="_blank" rel="noopener">Bagikan via WhatsApp</a>
+    <button id="copyInv" class="share-btn" type="button">Salin Link</button>
+  </div>
+  <p class="credit reveal">Dibuat dengan &#9825;</p>
+</section>
+
+<script src="db-config.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+<div id="madeBy">Undangan digital &middot; dibuat dengan &#10084; oleh Undanganku</div>
+</body>
+</html>

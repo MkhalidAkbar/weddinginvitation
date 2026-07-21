@@ -163,7 +163,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
 @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:820px){.lx-hero{grid-template-columns:1fr;text-align:center}.lx-hero-copy .lx-sub{margin:0 auto}.lx-cta,.lx-trust{justify-content:center}.lx-features{grid-template-columns:1fr 1fr}.lx-steps{grid-template-columns:1fr}#app{grid-template-columns:1fr}.preview{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-/* ===== LUX OVERRIDE v2 ���� style mockups, switches, plans, footer ===== */
+/* ===== LUX OVERRIDE v2 ����� style mockups, switches, plans, footer ===== */
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .style-card{position:relative;border:2px solid var(--line,#e7e0d3);border-radius:14px;padding:8px;cursor:pointer;background:#fff;transition:transform .18s,box-shadow .18s,border-color .18s;overflow:hidden;animation:fadeUp .45s both}
 .style-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(168,132,47,.16)}
@@ -430,18 +430,47 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     el('edStatus').className='badge '+cur.status; el('edStatus').textContent=cur.status;
     el('pubBtn').textContent=pub?'Jadikan Draft':'Publikasikan'; el('pubBtn').className='btn '+(pub?'ghost':'gold'); }
 
-  function pushPreview(){ try{ el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:cfg},'*'); }catch(e){}
+  function pushPreview(){ try{ var _pc=clone(cfg); _pc.noWatermark=!!plan().noWatermark; el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:_pc},'*'); }catch(e){}
     window.__lastPreviewSent=clone(cfg); }
 
   var TABS=['Konten','Tampilan','Perpustakaan','Media','Paket','Tamu'];
   function renderTabs(){ el('tabs').innerHTML=TABS.map(function(t){return '<button data-tab="'+t+'" class="'+(t===activeTab?'active':'')+'">'+t+'</button>'}).join('');
     Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){ b.onclick=function(){ activeTab=b.getAttribute('data-tab'); renderTabs(); renderForm(); }; }); }
 
+  var QUOTES=[
+    {label:"QS. Ar-Rum : 21",text:"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.",src:"QS. Ar-Rum : 21"},
+    {label:"QS. An-Nur : 32",text:"Dan nikahkanlah orang-orang yang masih membujang di antara kamu, dan juga orang-orang yang layak menikah dari hamba-hamba sahayamu yang laki-laki maupun perempuan.",src:"QS. An-Nur : 32"},
+    {label:"QS. Az-Zariyat : 49",text:"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat kebesaran Allah.",src:"QS. Az-Zariyat : 49"},
+    {label:"QS. An-Nisa : 1",text:"Bertakwalah kepada Allah yang dengan nama-Nya kamu saling meminta, dan peliharalah hubungan kekeluargaan.",src:"QS. An-Nisa : 1"},
+    {label:"HR. Ibnu Majah",text:"Tidak ada solusi bagi dua orang yang saling mencintai seperti pernikahan.",src:"HR. Ibnu Majah"},
+    {label:"HR. Muslim",text:"Dunia adalah perhiasan, dan sebaik-baik perhiasan dunia adalah pasangan yang salih dan salihah.",src:"HR. Muslim"},
+    {label:"HR. Tirmidzi",text:"Sebaik-baik kalian adalah yang paling baik terhadap keluarganya.",src:"HR. Tirmidzi"},
+    {label:"Cinta & ketidaksempurnaan",text:"Cinta bukan tentang menemukan seseorang yang sempurna, melainkan belajar mencintai seseorang dengan segala ketidaksempurnaannya.",src:"Anonim"},
+    {label:"Saling melengkapi",text:"Pernikahan bukanlah menyatukan dua orang yang sempurna, tetapi dua orang yang bersedia saling melengkapi seumur hidup.",src:"Anonim"},
+    {label:"Rumah dalam pelukan",text:"Bersamamu, aku menemukan rumah yang tak berbentuk bangunan, melainkan pelukan dan doa.",src:"Untaian Kata"},
+    {label:"Jalaluddin Rumi",text:"Para kekasih tidak akhirnya bertemu di suatu tempat. Mereka ada di dalam satu sama lain sepanjang waktu.",src:"Jalaluddin Rumi"},
+    {label:"Doa penyatuan",text:"Semoga Allah menyatukan kami dalam kebaikan, meridhai setiap langkah, dan menjadikan cinta ini ibadah yang tak pernah usai.",src:"Doa"},
+    {label:"Dua hati satu tujuan",text:"Dua hati, satu tujuan; dua jiwa, satu ikatan. Hari ini kami memulai perjalanan selamanya.",src:"Anonim"},
+    {label:"Kahlil Gibran",text:"Cinta tidak memiliki keinginan lain selain memenuhi dirinya sendiri.",src:"Kahlil Gibran"},
+    {label:"Dalam setiap doa",text:"Di setiap doa yang kupanjatkan, namamu selalu ada. Kini, izinkan kita menuliskan kisah bersama.",src:"Untaian Kata"}
+  ];
+  var CLOSING_MSGS=[
+    "Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.",
+    "Atas kehadiran dan doa restunya, kami mengucapkan terima kasih yang sebesar-besarnya.",
+    "Sebuah kebahagiaan bagi kami dapat berbagi momen istimewa ini bersama orang-orang terkasih. Terima kasih atas doa dan restunya.",
+    "Doa restu Bapak/Ibu/Saudara/i adalah anugerah terindah bagi awal perjalanan kami. Terima kasih telah menjadi bagian dari hari bahagia ini.",
+    "Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu di hari bahagia kami.",
+    "Terima kasih telah meluangkan waktu untuk berbagi kebahagiaan bersama kami. Semoga kebaikan Anda dibalas berlipat oleh Tuhan.",
+    "Dengan penuh syukur, kami menantikan kehadiran Anda untuk menyempurnakan kebahagiaan di hari yang kami nanti.",
+    "Kehadiran dan restu Anda merupakan hadiah paling berharga bagi kami berdua."
+  ];
+  var GALLERY_LAYOUTS=[{id:"",name:"Bawaan template"},{id:"grid",name:"Grid Rapi"},{id:"mosaic",name:"Mosaik"},{id:"masonry",name:"Masonry"},{id:"film",name:"Filmstrip"},{id:"collage",name:"Kolase"},{id:"polaroid",name:"Polaroid"}];
+  var SELECTS={status:["Putri dari","Putri pertama dari","Putri kedua dari","Putri ketiga dari","Putra dari","Putra pertama dari","Putra kedua dari","Putra ketiga dari","Putra-putri dari"]};
   var CONTENT=[
     ['Umum',[['meta.title','Judul tab browser','text']]],
     ['Mempelai',[['couple.brideShort','Panggilan mempelai wanita','text'],['couple.groomShort','Panggilan mempelai pria','text'],
-      ['couple.bride.full','Nama lengkap wanita','text'],['couple.bride.parents','Orang tua wanita (boleh <br>, <b>)','textarea'],['couple.bride.social','Sosial media wanita','text'],
-      ['couple.groom.full','Nama lengkap pria','text'],['couple.groom.parents','Orang tua pria','textarea'],['couple.groom.social','Sosial media pria','text']]],
+      ['couple.bride.full','Nama lengkap wanita','text'],['couple.bride.status','Status (mis. Putri kedua dari)','select:status'],['couple.bride.father','Nama ayah (mempelai wanita)','text'],['couple.bride.mother','Nama ibu (mempelai wanita)','text'],['couple.bride.social','Sosial media wanita','text'],
+      ['couple.groom.full','Nama lengkap pria','text'],['couple.groom.status','Status (mis. Putra pertama dari)','select:status'],['couple.groom.father','Nama ayah (mempelai pria)','text'],['couple.groom.mother','Nama ibu (mempelai pria)','text'],['couple.groom.social','Sosial media pria','text']]],
     ['Acara',[['event.dateISO','Tanggal & jam (2026-12-12T08:00:00+07:00)','text'],['event.dateText','Tanggal (teks tampil)','text'],
       ['events.0.title','Acara 1 — nama','text'],['events.0.dateBig','Acara 1 — tanggal','text'],['events.0.time','Acara 1 — waktu','text'],['events.0.location','Acara 1 — lokasi','text'],['events.0.mapUrl','Acara 1 — link maps','text'],
       ['events.1.title','Acara 2 — nama','text'],['events.1.dateBig','Acara 2 — tanggal','text'],['events.1.time','Acara 2 — waktu','text'],['events.1.location','Acara 2 — lokasi','text'],['events.1.mapUrl','Acara 2 — link maps','text']]],
@@ -473,16 +502,16 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   function curStyleObj(){ var id=cfg.style||'elegant-floral'; return STYLE_LIB.filter(function(x){return x.id===id})[0]; }
   /* ===== PAKET: definisi & gating fitur (Basic / Premium / Exclusive) ===== */
   var PLANS={
-    basic:{label:'Basic',price:99000,months:6,styles:['elegant-floral'],palettes:3,gallery:4,guests:false,upload:false,
-      features:['1 desain: Elegant Floral','3 pilihan palet warna','Galeri sampai 4 foto','Musik dari perpustakaan lagu','Undangan aktif 6 bulan']},
-    premium:{label:'Premium',price:199000,months:12,styles:'all',palettes:99,gallery:8,guests:true,upload:true,
-      features:['Semua desain (kecuali Luxury Gold)','Semua palet warna','Galeri sampai 8 foto','Upload lagu sendiri','Manajer Tamu + RSVP + link personal','Undangan aktif 12 bulan']},
-    exclusive:{label:'Exclusive',price:349000,months:12,styles:'all+luxury',palettes:99,gallery:12,guests:true,upload:true,
-      features:['SEMUA desain termasuk ✨ Luxury Gold','Semua palet warna','Galeri sampai 12 foto','Upload lagu sendiri','Manajer Tamu + RSVP + link personal','Subdomain kustom + analitik kunjungan','Undangan aktif 12 bulan','Dukungan prioritas']}
+    basic:{label:'Basic',price:99000,months:6,gallery:6,guests:false,upload:false,noWatermark:false,domain:false,
+      features:['Semua template &amp; palet warna','Galeri sampai 6 foto','Musik dari perpustakaan lagu','RSVP + Ucapan &amp; Doa','Undangan aktif 6 bulan']},
+    premium:{label:'Premium',price:199000,months:12,gallery:12,guests:true,upload:true,noWatermark:false,domain:false,
+      features:['Semua template &amp; palet warna','Galeri sampai 12 foto','Upload lagu sendiri','Manajer Tamu + link personal tiap tamu','RSVP + Ucapan &amp; Doa','Undangan aktif 12 bulan']},
+    exclusive:{label:'Exclusive',price:349000,months:24,gallery:30,guests:true,upload:true,noWatermark:true,domain:true,
+      features:['Semua template &amp; palet warna','Galeri foto tanpa batas','Upload lagu sendiri','Manajer Tamu + link personal tiap tamu','Tanpa label "Dibuat oleh"','Custom domain + analitik kunjungan','Undangan aktif 24 bulan','Dukungan prioritas']}
   };
   function currentPlan(){ return selPkg||(cur&&cur.package)||'basic'; }
   function plan(){ return PLANS[currentPlan()]||PLANS.basic; }
-  function styleAllowed(id){ var s=plan().styles; if(s==='all+luxury') return true; if(s==='all') return id!=='luxury-gold'; return s.indexOf(id)>-1; }
+  function styleAllowed(id){ return true; } /* semua template terbuka; paket dibedakan lewat fitur */
   function galleryLimit(){ return plan().gallery||6; }
   function guestsAllowed(){ return !!plan().guests; }
   function uploadAllowed(){ return !!plan().upload; }
@@ -500,14 +529,14 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   function lockCard(title,desc){ return '<div class="group lock-card" style="text-align:center;padding:28px 20px"><div style="font-size:38px;line-height:1">🔒</div><h3 style="justify-content:center;margin-top:8px">'+title+'</h3><p class="sub" style="max-width:360px;margin:8px auto 16px">'+desc+'</p><button class="btn gold lg" data-goplan="1">✨ Lihat Paket</button></div>'; }
   function bindLock(host){ var b=host.querySelector('[data-goplan]'); if(b) b.onclick=function(){ setTab('Paket'); }; }
   function planCardsHtml(){ var curp=currentPlan(), order=['basic','premium','exclusive'];
-    var h='<div class="group"><h3>Pilih Paket</h3><p class="sub">Bandingkan lalu pilih. Paket menentukan pilihan desain, palet, jumlah foto galeri, upload musik, dan fitur Manajer Tamu.</p><div class="plan-grid">';
+    var h='<div class="group"><h3>Pilih Paket</h3><p class="sub">Semua template &amp; palet warna <b>terbuka gratis untuk dicoba</b> di semua paket. Paket hanya membedakan fitur: jumlah foto galeri, upload musik, Manajer Tamu, penghapusan label, custom domain, dan masa aktif — pilih saat akan membayar.</p><div class="plan-grid">';
     order.forEach(function(k){ var p=PLANS[k], on=k===curp;
       h+='<div class="plan'+(on?' on':'')+(k==='premium'?' pop':'')+'" data-plan="'+k+'">'+(k==='premium'?'<span class="rib">Terpopuler</span>':'')+'<h4>'+p.label+'</h4><div class="price">Rp'+p.price.toLocaleString('id-ID')+' <small>/ '+p.months+' bln</small></div><ul>'+p.features.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><button class="btn '+(on?'gold':'ghost')+' lg pick" data-plan="'+k+'">'+(on?'✓ Paket Terpilih':'Pilih '+p.label)+'</button></div>'; });
     h+='</div></div>'; return h;
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); edMsg('Paket '+PLANS[k].label+' dipilih — klik “Beli & Aktifkan” untuk melanjutkan.','ok'); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -516,7 +545,12 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   var LIBRARY=[
     {id:'elegant-floral',name:'Elegant Floral',style:'elegant-floral',paletteId:'sage-gold',kind:'botanical',tags:['Floral','Romantis','Klasik'],tagline:'Undangan klasik bernuansa taman bunga \u2014 lembut, hangat, penuh detail botani. Cocok untuk pernikahan tradisional yang elegan.',mk:{bg1:'#F3F1E7',bg2:'#DDE6D5',ink:'#3f4a3a',acc:'#C9A24B',acc2:'#8A9A82'},theme:{cream:'#F3F1E7',ink:'#3f4a3a',gold:'#C9A24B',sage:'#8A9A82',blush:'#DDE6D5'}},
     {id:'aurora-editorial',name:'Aurora Editorial',style:'modern-editorial',paletteId:'aurora-sand',kind:'minimal',tags:['Modern','Minimalis','Editorial'],tagline:'Tata letak editorial modern \u2014 tipografi besar, section bernomor, galeri asimetris, garis waktu vertikal. Bentuk & posisinya benar-benar beda dari template floral.',mk:{bg1:'#fbfaf7',bg2:'#ecdfd4',ink:'#211d19',acc:'#b0894e',acc2:'#7d8a72'},theme:{cream:'#fbfaf7',ink:'#211d19',gold:'#b0894e',sage:'#7d8a72',blush:'#ecdfd4'}},
-    {id:'luxury-gold',name:'Luxury Gold',style:'luxury-gold',paletteId:'classic-gold',kind:'frame',tags:['Mewah','Eksklusif','Dramatis'],tagline:'Latar gelap dengan kilau emas dan bingkai tipis \u2014 mewah, dramatis, eksklusif untuk kesan istimewa.',mk:{bg1:'#2a2117',bg2:'#0d0a06',ink:'#efe6d2',acc:'#d9b45a',acc2:'#8a6d2e'},theme:{cream:'#2a2117',ink:'#efe6d2',gold:'#d9b45a',sage:'#8a6d2e',blush:'#0d0a06'}}
+    {id:'luxury-gold',name:'Luxury Gold',style:'luxury-gold',paletteId:'classic-gold',kind:'frame',tags:['Mewah','Eksklusif','Dramatis'],tagline:'Latar gelap dengan kilau emas dan bingkai tipis \u2014 mewah, dramatis, eksklusif untuk kesan istimewa.',mk:{bg1:'#2a2117',bg2:'#0d0a06',ink:'#efe6d2',acc:'#d9b45a',acc2:'#8a6d2e'},theme:{cream:'#2a2117',ink:'#efe6d2',gold:'#d9b45a',sage:'#8a6d2e',blush:'#0d0a06'}},
+    {id:'garden-botanical',name:'Taman Botani',style:'garden-botanical',paletteId:'garden-sage',kind:'botanical',tags:['Botani','Segar','Romantis'],tagline:'Nuansa taman hijau yang segar \u2014 lengkung arch, tipografi script, aksen dedaunan. Lembut dan alami untuk pernikahan bertema kebun.',theme:{cream:'#f6f4ea',ink:'#3b3f34',gold:'#a98b52',sage:'#7c8a6f',blush:'#e7d8d0'}},
+    {id:'midnight-luxe',name:'Midnight Luxe',style:'midnight-luxe',paletteId:'midnight-gold',kind:'frame',tags:['Gelap','Mewah','Elegan'],tagline:'Latar navy gelap dengan kilau emas dan bingkai tipis \u2014 dramatis dan berkelas untuk kesan mewah di malam hari.',theme:{cream:'#0d1020',ink:'#ece7db',gold:'#c9a24b',sage:'#8a6d28',blush:'#2a3350'}},
+    {id:'rustic-terracotta',name:'Rustic Terracotta',style:'rustic-terracotta',paletteId:'terracotta-sand',kind:'stamp',tags:['Rustic','Hangat','Earthy'],tagline:'Warna terakota hangat dengan bingkai stempel garis putus \u2014 kesan rustic dan membumi untuk pesta outdoor.',theme:{cream:'#f7ece0',ink:'#43342a',gold:'#bd7d43',sage:'#b5623a',blush:'#e9c9a8'}},
+    {id:'blush-minimal',name:'Blush Minimalis',style:'blush-minimal',paletteId:'blush-nude',kind:'minimal',tags:['Minimalis','Bersih','Modern'],tagline:'Serba putih dengan sentuhan blush lembut \u2014 banyak ruang kosong, tipografi tipis. Bersih, modern, dan tenang.',theme:{cream:'#ffffff',ink:'#40383a',gold:'#b98e79',sage:'#c79a9a',blush:'#f5e7e3'}},
+    {id:'ocean-breeze',name:'Ocean Breeze',style:'ocean-breeze',paletteId:'ocean-teal',kind:'wave',tags:['Teal','Segar','Pantai'],tagline:'Nuansa teal dan pasir yang menyegarkan dengan aksen gelombang \u2014 cocok untuk pernikahan tepi pantai atau bertema laut.',theme:{cream:'#f2f8f7',ink:'#2c3a3a',gold:'#c2a34e',sage:'#4f8a86',blush:'#cfe6e2'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -541,24 +575,76 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
       {id:'emerald-gold',name:'Emerald Gold',colors:{cream:'#12271f',ink:'#e7f0e7',gold:'#d9b45a',sage:'#2f6b52',blush:'#060d09'}},
       {id:'champagne',name:'Champagne',colors:{cream:'#26211a',ink:'#f3ebd9',gold:'#e6c98a',sage:'#9c7c48',blush:'#0b0906'}},
       {id:'burgundy-gold',name:'Burgundy Gold',colors:{cream:'#2a1418',ink:'#f2dfe0',gold:'#d9b45a',sage:'#7d2f3c',blush:'#0d0506'}}
+    ],
+    'garden-botanical':[
+      {id:'garden-sage',name:'Garden Sage',colors:{cream:'#f6f4ea',ink:'#3b3f34',gold:'#a98b52',sage:'#7c8a6f',blush:'#e7d8d0'}},
+      {id:'fresh-eucalyptus',name:'Eucalyptus',colors:{cream:'#eef3ee',ink:'#2f4034',gold:'#9c8a4e',sage:'#6a8f74',blush:'#d7e6da'}},
+      {id:'dusty-olive',name:'Dusty Olive',colors:{cream:'#f3f2e7',ink:'#33372a',gold:'#8f8b4e',sage:'#6d7358',blush:'#dfe0cf'}},
+      {id:'rose-garden',name:'Rose Garden',colors:{cream:'#faf2ee',ink:'#4a3a36',gold:'#c08a6a',sage:'#8a9a82',blush:'#f0d8ce'}}
+    ],
+    'midnight-luxe':[
+      {id:'midnight-gold',name:'Midnight Gold',colors:{cream:'#0d1020',ink:'#ece7db',gold:'#c9a24b',sage:'#8a6d28',blush:'#2a3350'}},
+      {id:'royal-emerald',name:'Royal Emerald',colors:{cream:'#0c1a15',ink:'#e7f0e7',gold:'#cbb26a',sage:'#2f6b52',blush:'#12271f'}},
+      {id:'plum-noir',name:'Plum Noir',colors:{cream:'#160f1c',ink:'#efe3ef',gold:'#c39bd3',sage:'#6a4b7a',blush:'#251830'}},
+      {id:'steel-navy',name:'Steel Navy',colors:{cream:'#0b1220',ink:'#e2e8f0',gold:'#9db4d0',sage:'#3a516e',blush:'#1a2740'}}
+    ],
+    'rustic-terracotta':[
+      {id:'terracotta-sand',name:'Terracotta Sand',colors:{cream:'#f7ece0',ink:'#43342a',gold:'#bd7d43',sage:'#b5623a',blush:'#e9c9a8'}},
+      {id:'clay-olive',name:'Clay Olive',colors:{cream:'#f3ece0',ink:'#3d3527',gold:'#a98b4e',sage:'#7d7a4b',blush:'#e0d3b6'}},
+      {id:'warm-brick',name:'Warm Brick',colors:{cream:'#f6e7dd',ink:'#4a2f26',gold:'#c06a43',sage:'#9c5a3a',blush:'#e8c3ac'}},
+      {id:'honey-caramel',name:'Honey Caramel',colors:{cream:'#faf0e2',ink:'#4a3826',gold:'#c89a4e',sage:'#b5844a',blush:'#ecd6b6'}}
+    ],
+    'blush-minimal':[
+      {id:'blush-nude',name:'Blush Nude',colors:{cream:'#ffffff',ink:'#40383a',gold:'#b98e79',sage:'#c79a9a',blush:'#f5e7e3'}},
+      {id:'soft-greige',name:'Soft Greige',colors:{cream:'#faf8f5',ink:'#3d3a36',gold:'#a8927a',sage:'#b3a596',blush:'#ece5db'}},
+      {id:'powder-pink',name:'Powder Pink',colors:{cream:'#fff8f9',ink:'#463a3e',gold:'#c58fa0',sage:'#d0a6ae',blush:'#f7e2e7'}},
+      {id:'lilac-mist',name:'Lilac Mist',colors:{cream:'#faf7fb',ink:'#403a47',gold:'#9a86ad',sage:'#b5a6c4',blush:'#e9e0f0'}}
+    ],
+    'ocean-breeze':[
+      {id:'ocean-teal',name:'Ocean Teal',colors:{cream:'#f2f8f7',ink:'#2c3a3a',gold:'#c2a34e',sage:'#4f8a86',blush:'#cfe6e2'}},
+      {id:'deep-lagoon',name:'Deep Lagoon',colors:{cream:'#eef5f4',ink:'#20383a',gold:'#b39a52',sage:'#356663',blush:'#c2ded9'}},
+      {id:'sky-aqua',name:'Sky Aqua',colors:{cream:'#f1f8fb',ink:'#26383f',gold:'#b9a35e',sage:'#5a92a6',blush:'#cfe4ec'}},
+      {id:'sage-mint',name:'Sage Mint',colors:{cream:'#f2f8f3',ink:'#2f3d34',gold:'#a89a56',sage:'#6a9a82',blush:'#d3e8da'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
-  function libMock(it){ var m=it.mk||{}, bg1=m.bg1||'#F4ECE0', bg2=m.bg2||'#E7C6C2', ink=m.ink||'#40372F', acc=m.acc||'#C9A24B', acc2=m.acc2||'#8A9A82', lux=(it.style==='luxury-gold'), k=it.kind;
-    var grad= lux ? 'radial-gradient(120% 95% at 50% 0%,'+bg1+','+bg2+' 72%,#050403)' : 'linear-gradient(150deg,'+bg1+','+bg2+')';
-    var tc= lux?acc:ink, deco='';
-    if(k==='botanical'){ deco='<span style="position:absolute;top:-12px;left:-8px;width:52px;height:52px;border-radius:0 62% 62% 62%;background:'+acc2+';opacity:.30;transform:rotate(22deg)"></span><span style="position:absolute;bottom:-10px;right:-8px;width:44px;height:44px;border-radius:62% 0 62% 62%;background:'+acc+';opacity:.26;transform:rotate(-16deg)"></span>'; }
-    else if(k==='arch'){ deco='<span style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:98px;height:150px;border:2px solid '+acc+';border-radius:60px 60px 12px 12px;opacity:.55"></span>'; }
-    else if(k==='frame'){ deco='<span style="position:absolute;inset:12px;border:1.5px solid '+acc+';opacity:.6"></span><span style="position:absolute;inset:16px;border:1px solid '+acc+';opacity:.35"></span>'; }
-    else if(k==='minimal'){ deco='<span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:1px;background:'+acc+';opacity:.7"></span>'; }
-    else if(k==='stamp'){ deco='<span style="position:absolute;inset:14px;border:2px dashed '+acc+';opacity:.5;border-radius:8px"></span><span style="position:absolute;top:9px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;border:2px solid '+acc+';opacity:.6"></span>'; }
-    else if(k==='wave'){ deco='<span style="position:absolute;left:-20%;bottom:-34px;width:140%;height:74px;background:'+acc2+';opacity:.30;border-radius:50%"></span><span style="position:absolute;left:-20%;bottom:-52px;width:140%;height:74px;background:'+acc+';opacity:.24;border-radius:50%"></span>'; }
-    var mono=(k==='minimal'||k==='stamp');
-    var center= mono ? '<div style="font-family:var(--serif,Georgia),serif;letter-spacing:3px;font-size:13px;font-weight:700;color:'+tc+'">S &amp; B</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-top:5px;color:'+tc+';opacity:.72">Menikah</div>' : '<div class="mk-script" style="color:'+tc+'">Sekar</div><div class="mk-amp" style="color:'+acc+'">&amp;</div><div class="mk-script" style="color:'+tc+'">Bimo</div>';
-    var date='<div style="font-size:8px;letter-spacing:3px;margin-top:7px;color:'+tc+';opacity:.75">12 · 12 · 2026</div>';
-    return '<div class="lib-mock" style="background:'+grad+'">'+deco+'<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center">'+center+date+'</div></div>'; }
+  function libMock(it){ var th=it.theme||{}, m=it.mk||{};
+    var cream=th.cream||m.bg1||'#F4ECE0', ink=th.ink||m.ink||'#40372F', gold=th.gold||m.acc||'#C9A24B', sage=th.sage||m.acc2||'#8A9A82', blush=th.blush||m.bg2||'#E7C6C2';
+    var s=it.style;
+    if(s==='modern-editorial'){
+      return '<div class="lib-mock" style="background:'+cream+'">'
+        +'<span style="position:absolute;inset:11px;border:1px solid '+gold+';opacity:.75"></span>'
+        +'<div style="position:relative;z-index:2;text-align:center;color:'+ink+'">'
+        +'<div style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:'+gold+'">The Wedding Of</div>'
+        +'<div style="font-family:Georgia,serif;font-weight:400;letter-spacing:1px;font-size:26px;line-height:1.05;margin:8px 0 2px">Sekar</div>'
+        +'<div style="font-family:Georgia,serif;font-style:italic;font-size:13px;color:'+gold+';margin:1px 0">&amp;</div>'
+        +'<div style="font-family:Georgia,serif;font-weight:400;letter-spacing:1px;font-size:26px;line-height:1.05;margin:2px 0 9px">Bimo</div>'
+        +'<div style="border-top:1px solid '+gold+';border-bottom:1px solid '+gold+';display:inline-block;padding:3px 0;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:'+ink+'">12 Des 2026</div>'
+        +'</div></div>';
+    }
+    if(s==='luxury-gold'){
+      var grad='radial-gradient(120% 100% at 50% 0%,'+(m.bg1||'#2a2117')+','+(m.bg2||'#0d0a06')+' 72%,#050403)';
+      return '<div class="lib-mock" style="background:'+grad+'">'
+        +'<span style="position:absolute;inset:11px;border:1.4px solid '+gold+';opacity:.65"></span>'
+        +'<span style="position:absolute;inset:15px;border:.8px solid '+gold+';opacity:.4"></span>'
+        +'<div style="position:relative;z-index:2;text-align:center">'
+        +'<div style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:'+gold+';opacity:.85">The Wedding Of</div>'
+        +'<div class="mk-script" style="color:'+gold+'">Sekar</div><div class="mk-amp" style="color:'+gold+'">&amp;</div><div class="mk-script" style="color:'+gold+'">Bimo</div>'
+        +'<div style="font-size:7px;letter-spacing:3px;margin-top:6px;color:'+gold+';opacity:.8">12 &middot; 12 &middot; 2026</div>'
+        +'</div></div>';
+    }
+    var gradF='linear-gradient(160deg,'+cream+','+blush+')';
+    return '<div class="lib-mock" style="background:'+gradF+'">'
+      +'<span style="position:absolute;top:-14px;left:-10px;width:54px;height:54px;border-radius:0 62% 62% 62%;background:'+sage+';opacity:.34;transform:rotate(20deg)"></span>'
+      +'<span style="position:absolute;bottom:-12px;right:-10px;width:46px;height:46px;border-radius:62% 0 62% 62%;background:'+gold+';opacity:.30;transform:rotate(-16deg)"></span>'
+      +'<div style="position:relative;z-index:2;background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.55);border-radius:12px;padding:12px 22px;text-align:center">'
+      +'<div style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:'+gold+'">The Wedding Of</div>'
+      +'<div class="mk-script" style="color:'+ink+'">Sekar</div><div class="mk-amp" style="color:'+gold+'">&amp;</div><div class="mk-script" style="color:'+ink+'">Bimo</div>'
+      +'<div style="font-size:7px;letter-spacing:3px;margin-top:6px;color:'+ink+';opacity:.72">12 &middot; 12 &middot; 2026</div>'
+      +'</div></div>';
+  }
   function libraryHtml(){ var curS=cfg.style||'elegant-floral', curP=cfg.paletteId||'';
-    var h='<div class="group"><h3>Perpustakaan Template</h3><p class="sub">Koleksi desain undangan siap pakai — pilih salah satu untuk langsung mengubah tampilan undangan Anda. Hasilnya tampil di pratinjau kanan. Desain <b>Luxury</b> tersedia di paket Exclusive.</p><div class="lib-grid">';
+    var h='<div class="group"><h3>Perpustakaan Template</h3><p class="sub">Koleksi desain undangan siap pakai — pilih salah satu untuk langsung mengubah tampilan undangan Anda. Hasilnya tampil di pratinjau kanan. Semua template terbuka untuk dicoba — pilih paket saat akan membayar.</p><div class="lib-grid">';
     LIBRARY.forEach(function(it){ var ok=styleAllowed(it.style), on=(it.style===curS);
       var lockBadge= ok?'':'<span class="lib-lock">'+(it.style==='luxury-gold'?'✨ Exclusive':'Premium')+'</span>';
       var btnLabel= on?'✓ Sedang Dipakai':(ok?'Gunakan Template':'🔒 Perlu '+(it.style==='luxury-gold'?'Exclusive':'Premium'));
@@ -570,7 +656,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     activeTab='Perpustakaan'; renderTabs(); renderForm(); syncPreviewSrc(); pushPreview();
     edMsg('Template “'+it.name+'” diterapkan. Lihat pratinjau di kanan.','ok'); }
   function paletteHtml(){
-    var curPal=cfg.paletteId||'', pals=tplPalettes(), plim=plan().palettes;
+    var curPal=cfg.paletteId||'', pals=tplPalettes(), plim=pals.length;
     var curName=(LIBRARY.filter(function(x){return x.style===(cfg.style||'elegant-floral')})[0]||{}).name||'';
     var h='<div class="group"><h3>Palet Warna</h3><p class="sub">Warna untuk template <b>'+esc(curName)+'</b> yang sedang dipakai. Pilih palet \u2014 font otomatis mengikuti desain template. Untuk mengganti bentuk / tata letak undangan, buka tab <b>Perpustakaan</b>.</p><div style="display:flex;flex-wrap:wrap;gap:10px">';
     pals.forEach(function(p,idx){ var on=p.id===curPal, c=p.colors||{}, pl=idx>=plim;
@@ -593,17 +679,18 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     Array.prototype.forEach.call(host.querySelectorAll('[data-style]'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-style'); if(!styleAllowed(id)){ edMsg('Style ini termasuk paket '+(id==='luxury-gold'?'Exclusive':'Premium')+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } cfg.style=id; cfg.paletteId=''; renderForm(); syncPreviewSrc(); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-pal]'),function(b){ b.onclick=function(){ if(b.getAttribute('data-locked')){ edMsg('Palet ini terkunci di paket '+plan().label+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } applyPalette(cfg.style||'elegant-floral', b.getAttribute('data-pal')); renderForm(); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-sec]'),function(cb){ cb.onchange=function(){ setP(cfg,'sections.'+cb.getAttribute('data-sec'),cb.checked); pushPreview(); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-glayout]'),function(b){ b.onclick=function(){ cfg.galleryLayout=b.getAttribute('data-glayout'); renderForm(); pushPreview(); }; });
   }
 
   function renderForm(){ var host=el('form'), html='';
-    if(activeTab==='Konten'){ CONTENT.forEach(function(g){ html+='<div class="group"><h3>'+g[0]+'</h3>'+g[1].map(fieldHtml).join('')+'</div>'; }); }
+    if(activeTab==='Konten'){ CONTENT.forEach(function(g){ var pre=(g[0]==='Kutipan'?quotePresetHtml():(g[0]==='Penutup'?closingPresetHtml():'')); html+='<div class="group"><h3>'+g[0]+'</h3>'+pre+g[1].map(fieldHtml).join('')+'</div>'; }); }
     else if(activeTab==='Tampilan'){
-      host.innerHTML=paletteHtml()+sectionsHtml(); bindTampilan(host); return; }
+      host.innerHTML=paletteHtml()+galleryLayoutHtml()+sectionsHtml(); bindTampilan(host); return; }
     else if(activeTab==='Perpustakaan'){
       host.innerHTML=libraryHtml(); bindLibrary(host); return; }
-    else if(activeTab==='Media'){ var glim=galleryLimit(); html+='<div class="group"><h3>Foto Galeri ('+glim+')</h3>';
+    else if(activeTab==='Media'){ var glim=galleryLimit(), glimLbl=(glim>=30?'tanpa batas':glim); html+='<div class="group"><h3>Foto Galeri ('+glimLbl+')</h3>';
       for(var i=0;i<glim;i++) html+=mediaField('gallery.'+i,'Foto '+(i+1));
-      if(glim<12) html+='<small class="hint">Paket '+plan().label+' mendukung '+glim+' foto. Upgrade untuk sampai 12 foto.</small>';
+      if(glim<30) html+='<small class="hint">Paket '+plan().label+' mendukung '+glimLbl+' foto. Paket lebih tinggi menambah kuota (Exclusive tanpa batas).</small>';
       html+='</div><div class="group"><h3>Musik latar</h3>'+songLibHtml();
       html+= uploadAllowed()?mediaField('music.src','File musik (mp3) — atau upload sendiri'):'<small class="hint">🔒 Upload lagu sendiri tersedia di paket Premium & Exclusive. Untuk sekarang Anda bisa memilih dari perpustakaan lagu di atas.</small>';
       html+='</div>'; }
@@ -676,7 +763,21 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
       gMsg('Menambahkan…','ok');
       db('guests',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(body)}).then(function(r){ if(!r.ok) throw 0; renderGuests(host); }).catch(function(){ gMsg('Gagal menambah. Jalankan schema_phase5.sql.','err'); }); };
   }
+  function quotePresetHtml(){ var h='<label class="fld"><span>Pilih kutipan siap pakai (atau ketik sendiri di bawah)</span><select data-preset="quote"><option value="">— pilih kutipan —</option>'; QUOTES.forEach(function(q,i){ h+='<option value="'+i+'">'+esc(q.label||q.src)+'</option>'; }); return h+'</select></label>'; }
+  function closingPresetHtml(){ var h='<label class="fld"><span>Pilih pesan penutup siap pakai (atau ketik sendiri di bawah)</span><select data-preset="closing"><option value="">— pilih pesan —</option>'; CLOSING_MSGS.forEach(function(m,i){ var lbl=m.length>64?m.slice(0,64)+'…':m; h+='<option value="'+i+'">'+esc(lbl)+'</option>'; }); return h+'</select></label>'; }
+  function glayoutMock(id){ var b='display:grid;gap:2px;width:46px;height:36px'; var box=function(st){return '<span style="background:currentColor;opacity:.75;'+st+'"></span>';};
+    if(id==='mosaic') return '<span style="'+b+';grid-template-columns:1fr 1fr;grid-auto-rows:1fr">'+box('grid-row:span 2')+box('')+box('')+'</span>';
+    if(id==='masonry') return '<span style="'+b+';grid-template-columns:1fr 1fr 1fr;align-items:start">'+box('height:22px')+box('height:14px')+box('height:18px')+'</span>';
+    if(id==='film') return '<span style="display:flex;gap:2px;width:46px;height:36px;overflow:hidden">'+box('flex:0 0 60%')+box('flex:0 0 60%')+'</span>';
+    if(id==='collage') return '<span style="'+b+';grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr">'+box('grid-column:span 2')+box('')+box('')+box('grid-column:span 2')+'</span>';
+    if(id==='polaroid') return '<span style="display:flex;gap:3px;width:46px;height:36px;align-items:center;justify-content:center">'+box('width:15px;height:19px;transform:rotate(-8deg)')+box('width:15px;height:19px;transform:rotate(8deg)')+'</span>';
+    if(id==='grid') return '<span style="'+b+';grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr">'+box('')+box('')+box('')+box('')+box('')+box('')+'</span>';
+    return '<span style="'+b+';grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr;opacity:.55">'+box('')+box('')+box('')+'</span>'; }
+  function galleryLayoutHtml(){ var cur=cfg.galleryLayout||''; var h='<div class="group"><h3>Tata Letak Galeri Foto</h3><p class="sub">Pilih bentuk susunan foto. Otomatis menyesuaikan berapa pun jumlah foto (5, 9, dst). “Bawaan template” memakai gaya asli desain terpilih.</p><div style="display:flex;flex-wrap:wrap;gap:10px">';
+    GALLERY_LAYOUTS.forEach(function(g){ var on=(g.id||'')===cur; h+='<div data-glayout="'+esc(g.id)+'" class="gl-chip" title="'+esc(g.name)+'" style="cursor:pointer;color:var(--ink);border:2px solid '+(on?'var(--gold)':'var(--line)')+';border-radius:12px;padding:8px;text-align:center;width:92px"><div style="display:flex;align-items:center;justify-content:center;height:40px">'+glayoutMock(g.id)+'</div><div style="font-size:11px;margin-top:5px;font-weight:500">'+esc(g.name)+(on?' ✓':'')+'</div></div>'; });
+    return h+'</div></div>'; }
   function fieldHtml(f){ var p=f[0],lab=f[1],ty=f[2],v=getP(cfg,p); v=(v==null?'':String(v));
+    if(ty&&ty.indexOf('select:')===0){ var _o=SELECTS[ty.split(':')[1]]||[]; var _h='<label class="fld"><span>'+lab+'</span><select data-p="'+p+'">'; if(_o.indexOf(v)<0) _h+='<option value="'+esc(v)+'"'+(v?' selected':'')+'>'+(v?esc(v):'— pilih —')+'</option>'; _o.forEach(function(o){ _h+='<option value="'+esc(o)+'"'+(o===v?' selected':'')+'>'+esc(o)+'</option>'; }); return _h+'</select></label>'; }
     if(ty==='textarea') return '<label class="fld"><span>'+lab+'</span><textarea data-p="'+p+'">'+esc(v)+'</textarea></label>';
     if(ty==='color'){ var col=/^#/.test(v)?v:'#cccccc'; return '<label class="fld"><span>'+lab+'</span><input type="color" data-p="'+p+'" value="'+col+'" style="height:40px;padding:3px"></label>'; }
     return '<label class="fld"><span>'+lab+'</span><input type="text" data-p="'+p+'" value="'+esc(v)+'"></label>'; }
@@ -687,6 +788,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     Array.prototype.forEach.call(host.querySelectorAll('[data-p]'),function(inp){ var ev=(inp.tagName==='SELECT'||inp.type==='color')?'change':'input';
       inp.addEventListener(ev,function(){ setP(cfg,inp.getAttribute('data-p'),inp.value); pushPreview(); }); });
     Array.prototype.forEach.call(host.querySelectorAll('[data-upload]'),function(b){ b.onclick=function(){ doUpload(b.getAttribute('data-upload')); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-preset]'),function(sel){ sel.onchange=function(){ if(!sel.value)return; var k=sel.getAttribute('data-preset'); if(k==='quote'){ var q=QUOTES[parseInt(sel.value,10)]; if(q){ setP(cfg,'quote.text',q.text); setP(cfg,'quote.source',q.src); } } else if(k==='closing'){ var m=CLOSING_MSGS[parseInt(sel.value,10)]; if(m!=null){ setP(cfg,'thanks.message',m); } } renderForm(); pushPreview(); }; });
     var song=host.querySelector('[data-song]'); if(song){ song.onchange=function(){ if(song.value){ setP(cfg,'music.src',song.value); var mi=host.querySelector('[data-p="music.src"]'); if(mi) mi.value=song.value; pushPreview(); } }; }
   }
 
@@ -737,8 +839,8 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     cover:{eyebrow:"The Wedding Of",kepada:"Kepada Yth. Bapak/Ibu/Saudara/i",guestDefault:"Tamu Undangan",openButton:"Buka Undangan"},
     hero:{bismillah:"Bismillahirrahmanirrahim"},
     couple:{brideShort:"Mempelai",groomShort:"Pasangan",
-      bride:{full:"Nama Lengkap Mempelai Wanita",initial:"A",role:"The Bride",parents:"Putri dari<br><b>Bapak ...</b> &amp; <b>Ibu ...</b>",social:"❀ @username"},
-      groom:{full:"Nama Lengkap Mempelai Pria",initial:"B",role:"The Groom",parents:"Putra dari<br><b>Bapak ...</b> &amp; <b>Ibu ...</b>",social:"❀ @username"}},
+      bride:{full:"Nama Lengkap Mempelai Wanita",initial:"A",role:"The Bride",status:"Putri dari",father:"Bapak (nama ayah)",mother:"Ibu (nama ibu)",social:"❀ @username"},
+      groom:{full:"Nama Lengkap Mempelai Pria",initial:"B",role:"The Groom",status:"Putra dari",father:"Bapak (nama ayah)",mother:"Ibu (nama ibu)",social:"❀ @username"}},
     quote:{text:"Tulis ayat atau kutipan favorit kalian di sini.",source:"— Sumber"},
     event:{dateISO:"2026-12-12T08:00:00+07:00",dateText:"SABTU, 12 DESEMBER 2026",calendar:{title:"Pernikahan Kami",start:"20261212T010000Z",end:"20261212T070000Z",details:"Kami mengundang Anda.",location:"Lokasi acara"}},
     events:[{badge:"💍",title:"Akad Nikah",dateBig:"Sabtu, 12 Des 2026",time:"08.00 WIB",location:"Lokasi akad",mapUrl:"https://maps.google.com"},{badge:"🥂",title:"Resepsi",dateBig:"Sabtu, 12 Des 2026",time:"11.00 WIB",location:"Lokasi resepsi",mapUrl:"https://maps.google.com"}],
