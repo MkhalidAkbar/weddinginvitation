@@ -1,5 +1,5 @@
 /* =====================================================================
-   db-config.js  —  Konfigurasi koneksi Supabase untuk undangan
+   db-config.js  —  Konfigurasi koneksi Supabase untuk undanganasdsa
    ---------------------------------------------------------------------
    Isi dua nilai di bawah dengan kredensial project Supabase kamu:
      - url     : Project URL   (Settings > API > Project URL)
