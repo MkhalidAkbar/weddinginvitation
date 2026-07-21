@@ -1,96 +1,97 @@
-/* ============================================================
-   db.js  —  FASE 1: sumber data undangan = DATABASE (Supabase).
-   ------------------------------------------------------------
-   • Mengambil data undangan berdasarkan SLUG (dari ?site=, subdomain,
-     atau path URL), lalu mengisi window.WEDDING_CONFIG (bentuk SAMA
-     seperti config.js) dan menyelesaikan window.__configReady agar
-     template me-render.
-   • Menyediakan window.WEDDING_DB_API untuk RSVP & ucapan
-     (menggantikan Google Sheets), dengan RLS sebagai penjaga isolasi.
-   Tidak perlu diedit — cukup isi db-config.js.
-   ============================================================ */
-(function(){
-  var DB = window.WEDDING_DB || {};
-  var resolveFn, done = false;
-  window.__configReady = new Promise(function(res){ resolveFn = res; });
-  function finish(){ if(done) return; done = true; resolveFn(); }
+/* =====================================================================
+   db.js — Runtime data layer undangan (Supabase)
+   ---------------------------------------------------------------------
+   Tugas:
+   1. Menentukan slug situs (dari ?site= / ?slug= / subdomain / default).
+   2. Mengambil config undangan dari tabel `sites` di Supabase.
+   3. Mengekspos window.WEDDING_CONFIG + window.WEDDING_DB_API.
+   4. SELALU me-resolve window.__configReady — walau gagal fetch,
+      tanpa backend, atau offline — supaya app.js SELALU boot dan
+      undangan tetap bisa dibuka. (Perbaikan bug: dulu promise bisa
+      reject/menggantung sehingga seluruh script undangan mati.)
+   ===================================================================== */
+(function () {
+  var CFG = (window.WEDDING_DB_CONFIG || {});
+  var URL = CFG.url || '';
+  var KEY = CFG.anonKey || '';
+  var hasBackend = !!(URL && KEY);
 
-  function slugFromUrl(){
-    try{ var q = new URLSearchParams(location.search).get('site'); if(q) return q; }catch(e){}
-    // File lokal (file://): lewati deteksi subdomain/path, pakai defaultSlug
-    if(location.protocol === 'file:') return DB.defaultSlug || null;
-    var host = (location.hostname || '').split('.');
-    if(host.length > 2 && host[0] !== 'www' && host[0] !== 'localhost') return host[0];
-    var seg = (location.pathname || '').replace(/^\/+|\/+$/g,'').split('/')[0];
-    if(seg && !/\.html?$/i.test(seg)) return seg;
-    return DB.defaultSlug || null;
+  function getSlug() {
+    try {
+      var qs = new URLSearchParams(location.search);
+      var s = qs.get('site') || qs.get('slug');
+      if (s) return s;
+      if (location.protocol !== 'file:') {
+        var host = location.hostname || '';
+        var parts = host.split('.');
+        // subdomain wildcard: slug.domain.tld (abaikan www & apex)
+        if (parts.length > 2 && parts[0] !== 'www') return parts[0];
+      }
+    } catch (e) {}
+    return CFG.defaultSlug || 'demo';
   }
 
-  function headers(extra){
-    var h = { apikey: DB.anonKey, Authorization: 'Bearer ' + DB.anonKey };
-    if(extra){ for(var k in extra) h[k] = extra[k]; }
-    return h;
+  var SLUG = getSlug();
+  window.WEDDING_SLUG = SLUG;
+
+  function api(path, opts) {
+    opts = opts || {};
+    var headers = Object.assign({
+      'apikey': KEY,
+      'Authorization': 'Bearer ' + KEY,
+      'Content-Type': 'application/json'
+    }, opts.headers || {});
+    return fetch(URL.replace(/\/$/, '') + '/rest/v1/' + path, {
+      method: opts.method || 'GET',
+      headers: headers,
+      body: opts.body ? JSON.stringify(opts.body) : undefined
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var ct = r.headers.get('content-type') || '';
+      return ct.indexOf('application/json') >= 0 ? r.json() : r.text();
+    });
   }
-  function rest(path){ return DB.url.replace(/\/+$/,'') + '/rest/v1/' + path; }
 
-  var siteId = null;
-
-  // API yang dipakai template untuk menyimpan/membaca RSVP & ucapan
+  /* ---------- API publik dipakai app.js ---------- */
   window.WEDDING_DB_API = {
-    saveRsvp: function(o){
-      if(!siteId) return Promise.reject('no site');
-      return fetch(rest('rsvp'), { method:'POST',
-        headers: headers({ 'Content-Type':'application/json', Prefer:'return=minimal' }),
-        body: JSON.stringify({ site_id: siteId, nama: o.name, kehadiran: o.attend, jumlah: parseInt(o.count,10) || 1 }) });
+    slug: SLUG,
+    saveRsvp: function (payload) {
+      if (!hasBackend) return Promise.resolve({ offline: true });
+      var row = Object.assign({ slug: SLUG }, payload || {});
+      return api('rsvps', { method: 'POST', headers: { Prefer: 'return=representation' }, body: row })
+        .catch(function () { return { error: true }; });
     },
-    saveWish: function(o){
-      if(!siteId) return Promise.reject('no site');
-      return fetch(rest('wishes'), { method:'POST',
-        headers: headers({ 'Content-Type':'application/json', Prefer:'return=minimal' }),
-        body: JSON.stringify({ site_id: siteId, nama: o.name, kehadiran: o.attend, pesan: o.msg }) });
+    saveWish: function (payload) {
+      if (!hasBackend) return Promise.resolve({ offline: true });
+      var row = Object.assign({ slug: SLUG }, payload || {});
+      return api('wishes', { method: 'POST', headers: { Prefer: 'return=representation' }, body: row })
+        .catch(function () { return { error: true }; });
     },
-    fetchWishes: function(){
-      if(!siteId) return Promise.resolve([]);
-      return fetch(rest('wishes?site_id=eq.' + siteId + '&order=created_at.asc&select=nama,kehadiran,pesan,created_at'),
-        { headers: headers() })
-        .then(function(r){ return r.ok ? r.json() : []; })
-        .then(function(rows){ return (rows || []).map(function(w){
-          return { name:w.nama, attend:w.kehadiran, msg:w.pesan, t:Date.parse(w.created_at) || Date.now() }; }); });
+    fetchWishes: function () {
+      if (!hasBackend) return Promise.resolve(null);
+      return api('wishes?slug=eq.' + encodeURIComponent(SLUG) + '&order=created_at.desc')
+        .catch(function () { return null; });
     }
   };
 
-  if(!DB.url || !DB.anonKey){
-    console.warn('[wedding] Supabase belum dikonfigurasi di db-config.js — memakai konten default template.');
-    window.WEDDING_DB_API = null; return finish();
-  }
-  var slug = slugFromUrl();
-  if(!slug){ console.warn('[wedding] Slug undangan tidak ditemukan di URL.'); window.WEDDING_DB_API = null; return finish(); }
-  window.__WEDDING_SLUG = slug;
+  /* ---------- Muat config situs; SELALU resolve ---------- */
+  window.__configReady = new Promise(function (resolve) {
+    // Hard timeout: jangan pernah menggantung > 4 detik.
+    var done = false;
+    function finish() { if (!done) { done = true; resolve(window.WEDDING_CONFIG || null); } }
+    setTimeout(finish, 4000);
 
-  fetch(rest('sites?slug=eq.' + encodeURIComponent(slug) + '&status=eq.published&select=id,config'), { headers: headers() })
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(function(rows){
-      if(rows && rows[0]){
-        siteId = rows[0].id;
-        window.__WEDDING_SITE_ID = siteId;
-        if(rows[0].config) window.WEDDING_CONFIG = rows[0].config;
-        // FASE 4: catat kunjungan (analitik). Gagal diam-diam, tidak mengganggu render.
-        try{
-          fetch(rest('site_views'), { method:'POST',
-            headers: headers({ 'Content-Type':'application/json', Prefer:'return=minimal' }),
-            body: JSON.stringify({ site_id: siteId, slug: slug,
-              path: (location.pathname || '/'),
-              referrer: (document.referrer || null),
-              ua: (navigator.userAgent || '').slice(0,300) }) }).catch(function(){});
-        }catch(e){}
-      } else {
-        console.warn('[wedding] Undangan "' + slug + '" tidak ditemukan / belum published.');
-        window.WEDDING_DB_API = null;
-      }
-      finish();
-    })
-    .catch(function(e){
-      console.error('[wedding] Gagal memuat data undangan:', e);
-      window.WEDDING_DB_API = null; finish();
-    });
+    if (!hasBackend) { finish(); return; }
+
+    api('sites?slug=eq.' + encodeURIComponent(SLUG) + '&select=config,package,status,theme_id&limit=1')
+      .then(function (rows) {
+        var row = rows && rows[0];
+        if (row && row.config) {
+          window.WEDDING_CONFIG = row.config;
+          window.WEDDING_SITE_META = { package: row.package, status: row.status, themeId: row.theme_id };
+        }
+      })
+      .catch(function () { /* diamkan: app tetap boot dengan default */ })
+      .then(finish, finish);
+  });
 })();
