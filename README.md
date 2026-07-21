@@ -1,53 +1,69 @@
-# Undangan Pernikahan SaaS — Paket File (Update Bugfix)
+# Undangan Pernikahan Digital — SaaS (Netlify + Supabase)
 
-Tanggal update: 21 Juli 2026
+Paket ini sudah siap deploy. Alurnya: **push ke GitHub → connect ke Netlify → setup Supabase**.
 
-## Yang diperbaiki di update ini
+## 📁 Struktur file
 
-### 1. Undangan tidak bisa dibuka & tata letak foto tidak berubah (SATU akar masalah)
-Seluruh script undangan dibungkus:
-```js
-(window.__configReady || Promise.resolve()).then(function(){ ...seluruh app... })
+| File | Fungsi | Ini yang dibuka siapa |
+|------|--------|-----------------------|
+| `index.html` | **Router / homepage** — baca `?site=slug`, arahkan ke style yang benar (elegant / luxury), teruskan `?to=Nama` | Tamu (pintu masuk utama) |
+| `undangan-template-db.html` | Style **Elegant Floral** | Tamu (dipilih router) |
+| `undangan-luxury-gold.html` | Style **Luxury Gold** | Tamu (dipilih router) |
+| `panel.html` | **Panel klien** — edit konten, tampilan, tema, media, tab **Tamu** (guest list + link personal + viewer RSVP) | Pembeli/klien |
+| `admin.html` | **Panel admin kamu** — kelola undangan, order, analitik, perpustakaan tema & lagu | Kamu (pemilik bisnis) |
+| `db.js` | Helper koneksi Supabase (frontend) | — |
+| `db-config.js` | Berisi **Supabase URL + anon key** (AMAN dipublik, dilindungi RLS) | — |
+| `netlify.toml` | Konfigurasi Netlify + jadwal cron expiry | — |
+| `netlify/functions/` | Fungsi server: `create-payment`, `payment-webhook`, `expiry-cron` | — |
+| `supabase/*.sql` | Skema database — **dijalankan di Supabase SQL Editor**, TIDAK dibuka lewat web | Kamu (sekali setup) |
+
+> **Penting:** `index.html` = homepage. Kalau seseorang buka domain tanpa `?site=`, router pakai template default. Setiap klien punya subdomain/slug sendiri, jadi database antar-website tetap terpisah lewat kolom `site_id` + RLS Supabase.
+
+## 🚀 1. Deploy ke GitHub (GRATIS, 0 credit)
+
+Mpush ke GitHub **tidak memicu build apa pun** — jadi aman, credit Netlify tidak kepakai sampai kamu connect.
+
+```bash
+cd deploy
+git init
+git add .
+git commit -m "Undangan pernikahan SaaS"
+git branch -M main
+git remote add origin https://github.com/USERNAME/NAMA-REPO.git
+git push -u origin main
 ```
-Saat situs live mencoba mengambil config dari **Supabase** dan gagal (kredensial
-kosong / baris situs belum ada / jaringan), `__configReady` **reject atau
-menggantung**, sehingga blok `.then()` **tidak pernah jalan**. Akibatnya:
-- Tombol **“Buka Undangan”** mati (handler klik tak terpasang).
-- **Tata letak galeri** tidak berubah (config dari panel tak pernah diterapkan).
-- Preview tetap terlihat “hidup” karena nama default (SEKAR & BIMO) memang
-  tertanam di HTML statis — padahal JS-nya mati.
 
-**Perbaikan (2 lapis):**
-1. Boot sekarang tahan-banting:
-   ```js
-   Promise.race([
-     Promise.resolve(window.__configReady).catch(function(){}),
-     new Promise(function(r){ setTimeout(r, 1200); })
-   ]).then(function(){ ...app... });
-   ```
-   App **selalu** jalan (resolve, reject, atau hang) — undangan selalu bisa dibuka.
-2. `db.js` ditulis ulang agar **selalu** me-resolve `window.__configReady`
-   (timeout keras 4 dtk + `.catch`), tak peduli Supabase gagal/kosong.
+Disarankan buat repo **Private**.
 
-Diterapkan pada: `app.js`, `undangan-template-db.html`, `undangan-modern.html`,
-`undangan-luxury-gold.html` (5 template baru memakai `app.js`).
+## 🌐 2. Connect ke Netlify
 
-## Isi paket
-- `index.html` — router pemilih template
-- `panel.html` — panel klien (editor + preview + Perpustakaan)
-- `app.js` — runtime bersama untuk 5 template baru
-- `db.js`, `db-config.js` — lapisan data Supabase (isi kredensial di `db-config.js`)
-- Template (8):
-  - `undangan-template-db.html` (Elegant Floral)
-  - `undangan-modern.html`, `undangan-luxury-gold.html`
-  - `undangan-botani.html`, `undangan-midnight.html`, `undangan-terracotta.html`,
-    `undangan-blush.html`, `undangan-ocean.html` (batch baru)
-- `templates.json` — manifest 8 template
-- `supabase/schema_phase6.sql` — tabel `templates` + RLS + seed
+1. Netlify → **Add new site → Import from Git → pilih repo** ini.
+2. Build command: **kosongkan** (situs statik). Publish directory: **`.`** (root).
+3. Deploy. Netlify free tier: 300 menit build/bln, 100GB bandwidth, 125k function request/bln — situs statik nyaris tak makan apa-apa.
 
-## Konfigurasi Supabase
-Isi `db-config.js`:
-```js
-window.WEDDING_DB_CONFIG = { url: 'https://xxx.supabase.co', anonKey: 'eyJ...', defaultSlug: 'sekar-bimo' };
+## 🗄️ 3. Setup Supabase
+
+1. Buat project di Supabase (free tier cukup untuk mulai).
+2. Buka **SQL Editor**, jalankan file `supabase/` berurutan:
+   `schema.sql` → `schema_phase2.sql` → `schema_phase3.sql` → `schema_phase3b.sql` → `schema_phase4.sql` → `schema_phase4b.sql` → `schema_phase5.sql`, lalu `seed.sql` (opsional data awal).
+3. Salin **Project URL** + **anon key** ke `db-config.js`.
+4. Jadikan diri kamu admin: `update public.profiles set role='admin' where email='EMAIL-KAMU';`
+
+## 🔐 4. Environment Variables di Netlify
+
+Set di **Site settings → Environment variables** (JANGAN taruh di file frontend / repo):
+
 ```
-Kosongkan `url`/`anonKey` untuk mode demo (tanpa backend).
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...   # RAHASIA — hanya untuk Netlify Functions, jangan pernah ke frontend
+PAYMENT_PROVIDER=midtrans        # atau xendit
+MIDTRANS_SERVER_KEY=...
+MIDTRANS_IS_PRODUCTION=false
+XENDIT_SECRET_KEY=...
+XENDIT_CALLBACK_TOKEN=...
+PUBLIC_BASE_URL=https://domainkamu.com
+```
+
+## ⚠️ Catatan keamanan
+- `db-config.js` (anon key) **aman** dipublik — memang dirancang publik, dilindungi RLS.
+- `SUPABASE_SERVICE_ROLE_KEY` & key pembayaran **HANYA** di env var Netlify, tidak pernah di file frontend/repo.
