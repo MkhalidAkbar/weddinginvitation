@@ -163,6 +163,54 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
 @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:820px){.lx-hero{grid-template-columns:1fr;text-align:center}.lx-hero-copy .lx-sub{margin:0 auto}.lx-cta,.lx-trust{justify-content:center}.lx-features{grid-template-columns:1fr 1fr}.lx-steps{grid-template-columns:1fr}#app{grid-template-columns:1fr}.preview{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+/* ===== LUX OVERRIDE v2 — style mockups, switches, plans, footer ===== */
+.style-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.style-card{position:relative;border:2px solid var(--line,#e7e0d3);border-radius:14px;padding:8px;cursor:pointer;background:#fff;transition:transform .18s,box-shadow .18s,border-color .18s;overflow:hidden;animation:fadeUp .45s both}
+.style-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(168,132,47,.16)}
+.style-card.on{border-color:var(--gold,#c9a24b);box-shadow:0 8px 22px rgba(201,162,75,.22)}
+.style-card .mk{height:100px;border-radius:10px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.style-card .mk-script{font-family:'Great Vibes',cursive;font-size:23px;line-height:1}
+.style-card .mk-amp{font-family:'Great Vibes',cursive;font-size:15px;opacity:.85}
+.style-card .mk-rule{width:40px;height:1px;background:currentColor;opacity:.5;margin:2px 0}
+.style-card .mk-date{font-size:8px;letter-spacing:2px;opacity:.8}
+.style-card .pet{position:absolute;border-radius:50% 0 50% 50%;opacity:.6}
+.style-card .cap{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:600;margin-top:8px;display:flex;align-items:center;gap:6px;color:var(--ink,#40372f)}
+.style-card .cap .ok{color:var(--gold,#c9a24b)}
+.style-card.lock{cursor:not-allowed}
+.style-card.lock .mk,.style-card.lock .cap{filter:grayscale(.45);opacity:.65}
+.tag-lock{position:absolute;top:9px;right:9px;z-index:2;font-size:9.5px;font-weight:800;letter-spacing:.4px;padding:3px 9px;border-radius:999px;color:#3b2f12;background:linear-gradient(135deg,var(--gold-2,#e6c987),var(--gold,#c9a24b));box-shadow:0 3px 9px rgba(168,132,47,.4)}
+.pal-chip:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.pal-lock{position:relative}
+.pal-lock::after{content:'🔒';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.55);border-radius:12px}
+.sw-list{display:flex;flex-direction:column;gap:2px;margin-top:2px}
+.sw-row{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;transition:background .15s;cursor:pointer;animation:fadeUp .4s both}
+.sw-row:hover{background:linear-gradient(90deg,rgba(201,162,75,.10),transparent)}
+.sw-row .ic{width:24px;text-align:center;font-size:15px}
+.sw-row .lbl{flex:1;font-size:14px;color:var(--ink,#40372f)}
+input.sw{appearance:none;-webkit-appearance:none;margin:0;position:relative;width:46px;height:26px;border-radius:999px;background:#d9d2c4;cursor:pointer;transition:background .25s;flex:none;outline:none}
+input.sw::before{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.25);transition:transform .25s}
+input.sw:checked{background:linear-gradient(135deg,var(--gold-2,#e6c987),var(--gold-d,#a8842f))}
+input.sw:checked::before{transform:translateX(20px)}
+input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
+.plan-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:780px){.plan-grid{grid-template-columns:1fr 1fr 1fr}}
+.plan{position:relative;border:2px solid var(--line,#e7e0d3);border-radius:18px;padding:20px 16px 16px;background:#fff;display:flex;flex-direction:column;gap:12px;transition:transform .2s,box-shadow .2s,border-color .2s;animation:fadeUp .5s both}
+.plan:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(168,132,47,.18)}
+.plan.on{border-color:var(--gold,#c9a24b);box-shadow:0 14px 32px rgba(201,162,75,.25)}
+.plan.pop{border-color:var(--gold,#c9a24b)}
+.plan .rib{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 13px;border-radius:999px;color:#3b2f12;background:linear-gradient(135deg,var(--gold-2,#e6c987),var(--gold,#c9a24b));box-shadow:0 5px 12px rgba(168,132,47,.4)}
+.plan h4{font-family:'Playfair Display',serif;font-size:21px;margin:0}
+.plan .price{font-size:27px;font-weight:800;color:var(--ink,#40372f);line-height:1}
+.plan .price small{font-size:12px;font-weight:500;color:var(--ink-soft,#8a7f6f)}
+.plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;flex:1}
+.plan ul li{font-size:12.5px;color:var(--ink-soft,#6f6455);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.plan ul li::before{content:'✓';color:var(--gold-d,#a8842f);font-weight:800;flex:none}
+.plan .pick{margin-top:6px;width:100%}
+.lock-card{animation:pop .4s both}
+.foot-bar{position:sticky;bottom:0;background:linear-gradient(180deg,rgba(255,255,255,0),var(--bg,#fff) 28%);backdrop-filter:blur(8px);padding:14px 2px 10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(201,162,75,.18)}
+#pkgSel{width:auto;padding:11px 12px;border-radius:12px;border:1.5px solid var(--line,#e7e0d3);font-weight:600;background:#fff;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+#pkgSel:focus{border-color:var(--gold,#c9a24b);box-shadow:0 0 0 3px rgba(201,162,75,.25);outline:none}
+#buyBtn{background:linear-gradient(135deg,#2fa564,#1e7a46)!important;color:#fff;box-shadow:0 8px 20px rgba(31,122,71,.3)}
 </style>
 </head>
 <body>
@@ -260,12 +308,12 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
     </div>
     <div class="tabs" id="tabs"></div>
     <div id="form"></div>
-    <div style="position:sticky;bottom:0;background:var(--bg);padding:12px 0;display:flex;gap:8px;align-items:center">
+    <div class="foot-bar">
       <button class="btn" id="saveBtn">💾 Simpan</button>
       <button class="btn gold" id="pubBtn">Publikasikan</button>
-      <select id="pkgSel" style="width:auto"><option value="basic">Basic · Rp99.000</option><option value="premium">Premium · Rp199.000</option><option value="exclusive">Exclusive · Rp349.000</option></select>
-      <button class="btn" id="buyBtn" style="background:#2f7d4f">💳 Beli & Aktifkan</button>
       <span style="flex:1"></span>
+      <select id="pkgSel"><option value="basic">Basic · Rp99.000</option><option value="premium">Premium · Rp199.000</option><option value="exclusive">Exclusive · Rp349.000</option></select>
+      <button class="btn lg" id="buyBtn">💳 Beli & Aktifkan</button>
       <a id="openLink" class="btn ghost" target="_blank">Buka ↗</a>
     </div>
     <div id="edMsg" class="msg"></div>
@@ -359,6 +407,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
     iframe.src='undangan-template-db.html?site='+encodeURIComponent(cur.slug);
     iframe.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); };
     el('openLink').href='undangan-template-db.html?site='+encodeURIComponent(cur.slug);
+    if(el('pkgSel')) el('pkgSel').value=(cur.package||'basic'); updateBuy();
     renderTabs(); renderForm();
     loadLibraries(function(){ if(activeTab==='Tampilan'||activeTab==='Media') renderForm(); });
   }
@@ -370,7 +419,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
   function pushPreview(){ try{ el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:cfg},'*'); }catch(e){}
     window.__lastPreviewSent=clone(cfg); }
 
-  var TABS=['Konten','Tampilan','Tema','Media','Tamu'];
+  var TABS=['Konten','Tampilan','Tema','Media','Paket','Tamu'];
   function renderTabs(){ el('tabs').innerHTML=TABS.map(function(t){return '<button data-tab="'+t+'" class="'+(t===activeTab?'active':'')+'">'+t+'</button>'}).join('');
     Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){ b.onclick=function(){ activeTab=b.getAttribute('data-tab'); renderTabs(); renderForm(); }; }); }
 
@@ -408,29 +457,65 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
     ]).then(function(res){ STYLE_LIB=(res[0]||[]).filter(function(x){return x.active!==false}); SONG_LIB=(res[1]||[]).filter(function(x){return x.active!==false&&x.url}); libLoaded=true; cb&&cb(); });
   }
   function curStyleObj(){ var id=cfg.style||'elegant-floral'; return STYLE_LIB.filter(function(x){return x.id===id})[0]; }
+  /* ===== PAKET: definisi & gating fitur (Basic / Premium / Exclusive) ===== */
+  var PLANS={
+    basic:{label:'Basic',price:99000,months:6,styles:['elegant-floral'],palettes:3,gallery:4,guests:false,upload:false,
+      features:['1 desain: Elegant Floral','3 pilihan palet warna','Galeri sampai 4 foto','Musik dari perpustakaan lagu','Undangan aktif 6 bulan']},
+    premium:{label:'Premium',price:199000,months:12,styles:'all',palettes:99,gallery:8,guests:true,upload:true,
+      features:['Semua desain (kecuali Luxury Gold)','Semua palet warna','Galeri sampai 8 foto','Upload lagu sendiri','Manajer Tamu + RSVP + link personal','Undangan aktif 12 bulan']},
+    exclusive:{label:'Exclusive',price:349000,months:12,styles:'all+luxury',palettes:99,gallery:12,guests:true,upload:true,
+      features:['SEMUA desain termasuk ✨ Luxury Gold','Semua palet warna','Galeri sampai 12 foto','Upload lagu sendiri','Manajer Tamu + RSVP + link personal','Subdomain kustom + analitik kunjungan','Undangan aktif 12 bulan','Dukungan prioritas']}
+  };
+  function currentPlan(){ return (el('pkgSel')&&el('pkgSel').value)||(cur&&cur.package)||'basic'; }
+  function plan(){ return PLANS[currentPlan()]||PLANS.basic; }
+  function styleAllowed(id){ var s=plan().styles; if(s==='all+luxury') return true; if(s==='all') return id!=='luxury-gold'; return s.indexOf(id)>-1; }
+  function galleryLimit(){ return plan().gallery||6; }
+  function guestsAllowed(){ return !!plan().guests; }
+  function uploadAllowed(){ return !!plan().upload; }
+  function setTab(t){ activeTab=t; renderTabs(); renderForm(); }
+  function updateBuy(){ var pl=plan(), b=el('buyBtn'); if(b) b.innerHTML='💳 Beli '+pl.label+' · Rp'+pl.price.toLocaleString('id-ID'); }
+  var SEC_ICON={quote:'🕊️',countdown:'⏳',story:'💞',events:'📅',gallery:'🖼️',gift:'🎁',info:'📍',wishes:'💌'};
+  function styleMock(id,st){ var pal=(st&&st.palettes&&st.palettes[0]&&st.palettes[0].colors)||{};
+    var bg=pal.cream||'#F4ECE0',ink=pal.ink||'#40372F',gold=pal.gold||'#C9A24B',sage=pal.sage||'#8A9A82',blush=pal.blush||'#E7C6C2';
+    var lux=(id==='luxury-gold');
+    var grad=lux?'linear-gradient(135deg,#1d1712,#2c2318 55%,#100c08)':'linear-gradient(135deg,'+bg+' 0%,'+blush+' 130%)';
+    var tcol=lux?(gold||'#d9b45a'):ink;
+    var pets=lux?'<span class="pet" style="width:14px;height:14px;background:'+(gold||'#d9b45a')+';opacity:.25;top:8px;left:10px"></span>':'<span class="pet" style="width:18px;height:18px;background:'+blush+';top:7px;left:9px"></span><span class="pet" style="width:13px;height:13px;background:'+sage+';bottom:9px;right:11px"></span>';
+    return '<div class="mk" style="background:'+grad+';color:'+tcol+'">'+pets+'<div class="mk-script">Mempelai</div><div class="mk-amp">&amp;</div><div class="mk-rule"></div><div class="mk-date">12 · 12 · 2026</div></div>';
+  }
+  function lockCard(title,desc){ return '<div class="group lock-card" style="text-align:center;padding:28px 20px"><div style="font-size:38px;line-height:1">🔒</div><h3 style="justify-content:center;margin-top:8px">'+title+'</h3><p class="sub" style="max-width:360px;margin:8px auto 16px">'+desc+'</p><button class="btn gold lg" data-goplan="1">✨ Lihat Paket</button></div>'; }
+  function bindLock(host){ var b=host.querySelector('[data-goplan]'); if(b) b.onclick=function(){ setTab('Paket'); }; }
+  function planCardsHtml(){ var curp=currentPlan(), order=['basic','premium','exclusive'];
+    var h='<div class="group"><h3>Pilih Paket</h3><p class="sub">Bandingkan lalu pilih. Paket menentukan pilihan desain, palet, jumlah foto galeri, upload musik, dan fitur Manajer Tamu.</p><div class="plan-grid">';
+    order.forEach(function(k){ var p=PLANS[k], on=k===curp;
+      h+='<div class="plan'+(on?' on':'')+(k==='premium'?' pop':'')+'" data-plan="'+k+'">'+(k==='premium'?'<span class="rib">Terpopuler</span>':'')+'<h4>'+p.label+'</h4><div class="price">Rp'+p.price.toLocaleString('id-ID')+' <small>/ '+p.months+' bln</small></div><ul>'+p.features.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><button class="btn '+(on?'gold':'ghost')+' lg pick" data-plan="'+k+'">'+(on?'✓ Paket Terpilih':'Pilih '+p.label)+'</button></div>'; });
+    h+='</div></div>'; return h;
+  }
+  function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); if(el('pkgSel'))el('pkgSel').value=k; updateBuy(); renderForm(); edMsg('Paket '+PLANS[k].label+' dipilih — klik “Beli & Aktifkan” untuk melanjutkan.','ok'); }; }); }
   function styleLibHtml(){
     var curStyle=cfg.style||'elegant-floral', curPal=cfg.paletteId||'';
     var h='<div class="group"><h3>Pilih Style</h3>';
     if(!STYLE_LIB.length){ h+='<p class="sub">Belum ada style di perpustakaan. Admin menambahkannya lewat tabel <b>themes</b>.</p>'; }
-    else { h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
-      STYLE_LIB.forEach(function(s){ var on=s.id===curStyle;
-        h+='<div data-style="'+esc(s.id)+'" style="border:2px solid '+(on?'var(--sage)':'var(--line)')+';border-radius:10px;padding:8px;cursor:pointer">'+(s.preview_url?'<img src="'+esc(s.preview_url)+'" style="width:100%;height:70px;object-fit:cover;border-radius:6px">':'<div style="height:70px;border-radius:6px;background:#eee"></div>')+'<div style="font-size:13px;margin-top:5px;font-weight:600">'+esc(s.nama)+(on?' ✓':'')+'</div></div>'; });
+    else { h+='<div class="style-grid">';
+      STYLE_LIB.forEach(function(s){ var on=s.id===curStyle, ok=styleAllowed(s.id);
+        var badge=ok?'':'<span class="tag-lock">'+(s.id==='luxury-gold'?'Exclusive':'Premium')+'</span>';
+        h+='<div class="style-card'+(on?' on':'')+(ok?'':' lock')+'" data-style="'+esc(s.id)+'">'+badge+styleMock(s.id,s)+'<div class="cap">'+esc(s.nama)+(on?' <span class="ok">✓</span>':'')+'</div></div>'; });
       h+='</div>'; }
     h+='</div>';
-    var st=curStyleObj(), pals=(st&&st.palettes)||[];
+    var st=curStyleObj(), pals=(st&&st.palettes)||[], plim=plan().palettes;
     h+='<div class="group"><h3>Palet Warna</h3>';
     if(!pals.length){ h+='<p class="sub">Style ini belum punya palet. Atur warna manual di tab Tema.</p>'; }
-    else { h+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
-      pals.forEach(function(p){ var on=p.id===curPal, c=p.colors||{};
-        h+='<div data-pal="'+esc(p.id)+'" title="'+esc(p.name||p.id)+'" style="cursor:pointer;border:2px solid '+(on?'var(--sage)':'var(--line)')+';border-radius:10px;padding:6px;text-align:center;width:86px"><div style="display:flex;height:26px;border-radius:5px;overflow:hidden">'+['sage','gold','blush','cream'].map(function(k){return '<span style="flex:1;background:'+esc(c[k]||'#ddd')+'"></span>'}).join('')+'</div><div style="font-size:11px;margin-top:4px">'+esc(p.name||p.id)+(on?' ✓':'')+'</div></div>'; });
-      h+='</div>'; }
+    else { h+='<div style="display:flex;flex-wrap:wrap;gap:10px">';
+      pals.forEach(function(p,idx){ var on=p.id===curPal, c=p.colors||{}, pl=idx>=plim;
+        h+='<div data-pal="'+esc(p.id)+'"'+(pl?' data-locked="1"':'')+' class="pal-chip'+(pl?' pal-lock':'')+'" title="'+esc(p.name||p.id)+'" style="cursor:pointer;border:2px solid '+(on?'var(--gold)':'var(--line)')+';border-radius:12px;padding:6px;text-align:center;width:90px;transition:transform .15s,box-shadow .15s"><div style="display:flex;height:30px;border-radius:7px;overflow:hidden">'+['sage','gold','blush','cream'].map(function(k){return '<span style="flex:1;background:'+esc(c[k]||'#ddd')+'"></span>'}).join('')+'</div><div style="font-size:11px;margin-top:5px;font-weight:500">'+esc(p.name||p.id)+(on?' ✓':'')+'</div></div>'; });
+      h+='</div>'; if(plim<pals.length) h+='<small class="hint">Paket '+plan().label+' membuka '+plim+' palet pertama. Upgrade untuk semua palet.</small>'; }
     h+='</div>';
     return h;
   }
-  function sectionsHtml(){ var S=cfg.sections||{}, h='<div class="group"><h3>Tampilkan / Sembunyikan Section</h3>';
+  function sectionsHtml(){ var S=cfg.sections||{}, h='<div class="group"><h3>Tampilkan / Sembunyikan Section</h3><div class="sw-list">';
     SECTION_LABELS.forEach(function(x){ var on=S[x[0]]!==false;
-      h+='<label style="display:flex;align-items:center;gap:8px;padding:5px 0;font-size:14px"><input type="checkbox" data-sec="'+x[0]+'"'+(on?' checked':'')+' style="width:auto"> '+x[1]+'</label>'; });
-    h+='<small class="hint">Section inti (pembuka, mempelai, acara, RSVP, penutup) selalu tampil.</small></div>'; return h;
+      h+='<label class="sw-row"><span class="ic">'+(SEC_ICON[x[0]]||'•')+'</span><span class="lbl">'+x[1]+'</span><input type="checkbox" class="sw" data-sec="'+x[0]+'"'+(on?' checked':'')+'></label>'; });
+    h+='</div><small class="hint">Section inti (pembuka, mempelai, acara, RSVP, penutup) selalu tampil.</small></div>'; return h;
   }
   function songLibHtml(){ if(!SONG_LIB.length) return '<p class="sub" style="margin:0 0 8px">Perpustakaan lagu masih kosong (admin menambah via tabel <b>songs</b>). Anda tetap bisa upload lagu sendiri di bawah.</p>';
     var cur=getP(cfg,'music.src')||'', h='<label class="fld"><span>Pilih dari perpustakaan lagu</span><select data-song><option value="">— pilih lagu —</option>';
@@ -439,8 +524,8 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
   }
   function applyPalette(styleId,palId){ var st=STYLE_LIB.filter(function(x){return x.id===styleId})[0]; if(!st)return; var p=((st.palettes)||[]).filter(function(x){return x.id===palId})[0]; if(!p)return; cfg.paletteId=palId; cfg.theme=Object.assign({},cfg.theme||{},p.colors||{}); }
   function bindTampilan(host){
-    Array.prototype.forEach.call(host.querySelectorAll('[data-style]'),function(b){ b.onclick=function(){ cfg.style=b.getAttribute('data-style'); cfg.paletteId=''; renderForm(); pushPreview(); }; });
-    Array.prototype.forEach.call(host.querySelectorAll('[data-pal]'),function(b){ b.onclick=function(){ applyPalette(cfg.style||'elegant-floral', b.getAttribute('data-pal')); renderForm(); pushPreview(); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-style]'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-style'); if(!styleAllowed(id)){ edMsg('Style ini termasuk paket '+(id==='luxury-gold'?'Exclusive':'Premium')+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } cfg.style=id; cfg.paletteId=''; renderForm(); pushPreview(); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-pal]'),function(b){ b.onclick=function(){ if(b.getAttribute('data-locked')){ edMsg('Palet ini terkunci di paket '+plan().label+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } applyPalette(cfg.style||'elegant-floral', b.getAttribute('data-pal')); renderForm(); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-sec]'),function(cb){ cb.onchange=function(){ setP(cfg,'sections.'+cb.getAttribute('data-sec'),cb.checked); pushPreview(); }; });
   }
 
@@ -452,10 +537,14 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
     else if(activeTab==='Tema'){ html+='<div class="group"><h3>Warna</h3>'+THEME.map(fieldHtml).join('')+'</div>';
       html+='<div class="group"><h3>Font</h3>'+fontSel('theme.serif','Font judul')+fontSel('theme.sans','Font teks')+'</div>';
       html+='<p class="sub">Perubahan warna & font langsung terlihat di preview kanan. Tips: pilih palet siap pakai di tab <b>Tampilan</b>.</p>'; }
-    else if(activeTab==='Media'){ html+='<div class="group"><h3>Foto Galeri (6)</h3>';
-      for(var i=0;i<6;i++) html+=mediaField('gallery.'+i,'Foto '+(i+1));
-      html+='</div><div class="group"><h3>Musik latar</h3>'+songLibHtml()+mediaField('music.src','File musik (mp3) — atau upload sendiri')+'</div>'; }
-    else if(activeTab==='Tamu'){ renderGuests(host); return; }
+    else if(activeTab==='Media'){ var glim=galleryLimit(); html+='<div class="group"><h3>Foto Galeri ('+glim+')</h3>';
+      for(var i=0;i<glim;i++) html+=mediaField('gallery.'+i,'Foto '+(i+1));
+      if(glim<12) html+='<small class="hint">Paket '+plan().label+' mendukung '+glim+' foto. Upgrade untuk sampai 12 foto.</small>';
+      html+='</div><div class="group"><h3>Musik latar</h3>'+songLibHtml();
+      html+= uploadAllowed()?mediaField('music.src','File musik (mp3) — atau upload sendiri'):'<small class="hint">🔒 Upload lagu sendiri tersedia di paket Premium & Exclusive. Untuk sekarang Anda bisa memilih dari perpustakaan lagu di atas.</small>';
+      html+='</div>'; }
+    else if(activeTab==='Paket'){ host.innerHTML=planCardsHtml(); bindPlans(host); return; }
+    else if(activeTab==='Tamu'){ if(!guestsAllowed()){ host.innerHTML=lockCard('Manajer Tamu & RSVP','Kelola daftar tamu, kirim link undangan personal, dan pantau RSVP secara langsung. Fitur ini tersedia di paket <b>Premium</b> &amp; <b>Exclusive</b>.'); bindLock(host); return; } renderGuests(host); return; }
     host.innerHTML=html; bindInputs(host);
   }
 
@@ -575,6 +664,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
   window.__checkout=checkout;
 
   el('backBtn').onclick=loadSites; el('newBtn').onclick=newSite; el('saveBtn').onclick=save; el('pubBtn').onclick=togglePublish; el('buyBtn').onclick=checkout;
+  if(el('pkgSel')) el('pkgSel').onchange=function(){ updateBuy(); if(el('editor')&&el('editor').style.display!=='none') renderForm(); };
 
   var STARTER={
     meta:{title:"Undangan Pernikahan",favicon:""}, music:{src:""},
