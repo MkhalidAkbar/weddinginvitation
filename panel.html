@@ -433,7 +433,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   function pushPreview(){ try{ el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:cfg},'*'); }catch(e){}
     window.__lastPreviewSent=clone(cfg); }
 
-  var TABS=['Konten','Tampilan','Perpustakaan','Tema','Media','Paket','Tamu'];
+  var TABS=['Konten','Tampilan','Perpustakaan','Media','Paket','Tamu'];
   function renderTabs(){ el('tabs').innerHTML=TABS.map(function(t){return '<button data-tab="'+t+'" class="'+(t===activeTab?'active':'')+'">'+t+'</button>'}).join('');
     Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(b){ b.onclick=function(){ activeTab=b.getAttribute('data-tab'); renderTabs(); renderForm(); }; }); }
 
@@ -507,23 +507,43 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); edMsg('Paket '+PLANS[k].label+' dipilih — klik “Beli & Aktifkan” untuk melanjutkan.','ok'); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','luxury-gold':'undangan-luxury-gold.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
     var ol=el('openLink'); if(ol) ol.href=want; }
   function themeAllowed(){ return currentPlan()!=='basic'; }
   var LIBRARY=[
-    {id:'sage-garden',name:'Sage Garden',style:'elegant-floral',paletteId:'sage-gold',kind:'botanical',tags:['Botani','Lembut'],tagline:'Hijau sage & krem dengan aksen dedaunan — natural dan menenangkan.',mk:{bg1:'#F3F1E7',bg2:'#DDE6D5',ink:'#3f4a3a',acc:'#C9A24B',acc2:'#8A9A82'},theme:{cream:'#F3F1E7',ink:'#3f4a3a',gold:'#C9A24B',sage:'#8A9A82',blush:'#DDE6D5'}},
-    {id:'rose-blush',name:'Rose Blush',style:'elegant-floral',paletteId:'rose-gold',kind:'arch',tags:['Romantis','Arch'],tagline:'Gradasi blush pink dalam bingkai arch klasik — manis dan romantis.',mk:{bg1:'#FBF1EE',bg2:'#F0D3CE',ink:'#5b4340',acc:'#C98A78',acc2:'#E7C6C2'},theme:{cream:'#FBF1EE',ink:'#5b4340',gold:'#C98A78',sage:'#c9a24b',blush:'#F0D3CE'}},
-    {id:'navy-royale',name:'Navy Royale',style:'elegant-floral',paletteId:'navy-gold',kind:'frame',tags:['Elegan','Formal'],tagline:'Biru navy berpadu emas dalam bingkai ganda — berkelas dan formal.',mk:{bg1:'#EEF1F6',bg2:'#C9D2E0',ink:'#1f2a44',acc:'#C9A24B',acc2:'#33415c'},theme:{cream:'#F2F4F8',ink:'#1f2a44',gold:'#C9A24B',sage:'#33415c',blush:'#C9D2E0'}},
-    {id:'mauve-serenity',name:'Mauve Serenity',style:'elegant-floral',paletteId:'mauve',kind:'minimal',tags:['Minimalis','Modern'],tagline:'Ungu mauve lembut dengan tata letak minimalis — modern dan bersih.',mk:{bg1:'#F5F0F3',bg2:'#E3D3DE',ink:'#4d3f49',acc:'#9c7c93',acc2:'#c9a24b'},theme:{cream:'#F5F0F3',ink:'#4d3f49',gold:'#9c7c93',sage:'#b79db0',blush:'#E3D3DE'}},
-    {id:'terracotta-bloom',name:'Terracotta Bloom',style:'elegant-floral',paletteId:'terracotta',kind:'stamp',tags:['Hangat','Rustic'],tagline:'Terakota hangat bergaya rustic dengan bingkai perangko — earthy dan hangat.',mk:{bg1:'#F7EFE7',bg2:'#E8CDB6',ink:'#5b3f2e',acc:'#b5713f',acc2:'#8a7a4b'},theme:{cream:'#F7EFE7',ink:'#5b3f2e',gold:'#b5713f',sage:'#8a7a4b',blush:'#E8CDB6'}},
-    {id:'emerald-elegance',name:'Emerald Elegance',style:'elegant-floral',paletteId:'emerald-gold',kind:'wave',tags:['Segar','Mewah'],tagline:'Hijau emerald dengan gelombang lembut & aksen emas — segar namun mewah.',mk:{bg1:'#EEF3EF',bg2:'#CBE0D2',ink:'#1e3d31',acc:'#C9A24B',acc2:'#2f6b52'},theme:{cream:'#EEF3EF',ink:'#1e3d31',gold:'#C9A24B',sage:'#2f6b52',blush:'#CBE0D2'}},
-    {id:'lux-classic-gold',name:'Luxury Classic Gold',style:'luxury-gold',paletteId:'classic-gold',kind:'frame',tags:['Mewah','Eksklusif'],tagline:'Hitam pekat dengan emas klasik & bingkai tipis — kemewahan abadi.',mk:{bg1:'#2a2117',bg2:'#0d0a06',ink:'#efe6d2',acc:'#d9b45a',acc2:'#8a6d2e'},theme:{gold:'#d9b45a'}},
-    {id:'lux-rose-gold',name:'Luxury Rose Gold',style:'luxury-gold',paletteId:'rose-gold',kind:'arch',tags:['Mewah','Romantis'],tagline:'Latar gelap dengan kilau rose gold dalam bingkai arch — mewah dan romantis.',mk:{bg1:'#2b2020',bg2:'#0d0808',ink:'#f2e2dc',acc:'#e0a487',acc2:'#a06b56'},theme:{gold:'#e0a487'}},
-    {id:'lux-emerald',name:'Midnight Emerald Luxe',style:'luxury-gold',paletteId:'emerald-gold',kind:'stamp',tags:['Mewah','Dramatis'],tagline:'Emerald gelap dengan emas dramatis — pernyataan kemewahan yang berani.',mk:{bg1:'#12271f',bg2:'#060d09',ink:'#e7f0e7',acc:'#d9b45a',acc2:'#2f6b52'},theme:{gold:'#d9b45a'}}
+    {id:'elegant-floral',name:'Elegant Floral',style:'elegant-floral',paletteId:'sage-gold',kind:'botanical',tags:['Floral','Romantis','Klasik'],tagline:'Undangan klasik bernuansa taman bunga \u2014 lembut, hangat, penuh detail botani. Cocok untuk pernikahan tradisional yang elegan.',mk:{bg1:'#F3F1E7',bg2:'#DDE6D5',ink:'#3f4a3a',acc:'#C9A24B',acc2:'#8A9A82'},theme:{cream:'#F3F1E7',ink:'#3f4a3a',gold:'#C9A24B',sage:'#8A9A82',blush:'#DDE6D5'}},
+    {id:'aurora-editorial',name:'Aurora Editorial',style:'modern-editorial',paletteId:'aurora-sand',kind:'minimal',tags:['Modern','Minimalis','Editorial'],tagline:'Tata letak editorial modern \u2014 tipografi besar, section bernomor, galeri asimetris, garis waktu vertikal. Bentuk & posisinya benar-benar beda dari template floral.',mk:{bg1:'#fbfaf7',bg2:'#ecdfd4',ink:'#211d19',acc:'#b0894e',acc2:'#7d8a72'},theme:{cream:'#fbfaf7',ink:'#211d19',gold:'#b0894e',sage:'#7d8a72',blush:'#ecdfd4'}},
+    {id:'luxury-gold',name:'Luxury Gold',style:'luxury-gold',paletteId:'classic-gold',kind:'frame',tags:['Mewah','Eksklusif','Dramatis'],tagline:'Latar gelap dengan kilau emas dan bingkai tipis \u2014 mewah, dramatis, eksklusif untuk kesan istimewa.',mk:{bg1:'#2a2117',bg2:'#0d0a06',ink:'#efe6d2',acc:'#d9b45a',acc2:'#8a6d2e'},theme:{cream:'#2a2117',ink:'#efe6d2',gold:'#d9b45a',sage:'#8a6d2e',blush:'#0d0a06'}}
   ];
+  /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
+  var TPL_PALETTES={
+    'elegant-floral':[
+      {id:'sage-gold',name:'Sage Gold',colors:{cream:'#F3F1E7',ink:'#3f4a3a',gold:'#C9A24B',sage:'#8A9A82',blush:'#DDE6D5'}},
+      {id:'rose-blush',name:'Rose Blush',colors:{cream:'#FBF1EE',ink:'#5b4340',gold:'#C98A78',sage:'#c9a24b',blush:'#F0D3CE'}},
+      {id:'mauve',name:'Mauve',colors:{cream:'#F5F0F3',ink:'#4d3f49',gold:'#9c7c93',sage:'#b79db0',blush:'#E3D3DE'}},
+      {id:'navy-gold',name:'Navy Gold',colors:{cream:'#F2F4F8',ink:'#1f2a44',gold:'#C9A24B',sage:'#33415c',blush:'#C9D2E0'}},
+      {id:'emerald-gold',name:'Emerald',colors:{cream:'#EEF3EF',ink:'#1e3d31',gold:'#C9A24B',sage:'#2f6b52',blush:'#CBE0D2'}},
+      {id:'terracotta',name:'Terracotta',colors:{cream:'#F7EFE7',ink:'#5b3f2e',gold:'#b5713f',sage:'#8a7a4b',blush:'#E8CDB6'}}
+    ],
+    'modern-editorial':[
+      {id:'aurora-sand',name:'Aurora Sand',colors:{cream:'#fbfaf7',ink:'#211d19',gold:'#b0894e',sage:'#7d8a72',blush:'#ecdfd4'}},
+      {id:'mono-ink',name:'Mono Ink',colors:{cream:'#f6f5f2',ink:'#1a1a1a',gold:'#8f8f8f',sage:'#555555',blush:'#e6e6e6'}},
+      {id:'olive-editorial',name:'Olive',colors:{cream:'#f4f3ec',ink:'#2c2f26',gold:'#8f8b4e',sage:'#6d7358',blush:'#dfe0cf'}},
+      {id:'dusty-rose',name:'Dusty Rose',colors:{cream:'#faf4f1',ink:'#3a2e2b',gold:'#b07d6e',sage:'#b79a90',blush:'#ecd8d0'}},
+      {id:'slate-blue',name:'Slate Blue',colors:{cream:'#f3f5f7',ink:'#20303a',gold:'#5f7d8c',sage:'#48606c',blush:'#d6e0e5'}}
+    ],
+    'luxury-gold':[
+      {id:'classic-gold',name:'Classic Gold',colors:{cream:'#2a2117',ink:'#efe6d2',gold:'#d9b45a',sage:'#8a6d2e',blush:'#0d0a06'}},
+      {id:'rose-gold',name:'Rose Gold',colors:{cream:'#2b2020',ink:'#f2e2dc',gold:'#e0a487',sage:'#a06b56',blush:'#0d0808'}},
+      {id:'emerald-gold',name:'Emerald Gold',colors:{cream:'#12271f',ink:'#e7f0e7',gold:'#d9b45a',sage:'#2f6b52',blush:'#060d09'}},
+      {id:'champagne',name:'Champagne',colors:{cream:'#26211a',ink:'#f3ebd9',gold:'#e6c98a',sage:'#9c7c48',blush:'#0b0906'}},
+      {id:'burgundy-gold',name:'Burgundy Gold',colors:{cream:'#2a1418',ink:'#f2dfe0',gold:'#d9b45a',sage:'#7d2f3c',blush:'#0d0506'}}
+    ]
+  };
+  function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
   function libMock(it){ var m=it.mk||{}, bg1=m.bg1||'#F4ECE0', bg2=m.bg2||'#E7C6C2', ink=m.ink||'#40372F', acc=m.acc||'#C9A24B', acc2=m.acc2||'#8A9A82', lux=(it.style==='luxury-gold'), k=it.kind;
     var grad= lux ? 'radial-gradient(120% 95% at 50% 0%,'+bg1+','+bg2+' 72%,#050403)' : 'linear-gradient(150deg,'+bg1+','+bg2+')';
     var tc= lux?acc:ink, deco='';
@@ -539,35 +559,24 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     return '<div class="lib-mock" style="background:'+grad+'">'+deco+'<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center">'+center+date+'</div></div>'; }
   function libraryHtml(){ var curS=cfg.style||'elegant-floral', curP=cfg.paletteId||'';
     var h='<div class="group"><h3>Perpustakaan Template</h3><p class="sub">Koleksi desain undangan siap pakai — pilih salah satu untuk langsung mengubah tampilan undangan Anda. Hasilnya tampil di pratinjau kanan. Desain <b>Luxury</b> tersedia di paket Exclusive.</p><div class="lib-grid">';
-    LIBRARY.forEach(function(it){ var ok=styleAllowed(it.style), on=(it.style===curS && (it.paletteId||'')===curP);
+    LIBRARY.forEach(function(it){ var ok=styleAllowed(it.style), on=(it.style===curS);
       var lockBadge= ok?'':'<span class="lib-lock">'+(it.style==='luxury-gold'?'✨ Exclusive':'Premium')+'</span>';
       var btnLabel= on?'✓ Sedang Dipakai':(ok?'Gunakan Template':'🔒 Perlu '+(it.style==='luxury-gold'?'Exclusive':'Premium'));
       h+='<div class="lib-card'+(on?' on':'')+(ok?'':' lock')+'" data-lib="'+esc(it.id)+'">'+lockBadge+libMock(it)+'<div class="lib-body"><div class="lib-name">'+esc(it.name)+(on?' <span class="ok">✓</span>':'')+'</div><div class="lib-tag-row">'+it.tags.map(function(t){return '<span class="lib-tag">'+esc(t)+'</span>'}).join('')+'</div><p class="lib-desc">'+esc(it.tagline)+'</p><button class="btn '+(on?'gold ':'')+'sm lib-use" data-lib="'+esc(it.id)+'">'+btnLabel+'</button></div></div>'; });
     h+='</div></div>'; return h; }
   function bindLibrary(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-lib]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var it=LIBRARY.filter(function(x){return x.id===b.getAttribute('data-lib')})[0]; if(it) useLibItem(it); }; }); }
   function useLibItem(it){ if(!styleAllowed(it.style)){ edMsg('Template “'+it.name+'” termasuk paket '+(it.style==='luxury-gold'?'Exclusive':'Premium')+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; }
-    cfg.style=it.style; cfg.paletteId=it.paletteId||''; cfg.theme=Object.assign({},cfg.theme||{},it.theme||{}); cfg.coverKind=it.kind||'';
+    cfg.style=it.style; cfg.paletteId=it.paletteId||''; cfg.theme=Object.assign({},it.theme||{}); cfg.coverKind=it.kind||'';
     activeTab='Perpustakaan'; renderTabs(); renderForm(); syncPreviewSrc(); pushPreview();
     edMsg('Template “'+it.name+'” diterapkan. Lihat pratinjau di kanan.','ok'); }
-  function styleLibHtml(){
-    var curStyle=cfg.style||'elegant-floral', curPal=cfg.paletteId||'';
-    var h='<div class="group"><h3>Pilih Style</h3>';
-    if(!STYLE_LIB.length){ h+='<p class="sub">Belum ada style di perpustakaan. Admin menambahkannya lewat tabel <b>themes</b>.</p>'; }
-    else { h+='<div class="style-grid">';
-      STYLE_LIB.forEach(function(s){ var on=s.id===curStyle, ok=styleAllowed(s.id);
-        var badge=ok?'':'<span class="tag-lock">'+(s.id==='luxury-gold'?'Exclusive':'Premium')+'</span>';
-        h+='<div class="style-card'+(on?' on':'')+(ok?'':' lock')+'" data-style="'+esc(s.id)+'">'+badge+styleMock(s.id,s)+'<div class="cap">'+esc(s.nama)+(on?' <span class="ok">✓</span>':'')+'</div></div>'; });
-      h+='</div>'; }
-    h+='</div>';
-    var st=curStyleObj(), pals=(st&&st.palettes)||[], plim=plan().palettes;
-    h+='<div class="group"><h3>Palet Warna</h3>';
-    if(!pals.length){ h+='<p class="sub">Style ini belum punya palet. Atur warna manual di tab Tema.</p>'; }
-    else { h+='<div style="display:flex;flex-wrap:wrap;gap:10px">';
-      pals.forEach(function(p,idx){ var on=p.id===curPal, c=p.colors||{}, pl=idx>=plim;
-        h+='<div data-pal="'+esc(p.id)+'"'+(pl?' data-locked="1"':'')+' class="pal-chip'+(pl?' pal-lock':'')+'" title="'+esc(p.name||p.id)+'" style="cursor:pointer;border:2px solid '+(on?'var(--gold)':'var(--line)')+';border-radius:12px;padding:6px;text-align:center;width:90px;transition:transform .15s,box-shadow .15s"><div style="display:flex;height:30px;border-radius:7px;overflow:hidden">'+['sage','gold','blush','cream'].map(function(k){return '<span style="flex:1;background:'+esc(c[k]||'#ddd')+'"></span>'}).join('')+'</div><div style="font-size:11px;margin-top:5px;font-weight:500">'+esc(p.name||p.id)+(on?' ✓':'')+'</div></div>'; });
-      h+='</div>'; if(plim<pals.length) h+='<small class="hint">Paket '+plan().label+' membuka '+plim+' palet pertama. Upgrade untuk semua palet.</small>'; }
-    h+='</div>';
-    return h;
+  function paletteHtml(){
+    var curPal=cfg.paletteId||'', pals=tplPalettes(), plim=plan().palettes;
+    var curName=(LIBRARY.filter(function(x){return x.style===(cfg.style||'elegant-floral')})[0]||{}).name||'';
+    var h='<div class="group"><h3>Palet Warna</h3><p class="sub">Warna untuk template <b>'+esc(curName)+'</b> yang sedang dipakai. Pilih palet \u2014 font otomatis mengikuti desain template. Untuk mengganti bentuk / tata letak undangan, buka tab <b>Perpustakaan</b>.</p><div style="display:flex;flex-wrap:wrap;gap:10px">';
+    pals.forEach(function(p,idx){ var on=p.id===curPal, c=p.colors||{}, pl=idx>=plim;
+      h+='<div data-pal="'+esc(p.id)+'"'+(pl?' data-locked="1"':'')+' class="pal-chip'+(pl?' pal-lock':'')+'" title="'+esc(p.name||p.id)+'" style="cursor:pointer;border:2px solid '+(on?'var(--gold)':'var(--line)')+';border-radius:12px;padding:6px;text-align:center;width:92px;transition:transform .15s,box-shadow .15s"><div style="display:flex;height:30px;border-radius:7px;overflow:hidden">'+['sage','gold','blush','cream'].map(function(k){return '<span style="flex:1;background:'+esc(c[k]||'#ddd')+'"></span>'}).join('')+'</div><div style="font-size:11px;margin-top:5px;font-weight:500">'+esc(p.name||p.id)+(on?' \u2713':'')+'</div></div>'; });
+    h+='</div>'; if(plim<pals.length) h+='<small class="hint">Paket '+plan().label+' membuka '+plim+' palet pertama. Upgrade untuk semua palet.</small>';
+    h+='</div>'; return h;
   }
   function sectionsHtml(){ var S=cfg.sections||{}, h='<div class="group"><h3>Tampilkan / Sembunyikan Section</h3><div class="sw-list">';
     SECTION_LABELS.forEach(function(x){ var on=S[x[0]]!==false;
@@ -579,7 +588,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     SONG_LIB.forEach(function(s){ h+='<option value="'+esc(s.url)+'"'+(s.url===cur?' selected':'')+'>'+esc(s.nama)+(s.artist?(' — '+esc(s.artist)):'')+'</option>'; });
     return h+'</select></label>';
   }
-  function applyPalette(styleId,palId){ var st=STYLE_LIB.filter(function(x){return x.id===styleId})[0]; if(!st)return; var p=((st.palettes)||[]).filter(function(x){return x.id===palId})[0]; if(!p)return; cfg.paletteId=palId; cfg.theme=Object.assign({},cfg.theme||{},p.colors||{}); }
+  function applyPalette(styleId,palId){ var pals=TPL_PALETTES[styleId]||[]; var p=pals.filter(function(x){return x.id===palId})[0]; if(!p)return; cfg.paletteId=palId; cfg.theme=Object.assign({},cfg.theme||{},p.colors||{}); }
   function bindTampilan(host){
     Array.prototype.forEach.call(host.querySelectorAll('[data-style]'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-style'); if(!styleAllowed(id)){ edMsg('Style ini termasuk paket '+(id==='luxury-gold'?'Exclusive':'Premium')+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } cfg.style=id; cfg.paletteId=''; renderForm(); syncPreviewSrc(); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-pal]'),function(b){ b.onclick=function(){ if(b.getAttribute('data-locked')){ edMsg('Palet ini terkunci di paket '+plan().label+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } applyPalette(cfg.style||'elegant-floral', b.getAttribute('data-pal')); renderForm(); pushPreview(); }; });
@@ -589,15 +598,9 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   function renderForm(){ var host=el('form'), html='';
     if(activeTab==='Konten'){ CONTENT.forEach(function(g){ html+='<div class="group"><h3>'+g[0]+'</h3>'+g[1].map(fieldHtml).join('')+'</div>'; }); }
     else if(activeTab==='Tampilan'){
-      if(!libLoaded){ host.innerHTML='<p class="sub">Memuat perpustakaan tema…</p>'; loadLibraries(function(){ renderForm(); }); return; }
-      host.innerHTML=styleLibHtml()+sectionsHtml(); bindTampilan(host); return; }
+      host.innerHTML=paletteHtml()+sectionsHtml(); bindTampilan(host); return; }
     else if(activeTab==='Perpustakaan'){
-      if(!libLoaded){ host.innerHTML='<p class="sub">Memuat perpustakaan template…</p>'; loadLibraries(function(){ renderForm(); }); return; }
       host.innerHTML=libraryHtml(); bindLibrary(host); return; }
-    else if(activeTab==='Tema'){ if(!themeAllowed()){ host.innerHTML=lockCard('Kustomisasi Tema Manual','Atur warna &amp; font undangan sebebasnya untuk tampilan yang benar-benar personal. Tersedia di paket <b>Premium</b> &amp; <b>Exclusive</b>. Di paket Basic, gunakan palet siap pakai di tab <b>Tampilan</b>.'); bindLock(host); return; }
-      html+='<div class="group"><h3>Warna</h3>'+THEME.map(fieldHtml).join('')+'</div>';
-      html+='<div class="group"><h3>Font</h3>'+fontSel('theme.serif','Font judul')+fontSel('theme.sans','Font teks')+'</div>';
-      html+='<p class="sub">Perubahan warna & font langsung terlihat di preview kanan. Tips: pilih palet siap pakai di tab <b>Tampilan</b>.</p>'; }
     else if(activeTab==='Media'){ var glim=galleryLimit(); html+='<div class="group"><h3>Foto Galeri ('+glim+')</h3>';
       for(var i=0;i<glim;i++) html+=mediaField('gallery.'+i,'Foto '+(i+1));
       if(glim<12) html+='<small class="hint">Paket '+plan().label+' mendukung '+glim+' foto. Upgrade untuk sampai 12 foto.</small>';
