@@ -163,7 +163,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
 @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:820px){.lx-hero{grid-template-columns:1fr;text-align:center}.lx-hero-copy .lx-sub{margin:0 auto}.lx-cta,.lx-trust{justify-content:center}.lx-features{grid-template-columns:1fr 1fr}.lx-steps{grid-template-columns:1fr}#app{grid-template-columns:1fr}.preview{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-/* ===== LUX OVERRIDE v2 ��� style mockups, switches, plans, footer ===== */
+/* ===== LUX OVERRIDE v2 ���� style mockups, switches, plans, footer ===== */
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .style-card{position:relative;border:2px solid var(--line,#e7e0d3);border-radius:14px;padding:8px;cursor:pointer;background:#fff;transition:transform .18s,box-shadow .18s,border-color .18s;overflow:hidden;animation:fadeUp .45s both}
 .style-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(168,132,47,.16)}
@@ -546,7 +546,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     h+='</div></div>'; return h; }
   function bindLibrary(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-lib]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var it=LIBRARY.filter(function(x){return x.id===b.getAttribute('data-lib')})[0]; if(it) useLibItem(it); }; }); }
   function useLibItem(it){ if(!styleAllowed(it.style)){ edMsg('Template “'+it.name+'” termasuk paket '+(it.style==='luxury-gold'?'Exclusive':'Premium')+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; }
-    cfg.style=it.style; cfg.paletteId=it.paletteId||''; cfg.theme=Object.assign({},cfg.theme||{},it.theme||{});
+    cfg.style=it.style; cfg.paletteId=it.paletteId||''; cfg.theme=Object.assign({},cfg.theme||{},it.theme||{}); cfg.coverKind=it.kind||'';
     activeTab='Perpustakaan'; renderTabs(); renderForm(); syncPreviewSrc(); pushPreview();
     edMsg('Template “'+it.name+'” diterapkan. Lihat pratinjau di kanan.','ok'); }
   function styleLibHtml(){

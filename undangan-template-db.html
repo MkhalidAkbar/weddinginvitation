@@ -94,6 +94,16 @@ section{position:relative;padding:90px 22px;overflow:hidden}
 .hero-card .date-pill{margin-top:26px;display:inline-block;padding:12px 26px;border:1px solid var(--gold);border-radius:40px;
   letter-spacing:.14em;font-size:14px;color:var(--ink);background:rgba(255,255,255,.5)}
 
+/* ===== COVER SHAPE (bentuk kartu cover per-template) ===== */
+#cover .hero-card{transition:border-radius .5s ease,border-color .5s ease,background .5s ease,box-shadow .5s ease}
+#cover[class*="cover-"] .hero-card{padding:52px 44px;background:rgba(255,255,255,.30);box-shadow:0 22px 60px rgba(0,0,0,.12);max-width:min(86vw,560px)}
+#cover.cover-minimal .hero-card{background:transparent;box-shadow:none;padding:26px 18px;border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);border-radius:0}
+#cover.cover-arch .hero-card{border:2px solid var(--gold);border-radius:190px 190px 16px 16px}
+#cover.cover-frame .hero-card{border:2px solid var(--gold);outline:1px solid var(--gold);outline-offset:8px;border-radius:4px}
+#cover.cover-stamp .hero-card{border:3px dashed var(--gold);border-radius:6px}
+#cover.cover-wave .hero-card{border:2px solid var(--gold);border-radius:50% 50% 16px 16px/26% 26% 5% 5%}
+#cover.cover-botanical .hero-card{border:1px solid var(--gold-soft);border-radius:130px;box-shadow:inset 0 0 0 6px rgba(255,255,255,.28),0 22px 60px rgba(0,0,0,.1)}
+
 /* ===== reveal ===== */
 .reveal{opacity:0;transform:translateY(38px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:none}
@@ -580,6 +590,8 @@ window.__applyWeddingConfig = function(c){
     if(T.blush) _rs.setProperty('--petal-1', T.blush);
     if(T.gold||T.blush) _rs.setProperty('--petal-2', T.gold||T.blush);
     var _tint=_hx2rgba(T.cream||T.ivory,.5); if(_tint) _rs.setProperty('--cover-tint', _tint); }
+  /* COVER KIND: bentuk kartu cover mengikuti template terpilih */
+  if(c.coverKind!==undefined){ var _cv=d.getElementById('cover'); if(_cv){ ['minimal','arch','frame','stamp','wave','botanical'].forEach(function(k){_cv.classList.remove('cover-'+k);}); if(c.coverKind) _cv.classList.add('cover-'+c.coverKind); } }
   /* SECTIONS (Fase 3A): tampil/sembunyi section pilihan */
   if(c.sections){ var S=c.sections; ['quote','countdown','story','events','gallery','gift','info','wishes'].forEach(function(id){ var el=d.getElementById(id); if(!el) return; if(S[id]===false) el.style.display='none'; else el.style.display=''; }); }
 };
