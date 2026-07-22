@@ -282,6 +282,10 @@ body.deco-flora section:nth-of-type(3n)::after{background-size:180px auto,250px 
 body.deco-flora section:nth-of-type(5n)::before{opacity:.8;background-size:210px auto,150px auto}
 body.deco-flora #gallery::before,body.deco-flora #events::before,body.deco-flora #gallery::after,body.deco-flora #events::after{opacity:.5;background-size:150px auto,150px auto}
 body.deco-flora #cover::after{content:'';position:absolute;z-index:1;pointer-events:none;background:var(--fl-sprig) no-repeat center/contain;left:50%;bottom:12px;transform:translateX(-50%);width:300px;height:92px;opacity:.75}
+/* === seamless watercolor medley background === */
+body.deco-flora{background-color:#FBF8F3;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27360%27%20height%3D%27360%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27matrix%27%20values%3D%270%200%200%200%200.34%20%200%200%200%200%200.25%20%200%200%200%200%200.15%20%200%200%200%200.05%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27360%27%20height%3D%27360%27%20filter%3D%27url%28%23g%29%27%2F%3E%3C%2Fsvg%3E"),radial-gradient(42% 26% at 16% 6%,rgba(231,198,194,.45),transparent 70%),radial-gradient(38% 22% at 84% 14%,rgba(231,214,168,.42),transparent 70%),radial-gradient(46% 26% at 78% 30%,rgba(184,155,118,.20),transparent 72%),radial-gradient(40% 24% at 22% 40%,rgba(138,154,130,.22),transparent 72%),radial-gradient(44% 26% at 80% 52%,rgba(231,198,194,.38),transparent 72%),radial-gradient(40% 24% at 18% 62%,rgba(231,214,168,.40),transparent 72%),radial-gradient(46% 28% at 74% 74%,rgba(184,155,118,.18),transparent 72%),radial-gradient(42% 24% at 24% 86%,rgba(138,154,130,.20),transparent 72%),linear-gradient(180deg,#FBF8F3 0%,#F4ECE0 10%,#EFE3D2 20%,#F1E7DA 30%,#F5EDE2 42%,#EFE1D0 54%,#F3E9DC 66%,#EEE0CE 78%,#F4ECE0 88%,#FBF8F3 100%);background-repeat:repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;background-size:360px 360px,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%;background-attachment:scroll}
+body.deco-flora section:not(#cover){background-color:transparent!important;background-image:none!important}
+body.deco-flora #quote,body.deco-flora #rsvp,body.deco-flora #thanks{background:radial-gradient(135% 120% at 50% 50%,#5F6E58 42%,rgba(95,110,88,.88) 68%,rgba(95,110,88,0) 100%)!important}
 body:not(.orn-corners) .orn-frame{display:none}
 body:not(.orn-border)::before{content:none}
 </style>
@@ -735,6 +739,8 @@ window.__applyDeco=function(c){
   window.__buildFalling((c.effects&&c.effects.falling)||'');
 };
 window.__applyDeco(window.WEDDING_CONFIG||{});
+/* FIX nempel: config Supabase dimuat async; panggil ulang setelah __configReady selesai supaya aksesoris/bingkai ikut tampil di undangan asli (deploy), bukan cuma di preview panel */
+try{ Promise.resolve(window.__configReady).then(function(){ try{ window.__applyDeco(window.WEDDING_CONFIG||{}); }catch(e){} }); }catch(e){}
 window.addEventListener('message',function(ev){
   if(ev&&ev.data&&ev.data.type==='WEDDING_PREVIEW'&&ev.data.config){ try{ window.__applyDeco(ev.data.config); }catch(e){} }
 });
