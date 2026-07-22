@@ -163,7 +163,7 @@ header.top b{font-family:'Playfair Display',serif;font-weight:700;letter-spacing
 @keyframes pop{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:820px){.lx-hero{grid-template-columns:1fr;text-align:center}.lx-hero-copy .lx-sub{margin:0 auto}.lx-cta,.lx-trust{justify-content:center}.lx-features{grid-template-columns:1fr 1fr}.lx-steps{grid-template-columns:1fr}#app{grid-template-columns:1fr}.preview{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-/* ===== LUX OVERRIDE v2 ����� style mockups, switches, plans, footer ===== */
+/* ===== LUX OVERRIDE v2 ������� style mockups, switches, plans, footer ===== */
 .style-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .style-card{position:relative;border:2px solid var(--line,#e7e0d3);border-radius:14px;padding:8px;cursor:pointer;background:#fff;transition:transform .18s,box-shadow .18s,border-color .18s;overflow:hidden;animation:fadeUp .45s both}
 .style-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(168,132,47,.16)}
@@ -430,7 +430,7 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     el('edStatus').className='badge '+cur.status; el('edStatus').textContent=cur.status;
     el('pubBtn').textContent=pub?'Jadikan Draft':'Publikasikan'; el('pubBtn').className='btn '+(pub?'ghost':'gold'); }
 
-  function pushPreview(){ try{ var _pc=clone(cfg); _pc.noWatermark=!!plan().noWatermark; el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:_pc},'*'); }catch(e){}
+  function pushPreview(){ try{ var _pc=clone(cfg); _pc.noWatermark=!!plan().noWatermark; if(_pc.effects && !plan().fallingFx){ _pc.effects=Object.assign({},_pc.effects,{falling:''}); } el('preview').contentWindow.postMessage({type:'WEDDING_PREVIEW',config:_pc},'*'); }catch(e){}
     window.__lastPreviewSent=clone(cfg); }
 
   var TABS=['Konten','Tampilan','Perpustakaan','Media','Paket','Tamu'];
@@ -502,11 +502,11 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
   function curStyleObj(){ var id=cfg.style||'elegant-floral'; return STYLE_LIB.filter(function(x){return x.id===id})[0]; }
   /* ===== PAKET: definisi & gating fitur (Basic / Premium / Exclusive) ===== */
   var PLANS={
-    basic:{label:'Basic',price:99000,months:6,gallery:6,guests:false,upload:false,noWatermark:false,domain:false,
+    basic:{label:'Basic',price:99000,months:6,gallery:6,guests:false,upload:false,noWatermark:false,domain:false,fallingFx:false,
       features:['Semua template &amp; palet warna','Galeri sampai 6 foto','Musik dari perpustakaan lagu','RSVP + Ucapan &amp; Doa','Undangan aktif 6 bulan']},
-    premium:{label:'Premium',price:199000,months:12,gallery:12,guests:true,upload:true,noWatermark:false,domain:false,
+    premium:{label:'Premium',price:199000,months:12,gallery:12,guests:true,upload:true,noWatermark:false,domain:false,fallingFx:true,
       features:['Semua template &amp; palet warna','Galeri sampai 12 foto','Upload lagu sendiri','Manajer Tamu + link personal tiap tamu','RSVP + Ucapan &amp; Doa','Undangan aktif 12 bulan']},
-    exclusive:{label:'Exclusive',price:349000,months:24,gallery:30,guests:true,upload:true,noWatermark:true,domain:true,
+    exclusive:{label:'Exclusive',price:349000,months:24,gallery:30,guests:true,upload:true,noWatermark:true,domain:true,fallingFx:true,
       features:['Semua template &amp; palet warna','Galeri foto tanpa batas','Upload lagu sendiri','Manajer Tamu + link personal tiap tamu','Tanpa label "Dibuat oleh"','Custom domain + analitik kunjungan','Undangan aktif 24 bulan','Dukungan prioritas']}
   };
   function currentPlan(){ return selPkg||(cur&&cur.package)||'basic'; }
@@ -669,6 +669,16 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
       h+='<label class="sw-row"><span class="ic">'+(SEC_ICON[x[0]]||'•')+'</span><span class="lbl">'+x[1]+'</span><input type="checkbox" class="sw" data-sec="'+x[0]+'"'+(on?' checked':'')+'></label>'; });
     h+='</div><small class="hint">Section inti (pembuka, mempelai, acara, RSVP, penutup) selalu tampil.</small></div>'; return h;
   }
+  function ornamentsHtml(){ var O=cfg.ornaments||{}, items=[['corners','Hiasan Sudut'],['border','Bingkai Tepi'],['floral','Semprotan Bunga'],['divider','Pembatas Ornamen']];
+    var h='<div class="group"><h3>Aksesoris &amp; Bingkai</h3><p class="sub">Undangan meriah penuh hiasan. Nyalakan / matikan tiap komponen sesuai selera.</p><div class="sw-list">';
+    items.forEach(function(x){ var on=O[x[0]]!==false; h+='<label class="sw-row"><span class="ic">🎀</span><span class="lbl">'+x[1]+'</span><input type="checkbox" class="sw" data-orn="'+x[0]+'"'+(on?' checked':'')+'></label>'; });
+    h+='</div></div>'; return h;
+  }
+  function effectsHtml(){ var cur=getP(cfg,'effects.falling')||'', allowed=!!plan().fallingFx;
+    var opts=[['','Tidak ada'],['petals','Kelopak Bunga'],['sakura','Sakura'],['snow','Salju'],['leaves','Daun Gugur'],['hearts','Hati'],['sparkle','Kilau']];
+    var h='<div class="group"><h3>Efek Turun (Animasi)'+(allowed?'':' 🔒 Premium')+'</h3><p class="sub">'+(allowed?'Pilih animasi lembut yang berjatuhan di layar undangan (salju, kelopak, sakura, dll).':'Efek animasi turun tersedia di paket <b>Premium</b> &amp; <b>Exclusive</b>. Buka tab Paket untuk upgrade.')+'</p><div style="display:flex;flex-wrap:wrap;gap:10px">';
+    opts.forEach(function(o){ var on=(cur===o[0]); h+='<div data-fx="'+esc(o[0])+'"'+(allowed?'':' data-fxlock="1"')+' class="gl-chip" style="cursor:pointer;color:var(--ink);border:2px solid '+(on&&allowed?'var(--gold)':'var(--line)')+';border-radius:12px;padding:10px 12px;text-align:center;font-size:12px;font-weight:500'+(allowed?'':';opacity:.6')+'">'+(allowed?'':'🔒 ')+esc(o[1])+(on&&allowed?' ✓':'')+'</div>'; });
+    return h+'</div></div>'; }
   function songLibHtml(){ if(!SONG_LIB.length) return '<p class="sub" style="margin:0 0 8px">Perpustakaan lagu masih kosong (admin menambah via tabel <b>songs</b>). Anda tetap bisa upload lagu sendiri di bawah.</p>';
     var cur=getP(cfg,'music.src')||'', h='<label class="fld"><span>Pilih dari perpustakaan lagu</span><select data-song><option value="">— pilih lagu —</option>';
     SONG_LIB.forEach(function(s){ h+='<option value="'+esc(s.url)+'"'+(s.url===cur?' selected':'')+'>'+esc(s.nama)+(s.artist?(' — '+esc(s.artist)):'')+'</option>'; });
@@ -680,12 +690,14 @@ input.sw:focus-visible{box-shadow:0 0 0 3px rgba(201,162,75,.35)}
     Array.prototype.forEach.call(host.querySelectorAll('[data-pal]'),function(b){ b.onclick=function(){ if(b.getAttribute('data-locked')){ edMsg('Palet ini terkunci di paket '+plan().label+'. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } applyPalette(cfg.style||'elegant-floral', b.getAttribute('data-pal')); renderForm(); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-sec]'),function(cb){ cb.onchange=function(){ setP(cfg,'sections.'+cb.getAttribute('data-sec'),cb.checked); pushPreview(); }; });
     Array.prototype.forEach.call(host.querySelectorAll('[data-glayout]'),function(b){ b.onclick=function(){ cfg.galleryLayout=b.getAttribute('data-glayout'); renderForm(); pushPreview(); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-orn]'),function(cb){ cb.onchange=function(){ setP(cfg,'ornaments.'+cb.getAttribute('data-orn'),cb.checked); pushPreview(); }; });
+    Array.prototype.forEach.call(host.querySelectorAll('[data-fx]'),function(b){ b.onclick=function(){ if(b.getAttribute('data-fxlock')){ edMsg('Efek turun animasi tersedia di paket Premium & Exclusive. Buka tab Paket untuk upgrade.','err'); setTab('Paket'); return; } setP(cfg,'effects.falling',b.getAttribute('data-fx')); renderForm(); pushPreview(); }; });
   }
 
   function renderForm(){ var host=el('form'), html='';
     if(activeTab==='Konten'){ CONTENT.forEach(function(g){ var pre=(g[0]==='Kutipan'?quotePresetHtml():(g[0]==='Penutup'?closingPresetHtml():'')); html+='<div class="group"><h3>'+g[0]+'</h3>'+pre+g[1].map(fieldHtml).join('')+'</div>'; }); }
     else if(activeTab==='Tampilan'){
-      host.innerHTML=paletteHtml()+galleryLayoutHtml()+sectionsHtml(); bindTampilan(host); return; }
+      host.innerHTML=paletteHtml()+galleryLayoutHtml()+ornamentsHtml()+effectsHtml()+sectionsHtml(); bindTampilan(host); return; }
     else if(activeTab==='Perpustakaan'){
       host.innerHTML=libraryHtml(); bindLibrary(host); return; }
     else if(activeTab==='Media'){ var glim=galleryLimit(), glimLbl=(glim>=30?'tanpa batas':glim); html+='<div class="group"><h3>Foto Galeri ('+glimLbl+')</h3>';

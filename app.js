@@ -121,12 +121,45 @@ function fetchWishes(){
   if(p) document.getElementById('guestName').textContent=decodeURIComponent(p);
 })();
 
-/* ====== Petals ====== */
+/* ====== Ornaments (aksesoris) & Falling Effects (efek turun) ====== */
+window.__buildFalling=function(type){
+  var host=document.getElementById('petals'); if(!host) return;
+  host.innerHTML='';
+  var map={petals:18,sakura:20,snow:28,leaves:16,hearts:16,sparkle:30};
+  var n=map[type]; if(!n) return;
+  var cls={petals:'fp-petal',sakura:'fp-sakura',snow:'fp-snow',leaves:'fp-leaf',hearts:'fp-heart',sparkle:'fp-spark'}[type];
+  for(var i=0;i<n;i++){
+    var el=document.createElement('div'); el.className='fall '+cls;
+    var s=(type==='snow'||type==='sparkle')?(4+Math.random()*8):(10+Math.random()*16);
+    el.style.left=(Math.random()*100)+'vw';
+    el.style.width=el.style.height=s+'px';
+    el.style.animationDuration=(7+Math.random()*8)+'s';
+    el.style.animationDelay=(-Math.random()*12)+'s';
+    el.style.opacity=(.4+Math.random()*.5);
+    host.appendChild(el);
+  }
+};
+window.__applyDeco=function(c){
+  c=c||{};
+  if(!document.querySelector('.orn-frame')) return;
+  var O=c.ornaments||{}, b=document.body;
+  b.classList.toggle('orn-corners', O.corners!==false);
+  b.classList.toggle('orn-border', O.border!==false);
+  b.classList.toggle('orn-floral', O.floral!==false);
+  b.classList.toggle('orn-divider', O.divider!==false);
+  window.__buildFalling((c.effects&&c.effects.falling)||'');
+};
+window.__applyDeco(window.WEDDING_CONFIG||{});
+window.addEventListener('message',function(ev){
+  if(ev&&ev.data&&ev.data.type==='WEDDING_PREVIEW'&&ev.data.config){ try{ window.__applyDeco(ev.data.config); }catch(e){} }
+});
+/* Backward-compat: template tanpa ornamen tetap pakai petals klasik */
 (function(){
-  const c=document.getElementById('petals');
-  for(let i=0;i<16;i++){
-    const el=document.createElement('div');el.className='petal';
-    const s=8+Math.random()*14;
+  if(document.querySelector('.orn-frame')) return;
+  var c=document.getElementById('petals'); if(!c) return;
+  for(var i=0;i<16;i++){
+    var el=document.createElement('div');el.className='petal';
+    var s=8+Math.random()*14;
     el.style.left=Math.random()*100+'vw';
     el.style.width=el.style.height=s+'px';
     el.style.animationDuration=(7+Math.random()*8)+'s';
