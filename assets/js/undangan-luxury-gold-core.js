@@ -5,8 +5,10 @@ window.__applyWeddingConfig = function(c){
   if(!c || !Object.keys(c).length) return;
   var d = document;
   function t(sel,val){var e=d.querySelector(sel); if(e&&val!=null) e.textContent=val;}
+  function eh(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');}
+  function safeUrl(v,media){try{var u=new URL(String(v||''),location.href),ok=u.protocol==='https:'||u.protocol==='http:'||u.protocol==='blob:'||(media&&u.protocol==='data:'&&/^data:image\//i.test(String(v)));return ok?u.href:''}catch(e){return''}}
   function h(sel,val){var e=d.querySelector(sel); if(e&&val!=null) e.innerHTML=val;}
-  function attr(sel,a,val){var e=d.querySelector(sel); if(e&&val) e.setAttribute(a,val);}
+  function attr(sel,a,val){var e=d.querySelector(sel),v=(a==='src'||a==='href')?safeUrl(val,true):val; if(e&&v) e.setAttribute(a,v);}
   // meta
   if(c.meta){ if(c.meta.title) d.title=c.meta.title; if(c.meta.favicon) attr('link[rel=icon]','href',c.meta.favicon);
     /* SEO (Fase 4): meta description, Open Graph, Twitter card, JSON-LD Event */
@@ -24,11 +26,11 @@ window.__applyWeddingConfig = function(c){
   // cover
   if(c.cover){ t('#cover .the-wedding',c.cover.eyebrow); t('#cover .kepada',c.cover.kepada);
     if(c.cover.guestDefault) t('#guestName',c.cover.guestDefault);
-    var ob=d.getElementById('openBtn'); if(ob&&c.cover.openButton) ob.innerHTML='<span class="ico">\u2709</span> '+c.cover.openButton; }
+    var ob=d.getElementById('openBtn'); if(ob&&c.cover.openButton) ob.textContent='\u2709 '+String(c.cover.openButton).slice(0,80); }
   var bs=(c.couple&&c.couple.brideShort)||'', gs=(c.couple&&c.couple.groomShort)||'';
-  if(bs&&gs){ h('#cover .names', bs+' <span class="amp">&amp;</span> '+gs);
-              h('#hero .names', bs+'<span class="amp">&amp;</span>'+gs);
-              h('#thanks .names', bs+' <span class="amp">&amp;</span> '+gs); }
+  if(bs&&gs){ h('#cover .names', eh(bs)+' <span class="amp">&amp;</span> '+eh(gs));
+              h('#hero .names', eh(bs)+'<span class="amp">&amp;</span>'+eh(gs));
+              h('#thanks .names', eh(bs)+' <span class="amp">&amp;</span> '+eh(gs)); }
   if(c.hero) t('#hero .bism', c.hero.bismillah);
   if(c.event) t('#hero .date-pill', c.event.dateText);
   if(c.quote){ t('#quote .ayat',c.quote.text); t('#quote .src',c.quote.source); }
@@ -40,7 +42,7 @@ window.__applyWeddingConfig = function(c){
       var ini=el.querySelector('.initial'); if(ini&&p.initial) ini.textContent=p.initial;
       var nm=el.querySelector('h3'); if(nm&&p.full) nm.textContent=p.full;
       var rl=el.querySelector('.role'); if(rl&&p.role) rl.textContent=p.role;
-      var pr=el.querySelector('.parents'); if(pr){ if(p.father||p.mother){ var _st=p.status?('<span class="ps">'+p.status+'</span><br>'):''; pr.innerHTML=_st+'<b>'+(p.father||'')+'</b> &amp; <b>'+(p.mother||'')+'</b>'; } else if(p.parents){ pr.innerHTML=p.parents; } }
+      var pr=el.querySelector('.parents'); if(pr){ if(p.father||p.mother){ pr.textContent=(p.status?p.status+' · ':'')+(p.father||'')+' & '+(p.mother||''); } else if(p.parents){ pr.textContent=p.parents; } }
       var so=el.querySelector('.social'); if(so&&p.social) so.textContent=p.social;
     });
   }
@@ -53,8 +55,8 @@ window.__applyWeddingConfig = function(c){
     var b=el.querySelector('.badge'); if(b&&e.badge)b.textContent=e.badge;
     var hh=el.querySelector('h3'); if(hh&&e.title)hh.textContent=e.title;
     var big=el.querySelector('.big'); if(big&&e.dateBig)big.textContent=e.dateBig;
-    var rows=el.querySelectorAll('.row'); if(rows[0]&&e.time)rows[0].innerHTML='\uD83D\uDD50 '+e.time; if(rows[1]&&e.location)rows[1].innerHTML='\uD83D\uDCCD '+e.location;
-    var mb=el.querySelector('.map-btn');if(mb){if(e.mapButtonEnabled===false||!e.mapUrl){mb.style.display='none';mb.removeAttribute('href')}else{mb.style.display='inline-block';mb.href=e.mapUrl}}}); }
+    var rows=el.querySelectorAll('.row'); if(rows[0]&&e.time)rows[0].textContent='\uD83D\uDD50 '+e.time; if(rows[1]&&e.location)rows[1].textContent='\uD83D\uDCCD '+e.location;
+    var mb=el.querySelector('.map-btn');if(mb){if(e.mapButtonEnabled===false||!e.mapUrl){mb.style.display='none';mb.removeAttribute('href')}else{mb.style.display='inline-block';var _map=safeUrl(e.mapUrl,false);if(_map)mb.href=_map;else{mb.style.display='none';mb.removeAttribute('href')}}}}); }
   // gallery — layout adapts to the actual number of uploaded photos
   var _gg=d.querySelector('#gallery .gal-grid');
   if(_gg){
@@ -79,10 +81,10 @@ window.__applyWeddingConfig = function(c){
       '#gallery .gal-grid.gl-masonry.gc-1{column-count:1!important}#gallery .gal-grid.gl-masonry:not(.gc-1){column-count:2!important}#gallery .gal-grid.gl-film.gc-2 .cell,#gallery .gal-grid.gl-film.gc-3 .cell{flex:0 0 78%!important}#gallery .gal-grid.gl-polaroid.gc-2 .cell,#gallery .gal-grid.gl-polaroid.gc-3 .cell{width:min(43%,170px)!important}' +
       '#gallery .gal-grid.gl-mosaic.gc-3,#gallery .gal-grid.gl-collage.gc-3{grid-auto-rows:105px!important}}';d.head.appendChild(_ags);}
     if(c.galleryLayout!==undefined){ ['grid','mosaic','masonry','film','collage','polaroid'].forEach(function(k){_gg.classList.remove('gl-'+k);}); if(c.galleryLayout) _gg.classList.add('gl-'+c.galleryLayout); }
-    var _ph=(c.gallery||[]).filter(function(x){return x&&String(x).trim();}),_cnt=_ph.length;
+    var _ph=(c.gallery||[]).map(function(x){return safeUrl(x,true)}).filter(Boolean),_cnt=_ph.length;
     ['gc-0','gc-1','gc-2','gc-3','gc-4','gc-5','gc-6','gc-many','gc-odd','gc-even'].forEach(function(k){_gg.classList.remove(k);});
     _gg.classList.add(_cnt<=6?'gc-'+_cnt:'gc-many');_gg.classList.add(_cnt%2?'gc-odd':'gc-even');_gg.setAttribute('data-count',_cnt);
-    var _gnm=((c.couple&&c.couple.brideShort)||'')+' & '+((c.couple&&c.couple.groomShort)||''),_gh='';_ph.forEach(function(src,i){_gh+='<div class="cell"><img src="'+src+'" loading="lazy" decoding="async" alt="Galeri '+_gnm+' '+(i+1)+'"></div>';});_gg.innerHTML=_gh;var _gsec=d.getElementById('gallery');if(_gsec)_gsec.style.display=_cnt?'':'none';
+    var _gnm=((c.couple&&c.couple.brideShort)||'')+' & '+((c.couple&&c.couple.groomShort)||''),_gh='';_ph.forEach(function(src,i){_gh+='<div class="cell"><img src="'+eh(src)+'" loading="lazy" decoding="async" alt="Galeri '+eh(_gnm)+' '+(i+1)+'"></div>';});_gg.innerHTML=_gh;var _gsec=d.getElementById('gallery');if(_gsec)_gsec.style.display=_cnt?'':'none';
   }
   // gift / rekening
   if(c.banks){ var gc=d.querySelectorAll('#gift .gift-card'); c.banks.forEach(function(bk,i){var el=gc[i]; if(!el)return;
@@ -95,7 +97,7 @@ window.__applyWeddingConfig = function(c){
     var hh=el.querySelector('h4'); if(hh&&ff.title)hh.textContent=ff.title;
     var pp=el.querySelector('p'); if(pp&&ff.text)pp.textContent=ff.text;}); }
   // thanks
-  if(c.thanks){ t('#thanks .eyebrow',c.thanks.eyebrow); t('#thanks .fam',c.thanks.closing); h('#thanks .credit',c.thanks.credit);
+  if(c.thanks){ t('#thanks .eyebrow',c.thanks.eyebrow); t('#thanks .fam',c.thanks.closing); t('#thanks .credit',c.thanks.credit);
     var tp=d.querySelector('#thanks p:not(.eyebrow):not(.fam):not(.credit)'); if(tp&&c.thanks.message) tp.textContent=c.thanks.message; }
   /* THEME (Fase 2): warna & font dari config.theme */
   if(c.theme){ var _rs=d.documentElement.style, T=c.theme, M={sage:'--sage',sageDark:'--sage-dark',gold:'--gold',goldSoft:'--gold-soft',blush:'--blush',ivory:'--ivory',cream:'--cream',ink:'--ink',inkSoft:'--ink-soft',serif:'--serif',script:'--script',sans:'--sans'};
