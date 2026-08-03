@@ -533,7 +533,11 @@ html.simple-editor #form .content-collapsed>*:not(.p5-head):not(.p5-group-head):
 
 
 @media(max-width:767px){
+ body.preview-modal-open{overflow:hidden!important}
+ #previewModal{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
  #previewModal .pv-box{height:calc(100dvh - 20px)!important;max-height:calc(100dvh - 20px)!important}
+ #previewModal .pv-phone{contain:layout paint!important;overflow:hidden!important;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+ #previewModal .pv-phone iframe{display:block!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;backface-visibility:hidden;-webkit-backface-visibility:hidden}
  #previewModal .pv-head{flex:0 0 auto!important}
  #previewModal .pv-stage{flex:1 1 auto!important;min-height:0!important;overflow:hidden!important;padding:10px 12px!important;align-items:stretch!important}
  #previewModal .pv-phone{width:min(390px,100%)!important;height:100%!important;max-height:none!important;padding:8px!important;border-radius:36px!important}
