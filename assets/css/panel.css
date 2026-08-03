@@ -571,3 +571,6 @@ html.simple-editor #form .content-collapsed>*:not(.p5-head):not(.p5-group-head):
 
 @media(max-width:767px){html.simple-editor #p5SaveState,html.simple-editor .foot-bar.fab-dock-open #p5SaveState{display:none!important;opacity:0!important;visibility:hidden!important}}
 
+
+/* Legal links — Midtrans readiness */
+.lx-foot{display:flex;flex-direction:column;align-items:center;gap:10px}.lx-foot nav{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}.lx-foot a,.auth-fine a,.p6-confirm a{color:var(--sage-d);font-weight:700;text-decoration:underline;text-underline-offset:3px}.lx-foot a:hover,.auth-fine a:hover,.p6-confirm a:hover{color:var(--gold)}.auth-fine{line-height:1.65}.p6-confirm span{min-width:0}.p6-confirm a{position:relative;z-index:1}@media(max-width:520px){.lx-foot nav{gap:9px 13px}.lx-foot{font-size:11px}.auth-fine{font-size:11px}}
