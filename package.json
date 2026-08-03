@@ -1,0 +1,15 @@
+{
+  "name": "undangan-studio",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Wedding invitation SaaS — security and payment quality gates",
+  "scripts": {
+    "check": "node scripts/predeploy-check.js",
+    "test": "node scripts/predeploy-check.js && node tests/payment-phase4.test.js",
+    "test:payment": "node tests/payment-phase4.test.js",
+    "test:sandbox": "node scripts/sandbox-smoke-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

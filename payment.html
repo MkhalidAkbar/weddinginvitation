@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#f8f5ef"/>
+<title>Pembayaran — Undangan Studio</title>
+<link rel="stylesheet" href="assets/css/payment.css"/>
+<script src="db-config.js"></script>
+</head>
+<body>
+<header class="pay-nav"><a class="brand" href="panel.html">✦ Undangan Studio</a><div class="pay-nav-right"><span id="accountEmail">Memeriksa akun…</span><a href="panel.html">Kembali ke editor</a></div></header>
+<main class="pay-shell">
+<section class="pay-hero">
+<div><span class="eyebrow">CHECKOUT AMAN</span><h1>Selesaikan pembayaran undanganmu</h1><p>Pilih paket, periksa ringkasan, lalu lanjutkan ke kanal pembayaran resmi.</p></div>
+<ol class="steps" aria-label="Tahapan pembayaran"><li class="done"><b>1</b><span>Undangan</span></li><li class="done"><b>2</b><span>Login</span></li><li class="active"><b>3</b><span>Pembayaran</span></li><li><b>4</b><span>Aktif</span></li></ol>
+</section>
+<div class="pay-alert" id="payAlert" role="status" aria-live="polite">Memuat data pembayaran…</div>
+<section class="active-plan" id="activePlan" hidden><div><span class="active-icon">✓</span><div><small>PAKET AKTIF</small><h2 id="activeTitle">Paket aktif</h2><p id="activeMeta"></p></div></div><a class="button ghost" href="panel.html">Buka dashboard</a></section>
+<div class="pay-layout">
+<div class="pay-main">
+<section class="card"><div class="section-head"><div><span class="step-label">01</span><h2>Pilih paket</h2></div><p>Harga resmi dari sistem</p></div><div class="plan-grid" id="planGrid" aria-live="polite"></div></section>
+<section class="card"><div class="section-head"><div><span class="step-label">02</span><h2>Riwayat transaksi</h2></div><button class="text-button" id="refreshBtn" type="button">↻ Perbarui</button></div><div class="order-list" id="orderList"><div class="empty-state">Belum ada transaksi.</div></div></section>
+</div>
+<aside class="pay-side">
+<section class="card summary-card"><span class="step-label">RINGKASAN</span><h2 id="siteName">Undangan digital</h2><p class="site-slug" id="siteSlug">—</p><div class="summary-lines"><div><span>Paket</span><b id="sumPlan">—</b></div><div><span>Masa aktif</span><b id="sumDuration">—</b></div><div><span>Subtotal</span><b id="sumAmount">—</b></div><div class="total"><span>Total pembayaran</span><strong id="sumTotal">—</strong></div></div><label class="legal-check"><input id="legalAgree" type="checkbox"/><span>Saya menyetujui <a href="terms.html" target="_blank" rel="noopener">Syarat &amp; Ketentuan</a> dan <a href="privacy.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.</span></label><button class="button primary wide" id="payBtn" type="button" disabled>Lanjut bayar</button><p class="pay-message" id="payMessage" aria-live="polite"></p><div class="secure-note"><span>🔒</span><p><b>Pembayaran aman</b><br/>Transaksi diproses oleh Midtrans/Xendit. Undangan Studio tidak menyimpan nomor kartu, PIN, CVV, atau OTP.</p></div></section>
+<section class="support-card"><span>Butuh bantuan?</span><a href="mailto:benchscoretech@gmail.com">benchscoretech@gmail.com</a></section>
+</aside>
+</div>
+</main>
+<footer class="pay-footer"><span>© 2026 Undangan Studio</span><nav><a href="terms.html">Ketentuan</a><a href="privacy.html">Privasi</a></nav></footer>
+<script src="assets/js/payment-core.js"></script>
+</body>
+</html>

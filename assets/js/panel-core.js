@@ -754,18 +754,13 @@
   el('loginBtn').onclick=function(){login(false)};
   el('signupBtn').onclick=function(){login(true)};
   el('logoutBtn').onclick=function(){ token=null;userId=null;userEmail=''; try{clearSession();}catch(e){} el('app').style.display='none'; el('auth').style.display='none'; try{updateNavLogin();}catch(e){} showLanding(); authMsg('',''); };
-  /* ===== FASE 3B: checkout pembayaran otomatis (Midtrans/Xendit via Netlify function) ===== */
-  var PRICING={basic:99000,premium:199000,exclusive:349000};
-  function checkout(){
-    if(!cur){ return; }
-    var pkg=currentPlan(), amount=PRICING[pkg]||99000;
-    edMsg('Membuat pembayaran…','ok');
-    return fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},
-      body:JSON.stringify({site_id:cur.id,package:pkg,customer:{name:userEmail,email:userEmail}})})
-     .then(function(r){return r.json()})
-     .then(function(j){ if(j&&j.payment_url){ window.__lastPaymentUrl=j.payment_url; edMsg('Mengarahkan ke halaman pembayaran…','ok'); if(window.__NO_NAV) return j; var w=null; try{ w=window.open(j.payment_url,'_blank'); }catch(e){} if(!w){ location.href=j.payment_url; } return j; }
-       edMsg('Gagal membuat pembayaran: '+((j&&j.error)||'tidak ada payment_url'),'err'); return j; })
-     .catch(function(e){ edMsg('Gagal membuat pembayaran: '+e,'err'); });
+  /* ===== FASE 2–3: login gate lalu halaman pembayaran ===== */
+  var PAYMENT_INTENT_KEY='undangan_payment_intent_v1';
+  function rememberPaymentIntent(site,planId){try{localStorage.setItem(PAYMENT_INTENT_KEY,JSON.stringify({site_id:site||'',plan:planId||currentPlan(),at:Date.now()}))}catch(e){}}
+  function readPaymentIntent(){try{return JSON.parse(localStorage.getItem(PAYMENT_INTENT_KEY)||'null')}catch(e){return null}}
+  function checkout(siteOverride,planOverride){
+    var site=siteOverride||(cur&&cur.id),pkg=planOverride||currentPlan();if(!token){rememberPaymentIntent(site,pkg);startPayLogin();return Promise.resolve(false)}if(!site){edMsg('Undangan harus disimpan sebelum pembayaran.','err');return Promise.resolve(false)}
+    rememberPaymentIntent(site,pkg);var url='payment.html?site='+encodeURIComponent(site)+'&plan='+encodeURIComponent(pkg);window.__lastPaymentUrl=url;edMsg('Membuka halaman pembayaran…','ok');if(!window.__NO_NAV)location.href=url;return Promise.resolve({payment_page:url});
   }
   window.__checkout=checkout;
 
@@ -869,8 +864,8 @@
     var redirect=location.origin+location.pathname;
     var url=API+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(redirect);
     window.__authorizeUrl=url; if(window.__NO_NAV) return; location.href=url; }
-  function startPayLogin(){ try{ localStorage.setItem(PENDING_KEY,'checkout'); }catch(e){} if(cfg&&cfg.couple){ saveDraftLocal(); }
-    var em=el('email'); if(em&&userEmail) em.value=userEmail; authMsg('Masuk sebentar untuk menyelesaikan pembayaran — undanganmu tersimpan otomatis. ✨','ok'); showAuth(); }
+  function startPayLogin(){ try{ localStorage.setItem(PENDING_KEY,'checkout'); }catch(e){} rememberPaymentIntent(cur&&cur.id,currentPlan()); if(cfg&&cfg.couple){ saveDraftLocal(); }
+    var em=el('email'); if(em&&userEmail) em.value=userEmail; authMsg('Login diperlukan sebelum masuk ke halaman pembayaran — undanganmu tersimpan otomatis. ✨','ok'); showAuth(); }
   function afterLogin(){ fetchUser(function(ok){ if(!ok){try{localStorage.removeItem(SESS_KEY);localStorage.setItem(PENDING_KEY,'cloud-save')}catch(e){}token=null;userId=null;userEmail='';_sessExp=0;updateNavLogin();authMsg('Login belum berhasil diproses. Tekan tombol Google sekali lagi.','err');showAuth(); return; }
       var pend=null; try{ pend=localStorage.getItem(PENDING_KEY); }catch(e){}
       if(pend==='checkout'){ try{ localStorage.removeItem(PENDING_KEY); }catch(e){} return ensureSiteThenCheckout(); }
@@ -887,13 +882,13 @@
   function isCloudAuthError(e){var t=String(e||'');return /PGRST303|JWT|token.*expired|invalid.*token|401|403/i.test(t)}
   function cloudAuthExpired(){if(CLOUD_REAUTH_BUSY)return;CLOUD_REAUTH_BUSY=true;saveDraftLocal();try{localStorage.removeItem(SESS_KEY);localStorage.setItem(PENDING_KEY,'cloud-save')}catch(e){}token=null;userId=null;userEmail='';_sessExp=0;updateNavLogin();showCloudToast('Sesi Google berakhir. Silakan masuk kembali.','info');authMsg('Sesi Google berakhir. Tekan tombol Google sekali untuk melanjutkan.','ok');showAuth();setTimeout(function(){CLOUD_REAUTH_BUSY=false},1000)}
   function ensureCloudSiteAndSave(){var a=el('auth');if(a)a.style.display='none';if(token&&_sessExp&&Date.now()>_sessExp-60000){cloudAuthExpired();return Promise.resolve(false)}var done=function(ok){if(ok){showCloudToast('File tersimpan di cloud','ok');p5SetSaveState('saved','Tersimpan di cloud · '+p5Time(Date.now()))}return ok};if(token&&cur&&cur.id)return p5Persist('manual').then(done);var conf=(cfg&&cfg.couple)?clone(cfg):null;if(!conf){try{conf=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null')}catch(e){}}if(!conf)conf=clone(STARTER);showCloudToast('Menyiapkan penyimpanan cloud…','info');return new Promise(function(resolve){createSiteFromDraft(conf,autoSlug(conf),0,function(row){if(!row){showCloudToast('Gagal menyimpan ke cloud','error');resolve(false);return}try{localStorage.removeItem(DRAFT_KEY)}catch(e){}sites=[row];cur=row;cfg=clone(row.config||conf);enterEditor(row);done(true);resolve(true)})})}
-  function ensureSiteThenCheckout(){ var a=el('auth'); if(a) a.style.display='none';
-    if(cur&&cur.id){ enterEditor(cur); return checkout(); }
-    var conf=(cfg&&cfg.couple)?clone(cfg):null; if(!conf){ try{ conf=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'); }catch(e){} } if(!conf) conf=clone(STARTER);
-    edMsg('Menyimpan undangan ke akunmu…','ok');
-    createSiteFromDraft(conf, autoSlug(conf), 0, function(row){ if(!row){ onLoggedIn(); return; } try{ localStorage.removeItem(DRAFT_KEY); }catch(e){} sites=[row]; cur=row; cfg=clone(row.config||conf); enterEditor(row); checkout(); }); }
+  function ensureSiteThenCheckout(){ var a=el('auth'); if(a) a.style.display='none';var intent=readPaymentIntent(),desired=(intent&&intent.plan)||currentPlan();
+    if(cur&&cur.id)return checkout(cur.id,desired);
+    if(intent&&intent.site_id){return db('sites?id=eq.'+encodeURIComponent(intent.site_id)+'&owner_id=eq.'+encodeURIComponent(userId)+'&select=id,slug,status,config,package,updated_at&limit=1').then(function(r){return r.json()}).then(function(rows){var row=rows&&rows[0];if(!row)throw new Error('Undangan tidak ditemukan');cur=row;cfg=clone(row.config||STARTER);selPkg=desired;return checkout(row.id,desired)}).catch(function(){edMsg('Undangan pembayaran tidak ditemukan. Silakan pilih kembali.','err');onLoggedIn()})}
+    var conf=(cfg&&cfg.couple)?clone(cfg):null;if(!conf){try{conf=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null')}catch(e){}}if(!conf)conf=clone(STARTER);edMsg('Menyimpan undangan ke akunmu…','ok');
+    createSiteFromDraft(conf,autoSlug(conf),0,function(row){if(!row){onLoggedIn();return}try{localStorage.removeItem(DRAFT_KEY)}catch(e){}sites=[row];cur=row;cfg=clone(row.config||conf);enterEditor(row);selPkg=desired;updateBuy();checkout(row.id,desired)}); }
   function bootAuth(){ var hp=parseHashToken(); if(hp&&hp.access_token){ token=hp.access_token; _sessExp=hp.expires_at?(parseInt(hp.expires_at,10)*1000):(Date.now()+(parseInt(hp.expires_in||'3600',10)*1000));persistSession(); try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){ try{ location.hash=''; }catch(_){} } afterLogin(); return true; }
-    if(restoreSession()){ updateNavLogin(); } return false; }
+    if(restoreSession()){ updateNavLogin();var pending=null;try{pending=localStorage.getItem(PENDING_KEY)}catch(e){}if(pending==='checkout'){afterLogin();return true} } return false; }
   var _gb=el('googleBtn'); if(_gb) _gb.onclick=function(){ startGoogleLogin(localStorage.getItem(PENDING_KEY)||'edit'); };
   var _authBoot=bootAuth();var _pendingAuth=null;try{_pendingAuth=localStorage.getItem(PENDING_KEY)}catch(e){}if(!_authBoot&&hasEditorResume()&&!_pendingAuth){if(token)onLoggedIn();else resumeLocalEditorFromHistory()}else if(!_authBoot&&_pendingAuth&&!token){authMsg('Selesaikan login Google untuk melanjutkan penyimpanan.','ok');showAuth()}
   window.__PANEL_READY=true;

@@ -25,6 +25,10 @@
   from = "/api/webhook"
   to = "/.netlify/functions/payment-webhook"
   status = 200
+[[redirects]]
+  from = "/api/payment-status"
+  to = "/.netlify/functions/payment-status"
+  status = 200
 
 # Wildcard subdomain -> index.html (router style Fase 3A membaca subdomain sbg slug)
 [[redirects]]
