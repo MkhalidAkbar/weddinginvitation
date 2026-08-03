@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Undangan Pernikahan</title>
+<link href="data:," rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Prata&amp;family=Yellowtail&amp;family=Mulish:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/undangan-ocean.css" rel="stylesheet"/>
+</head>
+<body class="locked">
+<button id="musicBtn" title="Musik">♪</button>
+<audio id="bgm" loop=""></audio>
+<div id="petals"></div>
+<nav id="navdots"></nav>
+<div id="cover">
+<p class="the-wedding">The Wedding Of</p>
+<h1 class="names">Sekar <span class="amp">&amp;</span> Bimo</h1>
+<p class="kepada">Kepada Yth.</p>
+<p id="guestName">Bapak / Ibu / Saudara/i</p>
+<button id="openBtn"><span class="ico">✉</span> Buka Undangan</button>
+</div>
+<section id="hero">
+<p class="bism reveal">Bismillahirrahmanirrahim</p>
+<h1 class="names reveal">Sekar<span class="amp">&amp;</span>Bimo</h1>
+<p class="date-pill reveal">Sabtu, 12 Desember 2026</p>
+</section>
+<section id="quote">
+<p class="label reveal">01 · Doa</p>
+<p class="ayat reveal">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."</p>
+<p class="src reveal">QS. Ar-Rum : 21</p>
+</section>
+<section id="couple">
+<p class="label reveal">02 · Mempelai</p>
+<div class="cpl">
+<div class="person reveal"><div class="initial">S</div><h3>Sekar Ayu Pramesti</h3><p class="role">Putri Pertama</p><p class="parents">Putri dari<br/>Bapak Suryanto &amp; Ibu Widati</p><span class="social">@sekar.ayu</span></div>
+<div class="amp-big reveal">&amp;</div>
+<div class="person reveal"><div class="initial">B</div><h3>Bimo Arya Nugraha</h3><p class="role">Putra Kedua</p><p class="parents">Putra dari<br/>Bapak Hendra &amp; Ibu Lestari</p><span class="social">@bimo.arya</span></div>
+</div>
+</section>
+<section id="countdown">
+<p class="label reveal" style="justify-content:center">03 · Menghitung Hari</p>
+<div class="cd reveal">
+<div><b id="cd-d">0</b><span>Hari</span></div>
+<div><b id="cd-h">00</b><span>Jam</span></div>
+<div><b id="cd-m">00</b><span>Menit</span></div>
+<div><b id="cd-s">00</b><span>Detik</span></div>
+</div>
+<a class="reveal" href="#" id="calBtn" rel="noopener" target="_blank">+ Simpan ke Kalender</a>
+</section>
+<section id="story">
+<p class="label reveal">04 · Perjalanan Kami</p>
+<div class="tl">
+<div class="tl-item reveal"><div class="yr">2019</div><h4>Pertama Bertemu</h4><p>Dipertemukan dalam satu kegiatan kampus.</p></div>
+<div class="tl-item reveal"><div class="yr">2022</div><h4>Menjalin Hubungan</h4><p>Memutuskan untuk saling menguatkan dalam suka dan duka.</p></div>
+<div class="tl-item reveal"><div class="yr">2026</div><h4>Melangkah ke Pelaminan</h4><p>Menyatukan dua hati dalam ikatan suci pernikahan.</p></div>
+</div>
+</section>
+<section id="events">
+<p class="label reveal">05 · Waktu &amp; Tempat</p>
+<div class="ev-wrap">
+<div class="event-card reveal">
+<div class="big">12<br/><span style="font-size:14px;letter-spacing:.2em">DES</span></div>
+<div><p class="badge">Akad Nikah</p><h3>Akad Nikah</h3><p class="row">🕐 08.00 - 10.00 WIB</p><p class="row">📍 Masjid Al-Ikhlas, Jakarta</p></div>
+<a class="map-btn" href="#" rel="noopener" target="_blank">Lihat Peta</a>
+</div>
+<div class="event-card reveal">
+<div class="big">12<br/><span style="font-size:14px;letter-spacing:.2em">DES</span></div>
+<div><p class="badge">Resepsi</p><h3>Resepsi</h3><p class="row">🕐 11.00 - 14.00 WIB</p><p class="row">📍 Ballroom Graha Mawar, Jakarta</p></div>
+<a class="map-btn" href="#" rel="noopener" target="_blank">Lihat Peta</a>
+</div>
+</div>
+</section>
+<section id="gallery">
+<p class="label reveal">06 · Galeri</p>
+<div class="gal-grid reveal">
+<div class="cell"><img alt="" style="display:none"/></div>
+<div class="cell"><img alt="" style="display:none"/></div>
+<div class="cell"><img alt="" style="display:none"/></div>
+<div class="cell"><img alt="" style="display:none"/></div>
+<div class="cell"><img alt="" style="display:none"/></div>
+<div class="cell"><img alt="" style="display:none"/></div>
+</div>
+</section>
+<section id="rsvp">
+<p class="label reveal" style="justify-content:center">07 · Konfirmasi Kehadiran</p>
+<form class="form-card reveal" id="rsvpForm">
+<div class="field"><label>Nama Lengkap</label><input id="rsvpName" placeholder="Nama Anda" required="" type="text"/></div>
+<div class="two">
+<div class="field"><label>Kehadiran</label><select id="rsvpAttend" required=""><option value="">Pilih...</option><option>Hadir</option><option>Tidak Hadir</option></select></div>
+<div class="field"><label>Jumlah Tamu</label><select id="rsvpCount"><option>1 Orang</option><option>2 Orang</option><option>3 Orang</option><option>4 Orang</option></select></div>
+</div>
+<button class="submit" type="submit">Kirim Konfirmasi</button>
+<p class="rsvp-note" id="rsvpNote"></p>
+</form>
+</section>
+<section id="wishes">
+<p class="label reveal" style="justify-content:center">08 · Ucapan &amp; Doa</p>
+<form class="wish-form reveal" id="wishForm">
+<div class="field"><label>Nama Anda</label><input id="wishName" placeholder="Dari siapa doa ini?" required="" type="text"/></div>
+<div class="field"><label>Kehadiran</label><select id="wishAttend"><option value="Turut mendoakan">Turut mendoakan</option><option value="Insya Allah hadir">Insya Allah hadir</option><option value="Belum bisa hadir">Belum bisa hadir</option></select></div>
+<div class="field"><label>Ucapan &amp; Doa</label><textarea id="wishMsg" placeholder="Tuliskan doa restu Anda di sini..." required=""></textarea></div>
+<button class="submit" type="submit">Kirim Ucapan</button>
+</form>
+<p class="wish-count" id="wishCount"></p>
+<div class="wish-list" id="wishList"></div>
+</section>
+<section id="gift">
+<p class="label reveal" style="justify-content:center">09 · Tanda Kasih</p>
+<div class="gift-wrap">
+<div class="gift-card reveal"><p class="bank">Bank BCA</p><div class="no" id="acc1">1234 5678 90</div><p class="an">a.n. Sekar Ayu Pramesti</p><button class="copy-btn" data-acc="acc1">Salin Nomor</button></div>
+<div class="gift-card reveal"><p class="bank">Bank Mandiri</p><div class="no" id="acc2">0987 6543 21</div><p class="an">a.n. Bimo Arya Nugraha</p><button class="copy-btn" data-acc="acc2">Salin Nomor</button></div>
+</div>
+</section>
+<section id="info">
+<p class="label reveal" style="justify-content:center">10 · Informasi</p>
+<div class="info-wrap">
+<div class="info-card reveal"><div class="ic">👗</div><h4>Dress Code</h4><p>Earth tone / warna netral</p></div>
+<div class="info-card reveal"><div class="ic">🎁</div><h4>Hadiah</h4><p>Kehadiran Anda adalah hadiah terindah bagi kami</p></div>
+<div class="info-card reveal"><div class="ic">🅿</div><h4>Parkir</h4><p>Area parkir tersedia luas di lokasi acara</p></div>
+</div>
+</section>
+<section id="thanks">
+<p class="eyebrow reveal">Terima Kasih</p>
+<p class="reveal">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+<h1 class="names reveal">Sekar <span class="amp">&amp;</span> Bimo</h1>
+<p class="fam reveal">Kel. Bapak Suryanto &amp; Kel. Bapak Hendra</p>
+<div class="share reveal">
+<a class="share-btn" id="waShare" rel="noopener" target="_blank">Bagikan via WhatsApp</a>
+<button class="share-btn" id="copyInv" type="button">Salin Link</button>
+</div>
+<p class="credit reveal">Dibuat dengan ♡</p>
+</section>
+<script src="db-config.js"></script>
+<script src="db.js"></script>
+<script src="app.js"></script>
+<div id="madeBy">Undangan digital · dibuat dengan ❤ oleh Undanganku</div>
+</body>
+</html>

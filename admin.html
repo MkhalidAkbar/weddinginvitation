@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Panel Admin — Platform Undangan</title>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🛠️&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
+<script src="db-config.js"></script>
+<link href="assets/css/admin.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- ====== LOGIN ====== -->
+<div id="auth">
+<h1>🛠️ Panel Admin</h1>
+<p class="sub">Khusus admin platform. Masuk untuk mengelola order, undangan, tema &amp; lagu.</p>
+<div class="msg" id="authMsg"></div>
+<label class="fld"><span>Email</span><input autocomplete="username" id="email" type="email"/></label>
+<label class="fld"><span>Password</span><input autocomplete="current-password" id="password" type="password"/></label>
+<div style="margin-top:12px"><button class="btn" id="loginBtn" style="width:100%">Masuk sebagai Admin</button></div>
+<p class="sub" id="cfgWarn" style="margin-top:14px;display:none;color:var(--danger)"></p>
+</div>
+<!-- ====== APP ====== -->
+<div id="app">
+<header class="top">
+<b>🛠️ Panel Admin</b>
+<span class="badge active" id="whoami"></span>
+<span style="flex:1"></span>
+<button class="btn ghost sm" id="reloadBtn">↻ Muat ulang</button>
+<button class="btn ghost sm" id="logoutBtn">Keluar</button>
+</header>
+<div class="wrap">
+<div class="stats" id="stats"></div>
+<div class="tabs" id="tabs"></div>
+<div class="msg" id="panelMsg"></div>
+<div id="view"></div>
+</div>
+</div>
+<script src="assets/js/admin-core.js"></script>
+</body>
+</html>
