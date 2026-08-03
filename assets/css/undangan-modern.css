@@ -341,3 +341,36 @@ body.aurora-editorial::after{content:"";position:fixed;inset:0;z-index:-4;pointe
   .aurora-editorial #musicBtn{right:14px;bottom:14px}
 }
 @media (prefers-reduced-motion:reduce){.ae-ambient i,.aurora-editorial #cover::after,.aurora-editorial #thanks::before{animation:none!important}}
+
+
+/* Aurora Editorial polish — long-content safety + richer magazine details */
+.aurora-editorial .label::after{content:"";height:1px;flex:1;min-width:30px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 70%,transparent),transparent)}
+.aurora-editorial #events{isolation:isolate;overflow:hidden}
+.aurora-editorial #events::before{content:"EVENT CHAPTER · 05";position:absolute;right:clamp(28px,6vw,88px);top:70px;font:500 9px/1 var(--sans);letter-spacing:.26em;color:color-mix(in srgb,var(--ink) 35%,transparent);writing-mode:vertical-rl}
+.aurora-editorial #events .ev-wrap{counter-reset:ae-event}
+.aurora-editorial .event-card{counter-increment:ae-event;position:relative;min-width:0;min-height:360px;padding:42px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;overflow:hidden}
+.aurora-editorial .event-card::before{content:"EVENT 0" counter(ae-event);position:absolute;right:22px;top:22px;z-index:2;padding:7px 10px;border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:999px;font:500 8px/1 var(--sans);letter-spacing:.2em;color:var(--gold);background:rgba(255,255,255,.48);backdrop-filter:blur(8px)}
+.aurora-editorial .event-card::after{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:linear-gradient(90deg,var(--ae-cyan),var(--ae-violet),var(--ae-rose),var(--gold))}
+.aurora-editorial .event-card:nth-child(1){background:linear-gradient(145deg,rgba(255,255,255,.82),color-mix(in srgb,var(--ae-cyan) 10%,rgba(255,255,255,.55)))}
+.aurora-editorial .event-card:nth-child(2){background:linear-gradient(145deg,rgba(255,255,255,.82),color-mix(in srgb,var(--ae-rose) 11%,rgba(255,255,255,.55)))}
+.aurora-editorial .event-card .big{position:static;order:-3;width:calc(100% - 112px);min-height:38px;margin:0 0 36px;padding:0 0 14px;border-bottom:1px solid color-mix(in srgb,var(--gold) 42%,transparent);font-family:var(--sans);font-size:clamp(11px,1.15vw,14px);font-weight:500;line-height:1.5;letter-spacing:.16em;text-align:left;text-transform:uppercase;color:var(--gold);opacity:1;overflow-wrap:anywhere}
+.aurora-editorial .event-card .big br{display:none}.aurora-editorial .event-card .big span{font:inherit!important;letter-spacing:inherit!important}
+.aurora-editorial .event-card>div:not(.big){width:100%;display:flex;flex-direction:column;align-items:flex-start}
+.aurora-editorial .event-card .badge{order:-1;min-height:22px;margin:0 0 12px;font-size:16px;line-height:1;letter-spacing:0;color:var(--gold)}
+.aurora-editorial .event-card h3{max-width:100%;margin:0 0 22px;font-family:'Italiana',var(--serif);font-size:clamp(34px,4vw,54px);line-height:1.02;overflow-wrap:anywhere}
+.aurora-editorial .event-card .row{width:100%;padding:5px 0;color:var(--ink-soft);font-size:15px;line-height:1.5;overflow-wrap:anywhere}
+.aurora-editorial .event-card .map-btn{margin-top:auto;min-width:170px;padding:12px 20px;text-align:center}
+.aurora-editorial .event-card .t5-event-map{width:100%;margin-top:24px}
+.aurora-editorial .event-card .t5-event-map iframe{display:block;width:100%;min-height:220px;border:0}
+.aurora-editorial #story::before,.aurora-editorial #gallery::before,.aurora-editorial #gift::before{position:absolute;z-index:-1;font-family:'Italiana',var(--serif);font-size:clamp(90px,18vw,230px);line-height:1;color:color-mix(in srgb,var(--blush) 34%,transparent);pointer-events:none}
+.aurora-editorial #story::before{content:"LOVE";right:4%;top:2%}.aurora-editorial #gallery::before{content:"MEMORIES";left:1%;top:1%;font-size:clamp(66px,13vw,170px)}.aurora-editorial #gift::before{content:"GIFT";right:4%;top:2%}
+.aurora-editorial .info-card,.aurora-editorial .tl-item,.aurora-editorial .gift-card,.aurora-editorial .person{transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+@media (hover:hover){.aurora-editorial .event-card:hover,.aurora-editorial .person:hover,.aurora-editorial .gift-card:hover{transform:translateY(-5px);box-shadow:0 28px 75px rgba(35,31,46,.14)}}
+@media (max-width:767px){
+  .aurora-editorial #events{padding-left:20px;padding-right:20px}.aurora-editorial #events::before{display:none}
+  .aurora-editorial .event-card{min-height:0;padding:30px 24px 28px}.aurora-editorial .event-card::before{right:16px;top:18px;font-size:7px}
+  .aurora-editorial .event-card .big{width:calc(100% - 92px);min-height:34px;margin-bottom:30px;font-size:10px;letter-spacing:.12em}
+  .aurora-editorial .event-card h3{font-size:38px;margin-bottom:18px}.aurora-editorial .event-card .row{font-size:14px}
+  .aurora-editorial .event-card .map-btn{width:100%;margin-top:26px}.aurora-editorial .event-card .t5-event-map iframe{min-height:180px}
+  .aurora-editorial #story::before,.aurora-editorial #gallery::before,.aurora-editorial #gift::before{opacity:.65}
+}
