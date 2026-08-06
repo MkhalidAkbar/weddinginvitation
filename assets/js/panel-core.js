@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -271,7 +271,8 @@
     {id:'midnight-luxe',name:'Midnight Luxe',style:'midnight-luxe',paletteId:'midnight-gold',kind:'frame',tags:['Celestial','Noir','Observatory'],tagline:'Malam celestial bergaya observatorium — lunar eclipse, orbit bercahaya, potret konstelasi, night pass, dan galeri sinematik berwarna midnight blue.',theme:{cream:'#0a1026',ink:'#eef1f7',gold:'#b9c5d9',sage:'#91b8d8',blush:'#17152d'}},
     {id:'rustic-terracotta',name:'Rustic Terracotta',style:'rustic-terracotta',paletteId:'terracotta-sand',kind:'stamp',tags:['Handmade','Clay','Bohemian'],tagline:'Undangan handmade bernuansa clay atelier dan kartu pos gurun — kertas bertekstur, polaroid, tiket perforasi, scrapbook, dan matahari terbenam.',theme:{cream:'#f3dfc8',ink:'#3d2c26',gold:'#b8613d',sage:'#77714f',blush:'#d7ad87'}},
     {id:'blush-minimal',name:'Blush Minimalis',style:'blush-minimal',paletteId:'blush-nude',kind:'minimal',tags:['Vellum','Ribbon','Quiet Luxury'],tagline:'Minimalisme lembut bergaya vellum ribbon atelier — komposisi asimetris, lingkaran mutiara, kartu transparan, dan contact sheet bernuansa blush.',theme:{cream:'#fffaf9',ink:'#332c2f',gold:'#ba837e',sage:'#d8aaa7',blush:'#f2ddda'}},
-    {id:'ocean-breeze',name:'Ocean Breeze',style:'ocean-breeze',paletteId:'ocean-teal',kind:'wave',tags:['Teal','Segar','Pantai'],tagline:'Nuansa teal dan pasir yang menyegarkan dengan aksen gelombang \u2014 cocok untuk pernikahan tepi pantai atau bertema laut.',theme:{cream:'#f2f8f7',ink:'#2c3a3a',gold:'#c2a34e',sage:'#4f8a86',blush:'#cfe6e2'}}
+    {id:'ocean-breeze',name:'Ocean Breeze',style:'ocean-breeze',paletteId:'ocean-teal',kind:'wave',tags:['Lagoon','Tidal','Seaside'],tagline:'Perayaan tepi laut bergaya tidal glass lagoon — horizon matahari, portrait shell, buoy countdown, pier pass, dan cinematic shoreline reel.',theme:{cream:'#effafa',ink:'#123a42',gold:'#e7b95b',sage:'#1f8790',blush:'#bfe9e8'}},
+    {id:'javanese-heritage',name:'Javanese Heritage',style:'javanese-heritage',paletteId:'keraton-sogan',kind:'heritage',tags:['Javanese','Batik','Keraton'],tagline:'Keanggunan tradisi Jawa bergaya keraton — gerbang gunungan, portrait panggih, gong countdown, jalur batik, dan detail sogan yang berwibawa.',theme:{cream:'#f3ead8',ink:'#2b211b',gold:'#c49a5a',sage:'#8a522f',blush:'#d9bd91'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -326,6 +327,12 @@
       {id:'deep-lagoon',name:'Deep Lagoon',colors:{cream:'#eef5f4',ink:'#20383a',gold:'#b39a52',sage:'#356663',blush:'#c2ded9'}},
       {id:'sky-aqua',name:'Sky Aqua',colors:{cream:'#f1f8fb',ink:'#26383f',gold:'#b9a35e',sage:'#5a92a6',blush:'#cfe4ec'}},
       {id:'sage-mint',name:'Sage Mint',colors:{cream:'#f2f8f3',ink:'#2f3d34',gold:'#a89a56',sage:'#6a9a82',blush:'#d3e8da'}}
+    ],
+    'javanese-heritage':[
+      {id:'keraton-sogan',name:'Keraton Sogan',colors:{cream:'#f3ead8',ink:'#2b211b',gold:'#c49a5a',sage:'#8a522f',blush:'#d9bd91'}},
+      {id:'royal-maroon',name:'Royal Maroon',colors:{cream:'#f4e9dc',ink:'#2b1718',gold:'#c6a05d',sage:'#702f2e',blush:'#d9b0a1'}},
+      {id:'jade-gold',name:'Jade Gold',colors:{cream:'#eef0e4',ink:'#1d3029',gold:'#c5a35b',sage:'#3f6757',blush:'#c9d1b4'}},
+      {id:'indigo-batik',name:'Indigo Batik',colors:{cream:'#e9edf0',ink:'#172532',gold:'#bd9b59',sage:'#304c67',blush:'#b9c6d1'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -376,9 +383,9 @@
     var cream=t.cream||mk.bg1||'#f4efe6', blush=t.blush||mk.bg2||'#e6ded0';
     var n=capNames(), dt=((cfg.event&&cfg.event.dateText)||'').trim();
     var useSerif=(it.kind==='minimal'||it.kind==='frame');
-    var bakedCaption=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='garden-botanical'||it.style==='midnight-luxe'||it.style==='rustic-terracotta'||it.style==='blush-minimal');
+    var bakedCaption=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='garden-botanical'||it.style==='midnight-luxe'||it.style==='rustic-terracotta'||it.style==='blush-minimal'||it.style==='ocean-breeze'||it.style==='javanese-heritage');
     return '<div class="lib-shot'+(bakedCaption?' baked-caption':'')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-4" alt="Tampilan depan '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-6" alt="Tampilan depan '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap">'
         +'<div class="cap-eyebrow" style="color:'+esc(gold)+'">The Wedding Of</div>'
         +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(ink)+'">'
