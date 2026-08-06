@@ -270,7 +270,7 @@
     {id:'garden-botanical',name:'Taman Botani',style:'garden-botanical',paletteId:'garden-sage',kind:'botanical',tags:['Glasshouse','Herbarium','Garden'],tagline:'Konservatori taman bergaya glasshouse — arch kaca, kartu herbarium, paviliun hijau, jalur cerita botani, dan galeri hidup yang segar.',theme:{cream:'#e8efe5',ink:'#18382d',gold:'#b17b4d',sage:'#789a70',blush:'#f4f1e7'}},
     {id:'midnight-luxe',name:'Midnight Luxe',style:'midnight-luxe',paletteId:'midnight-gold',kind:'frame',tags:['Celestial','Noir','Observatory'],tagline:'Malam celestial bergaya observatorium — lunar eclipse, orbit bercahaya, potret konstelasi, night pass, dan galeri sinematik berwarna midnight blue.',theme:{cream:'#0a1026',ink:'#eef1f7',gold:'#b9c5d9',sage:'#91b8d8',blush:'#17152d'}},
     {id:'rustic-terracotta',name:'Rustic Terracotta',style:'rustic-terracotta',paletteId:'terracotta-sand',kind:'stamp',tags:['Handmade','Clay','Bohemian'],tagline:'Undangan handmade bernuansa clay atelier dan kartu pos gurun — kertas bertekstur, polaroid, tiket perforasi, scrapbook, dan matahari terbenam.',theme:{cream:'#f3dfc8',ink:'#3d2c26',gold:'#b8613d',sage:'#77714f',blush:'#d7ad87'}},
-    {id:'blush-minimal',name:'Blush Minimalis',style:'blush-minimal',paletteId:'blush-nude',kind:'minimal',tags:['Minimalis','Bersih','Modern'],tagline:'Serba putih dengan sentuhan blush lembut \u2014 banyak ruang kosong, tipografi tipis. Bersih, modern, dan tenang.',theme:{cream:'#ffffff',ink:'#40383a',gold:'#b98e79',sage:'#c79a9a',blush:'#f5e7e3'}},
+    {id:'blush-minimal',name:'Blush Minimalis',style:'blush-minimal',paletteId:'blush-nude',kind:'minimal',tags:['Vellum','Ribbon','Quiet Luxury'],tagline:'Minimalisme lembut bergaya vellum ribbon atelier — komposisi asimetris, lingkaran mutiara, kartu transparan, dan contact sheet bernuansa blush.',theme:{cream:'#fffaf9',ink:'#332c2f',gold:'#ba837e',sage:'#d8aaa7',blush:'#f2ddda'}},
     {id:'ocean-breeze',name:'Ocean Breeze',style:'ocean-breeze',paletteId:'ocean-teal',kind:'wave',tags:['Teal','Segar','Pantai'],tagline:'Nuansa teal dan pasir yang menyegarkan dengan aksen gelombang \u2014 cocok untuk pernikahan tepi pantai atau bertema laut.',theme:{cream:'#f2f8f7',ink:'#2c3a3a',gold:'#c2a34e',sage:'#4f8a86',blush:'#cfe6e2'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
@@ -376,9 +376,9 @@
     var cream=t.cream||mk.bg1||'#f4efe6', blush=t.blush||mk.bg2||'#e6ded0';
     var n=capNames(), dt=((cfg.event&&cfg.event.dateText)||'').trim();
     var useSerif=(it.kind==='minimal'||it.kind==='frame');
-    var bakedCaption=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='garden-botanical'||it.style==='midnight-luxe'||it.style==='rustic-terracotta');
+    var bakedCaption=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='garden-botanical'||it.style==='midnight-luxe'||it.style==='rustic-terracotta'||it.style==='blush-minimal');
     return '<div class="lib-shot'+(bakedCaption?' baked-caption':'')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-3" alt="Tampilan depan '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-4" alt="Tampilan depan '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap">'
         +'<div class="cap-eyebrow" style="color:'+esc(gold)+'">The Wedding Of</div>'
         +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(ink)+'">'
