@@ -379,19 +379,20 @@
   }
   function libThumb(it){
     var t=it.theme||{}, mk=it.mk||{};
-    var ink=t.ink||mk.ink||'#3f4a3a', gold=t.gold||mk.acc||'#c9a24b';
     var cream=t.cream||mk.bg1||'#f4efe6', blush=t.blush||mk.bg2||'#e6ded0';
-    var n=capNames(), dt=((cfg.event&&cfg.event.dateText)||'').trim();
-    var useSerif=(it.kind==='minimal'||it.kind==='frame'||it.kind==='heritage');
+    var n=capNames(), cover=(cfg&&cfg.cover)||{};
+    var eye=((cover.eyebrow||'The Wedding Of')+'').trim()||'The Wedding Of';
+    var guest=((cover.guestDefault||'Tamu Undangan')+'').trim()||'Tamu Undangan';
+    var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
     var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage');
-    var capInk=darkThumb?'#fff8ec':ink;
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260806-8" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
-      +'<div class="lib-cap">'
-        +'<div class="cap-eyebrow" style="color:'+esc(gold)+'">The Wedding Of</div>'
-        +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(capInk)+'">'
-          +esc(n.b)+' <span style="color:'+esc(gold)+'">&amp;</span> '+esc(n.g)+'</div>'
-        +(dt?'<div class="cap-date" style="color:'+esc(capInk)+'">'+esc(dt)+'</div>':'')
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260806-9" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<div class="lib-cap cap-'+esc(it.style)+'">'
+        +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
+        +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'
+        +'<div class="cap-kepada">Kepada Yth.</div>'
+        +'<div class="cap-guest">'+esc(guest)+'</div>'
+        +'<div class="cap-open"><span>✉</span> '+esc(open)+'</div>'
       +'</div></div>';
   }
   function libraryHtml(){ var curS=cfg.style||'elegant-floral', curP=cfg.paletteId||'';
