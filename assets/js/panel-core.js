@@ -382,15 +382,16 @@
     var ink=t.ink||mk.ink||'#3f4a3a', gold=t.gold||mk.acc||'#c9a24b';
     var cream=t.cream||mk.bg1||'#f4efe6', blush=t.blush||mk.bg2||'#e6ded0';
     var n=capNames(), dt=((cfg.event&&cfg.event.dateText)||'').trim();
-    var useSerif=(it.kind==='minimal'||it.kind==='frame');
-    var bakedCaption=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='garden-botanical'||it.style==='midnight-luxe'||it.style==='rustic-terracotta'||it.style==='blush-minimal'||it.style==='ocean-breeze'||it.style==='javanese-heritage');
-    return '<div class="lib-shot'+(bakedCaption?' baked-caption':'')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-6" alt="Tampilan depan '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+    var useSerif=(it.kind==='minimal'||it.kind==='frame'||it.kind==='heritage');
+    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage');
+    var capInk=darkThumb?'#fff8ec':ink;
+    return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-7" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap">'
         +'<div class="cap-eyebrow" style="color:'+esc(gold)+'">The Wedding Of</div>'
-        +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(ink)+'">'
+        +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(capInk)+'">'
           +esc(n.b)+' <span style="color:'+esc(gold)+'">&amp;</span> '+esc(n.g)+'</div>'
-        +(dt?'<div class="cap-date" style="color:'+esc(ink)+'">'+esc(dt)+'</div>':'')
+        +(dt?'<div class="cap-date" style="color:'+esc(capInk)+'">'+esc(dt)+'</div>':'')
       +'</div></div>';
   }
   function libraryHtml(){ var curS=cfg.style||'elegant-floral', curP=cfg.paletteId||'';
