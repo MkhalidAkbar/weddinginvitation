@@ -307,3 +307,12 @@ h1,h2,h3,h4{color:var(--bot-forest)}
 }
 @media(min-width:761px) and (max-width:980px){section{padding-inline:32px}.event-card{grid-template-columns:84px minmax(0,1fr);padding-inline:28px}.event-card .big{font-size:48px}.person{padding-inline:24px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* Runtime-content safety fix — panel sends full date and fallback names */
+#events .event-card{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:18px!important}
+#events .event-card .big{width:100%!important;max-width:100%;padding:0 0 18px!important;border-right:0!important;border-bottom:1px solid var(--bot-line);font-size:clamp(29px,4.2vw,46px)!important;line-height:1.08!important;text-align:left!important;overflow-wrap:anywhere;word-break:normal;white-space:normal}
+#events .event-card>div:nth-child(2){width:100%;min-width:0;text-align:left}
+#events .event-card .map-btn{width:100%;text-align:center;align-self:stretch!important}
+#cover .names,#hero .names,#thanks .names{width:min(100%,1000px);max-width:100%;overflow-wrap:anywhere;word-break:normal;hyphens:auto}
+@media(max-width:760px){#events .event-card{padding:58px 30px 34px!important;gap:15px!important}#events .event-card .big{font-size:clamp(29px,10vw,39px)!important}#hero .names{font-size:clamp(42px,12vw,58px)!important;line-height:.95!important}#cover .names,#thanks .names{font-size:clamp(44px,13vw,64px)!important}}
