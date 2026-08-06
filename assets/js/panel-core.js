@@ -386,7 +386,7 @@
     var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage');
     var capInk=darkThumb?'#fff8ec':ink;
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'.webp?v=20260806-7" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260806-8" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap">'
         +'<div class="cap-eyebrow" style="color:'+esc(gold)+'">The Wedding Of</div>'
         +'<div class="cap-names '+(useSerif?'serif':'script')+'" style="color:'+esc(capInk)+'">'
