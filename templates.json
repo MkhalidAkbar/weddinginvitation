@@ -1,5 +1,5 @@
 {
-  "version": 15,
+  "version": 16,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -680,6 +680,60 @@
         "rose-champagne"
       ],
       "sort": 25,
+      "active": true
+    },
+    {
+      "id": "dahlia-aurea",
+      "name": "Dahlia Aurea",
+      "file": "undangan-dahlia.html",
+      "cover": "circle",
+      "defaultLayout": "collage",
+      "tags": [
+        "Dahlia",
+        "Maximal Floral",
+        "Warm Botanical"
+      ],
+      "theme": {
+        "cream": "#f5ead7",
+        "ink": "#4b2b24",
+        "gold": "#c38a42",
+        "sage": "#6f7150",
+        "blush": "#d26f4f"
+      },
+      "palettes": [
+        "saffron-dahlia",
+        "burgundy-zinnia",
+        "terracotta-marigold",
+        "plum-amaranth"
+      ],
+      "sort": 26,
+      "active": true
+    },
+    {
+      "id": "iris-cascade",
+      "name": "Iris Cascade",
+      "file": "undangan-iris.html",
+      "cover": "arch",
+      "defaultLayout": "masonry",
+      "tags": [
+        "Iris",
+        "Wisteria",
+        "Water Garden"
+      ],
+      "theme": {
+        "cream": "#f1efe8",
+        "ink": "#233052",
+        "gold": "#a9986e",
+        "sage": "#6f7f7b",
+        "blush": "#7f7eb4"
+      },
+      "palettes": [
+        "indigo-iris",
+        "wisteria-mist",
+        "celadon-delphinium",
+        "moonlit-lavender"
+      ],
+      "sort": 27,
       "active": true
     }
   ]
