@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html','eclat-nocturne':'undangan-eclat.html','casa-travertina':'undangan-travertina.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -286,7 +286,9 @@
     {id:'kintsugi-nocturne',name:'Kintsugi Nocturne',style:'kintsugi-nocturne',paletteId:'urushi-gold',kind:'minimal',tags:['Kintsugi','Japanese','Sculptural'],tagline:'Kemewahan Jepang yang tenang dan artistik — scroll asimetris, ensō, patahan keramik berlapis emas, shoji portrait, lacquer tray countdown, ema wishes, dan gift box urushi.',theme:{cream:'#f2ede3',ink:'#171918',gold:'#ba8c39',sage:'#6e7569',blush:'#a95243'}},
     {id:'palais-astral',name:'Palais Astral',style:'palais-astral',paletteId:'midnight-orbit',kind:'circle',tags:['Celestial','Observatory','Regal'],tagline:'Perayaan celestial bergaya observatorium kerajaan — orrery cover, radial dome hero, planetary portrait, orbital countdown, constellation story, crystal gallery, dan celestial admission.',theme:{cream:'#eee9df',ink:'#101528',gold:'#b7a36a',sage:'#41596f',blush:'#8b6b78'}},
     {id:'ivory-letterpress',name:'Aurelia Letterpress',style:'ivory-letterpress',paletteId:'ivory-emboss',kind:'minimal',tags:['Letterpress','Stationery','Heirloom'],tagline:'Undangan elegan seperti stationery letterpress warisan — cotton paper bertekstur, blind emboss, wax seal, facing-page portrait, reply card, printed memories, dan correspondence book.',theme:{cream:'#f4efe4',ink:'#2e2924',gold:'#a88a5e',sage:'#747b6b',blush:'#d8cec0'}},
-    {id:'porcelaine-bleue',name:'Porcelaine Bleue',style:'porcelaine-bleue',paletteId:'cobalt-ivory',kind:'circle',tags:['Porcelain','Cobalt','French'],tagline:'Keanggunan porselen Prancis berwarna cobalt — display plate cover, toile scenery, portrait medallion, tile countdown, blue-ribbon story, souvenir cabinet, dan carte de réponse.',theme:{cream:'#f7f4ec',ink:'#17345c',gold:'#b49a62',sage:'#58708f',blush:'#dbe4ec'}}
+    {id:'porcelaine-bleue',name:'Porcelaine Bleue',style:'porcelaine-bleue',paletteId:'cobalt-ivory',kind:'circle',tags:['Porcelain','Cobalt','French'],tagline:'Keanggunan porselen Prancis berwarna cobalt — display plate cover, toile scenery, portrait medallion, tile countdown, blue-ribbon story, souvenir cabinet, dan carte de réponse.',theme:{cream:'#f7f4ec',ink:'#17345c',gold:'#b49a62',sage:'#58708f',blush:'#dbe4ec'}},
+    {id:'eclat-nocturne',name:'Éclat Nocturne',style:'eclat-nocturne',paletteId:'obsidian-champagne',kind:'diamond',tags:['High Jewelry','Noir','Private Salon'],tagline:'Ultra-premium private jewelry salon — obsidian lacquer, champagne metal, faceted jewel cover, principal-stone portraits, watch countdown, provenance story, jewel cabinet, dan private appointment suite.',theme:{cream:'#f1eadb',ink:'#0a0c0f',gold:'#c7a86a',sage:'#284c45',blush:'#6e3f4c'}},
+    {id:'casa-travertina',name:'Casa Travertina',style:'casa-travertina',paletteId:'travertine-silk',kind:'arch',tags:['Quiet Luxury','Travertine','Private Residence'],tagline:'Ultra-premium quiet-luxury residence — travertine facade, brass arch cover, architectural floor-plan hero, resident portraits, colonnade countdown, private collection, linen guest book, dan house treasury.',theme:{cream:'#e9e0d2',ink:'#363029',gold:'#a8895d',sage:'#6f745f',blush:'#c7ad9d'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -431,6 +433,18 @@
       {id:'celadon-blue',name:'Celadon Blue',colors:{cream:'#f4f5ef',ink:'#254c57',gold:'#ad986e',sage:'#6f9492',blush:'#dce8e3'}},
       {id:'royal-sapphire',name:'Royal Sapphire',colors:{cream:'#f4f2ea',ink:'#102e61',gold:'#b69658',sage:'#405f8e',blush:'#d4deeb'}},
       {id:'rose-chinoiserie',name:'Rose Chinoiserie',colors:{cream:'#f8f2ee',ink:'#4c4059',gold:'#b48a6a',sage:'#77809a',blush:'#e4d2d8'}}
+    ],
+    'eclat-nocturne':[
+      {id:'obsidian-champagne',name:'Obsidian Champagne',colors:{cream:'#f1eadb',ink:'#0a0c0f',gold:'#c7a86a',sage:'#284c45',blush:'#6e3f4c'}},
+      {id:'emerald-bijoux',name:'Emerald Bijoux',colors:{cream:'#eee8da',ink:'#071511',gold:'#d1b36c',sage:'#1e4b3b',blush:'#6e5146'}},
+      {id:'garnet-caviar',name:'Garnet Caviar',colors:{cream:'#f0e6dc',ink:'#14090c',gold:'#caa071',sage:'#5c4137',blush:'#752b3f'}},
+      {id:'platinum-sapphire',name:'Platinum Sapphire',colors:{cream:'#e9ebef',ink:'#090d18',gold:'#bac1cc',sage:'#29466b',blush:'#4a3d63'}}
+    ],
+    'casa-travertina':[
+      {id:'travertine-silk',name:'Travertine Silk',colors:{cream:'#e9e0d2',ink:'#363029',gold:'#a8895d',sage:'#6f745f',blush:'#c7ad9d'}},
+      {id:'mocha-cashmere',name:'Mocha Cashmere',colors:{cream:'#e8ddd0',ink:'#3c3029',gold:'#a67d50',sage:'#75685b',blush:'#b99a86'}},
+      {id:'olive-marble',name:'Olive Marble',colors:{cream:'#e8e5d9',ink:'#30362f',gold:'#9d8758',sage:'#687059',blush:'#c2b7a3'}},
+      {id:'rose-champagne',name:'Rose Champagne',colors:{cream:'#eee3df',ink:'#493936',gold:'#ac8663',sage:'#82766e',blush:'#c8a6a1'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -482,9 +496,9 @@
     var eye=((cover.eyebrow||'The Wedding Of')+'').trim()||'The Wedding Of';
     var guest=((cover.guestDefault||'Tamu Undangan')+'').trim()||'Tamu Undangan';
     var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
-    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance'||it.style==='maison-amour'||it.style==='linea-vow'||it.style==='velours-royale'||it.style==='palais-astral');
+    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance'||it.style==='maison-amour'||it.style==='linea-vow'||it.style==='velours-royale'||it.style==='palais-astral'||it.style==='eclat-nocturne');
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-23" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-25" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap cap-'+esc(it.style)+'">'
         +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
         +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'

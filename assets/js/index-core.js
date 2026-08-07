@@ -6,7 +6,7 @@
     'modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html',
     'garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html',
     'rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html',
-    'javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html'
+    'javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html','eclat-nocturne':'undangan-eclat.html','casa-travertina':'undangan-travertina.html'
   };
   var DEFAULT='undangan-template-db.html';
   var DB=window.WEDDING_DB||{}, API=(DB.url||'').replace(/\/+$/,''), KEY=DB.anonKey||'';

@@ -1,5 +1,5 @@
 {
-  "version": 14,
+  "version": 15,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -626,6 +626,60 @@
         "rose-chinoiserie"
       ],
       "sort": 23,
+      "active": true
+    },
+    {
+      "id": "eclat-nocturne",
+      "name": "Éclat Nocturne",
+      "file": "undangan-eclat.html",
+      "cover": "diamond",
+      "defaultLayout": "grid",
+      "tags": [
+        "High Jewelry",
+        "Noir",
+        "Private Salon"
+      ],
+      "theme": {
+        "cream": "#f1eadb",
+        "ink": "#0a0c0f",
+        "gold": "#c7a86a",
+        "sage": "#284c45",
+        "blush": "#6e3f4c"
+      },
+      "palettes": [
+        "obsidian-champagne",
+        "emerald-bijoux",
+        "garnet-caviar",
+        "platinum-sapphire"
+      ],
+      "sort": 24,
+      "active": true
+    },
+    {
+      "id": "casa-travertina",
+      "name": "Casa Travertina",
+      "file": "undangan-travertina.html",
+      "cover": "arch",
+      "defaultLayout": "collage",
+      "tags": [
+        "Quiet Luxury",
+        "Travertine",
+        "Private Residence"
+      ],
+      "theme": {
+        "cream": "#e9e0d2",
+        "ink": "#363029",
+        "gold": "#a8895d",
+        "sage": "#6f745f",
+        "blush": "#c7ad9d"
+      },
+      "palettes": [
+        "travertine-silk",
+        "mocha-cashmere",
+        "olive-marble",
+        "rose-champagne"
+      ],
+      "sort": 25,
       "active": true
     }
   ]
