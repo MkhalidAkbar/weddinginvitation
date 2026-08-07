@@ -4,31 +4,109 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="robots" content="noindex,nofollow"/>
-<meta name="theme-color" content="#f8f5ef"/>
+<meta name="theme-color" content="#f7f4ee"/>
 <title>Pembayaran — Undangan Studio</title>
 <link rel="stylesheet" href="assets/css/payment.css"/>
 <script src="db-config.js"></script>
 </head>
 <body>
-<header class="pay-nav"><a class="brand" href="panel.html">✦ Undangan Studio</a><div class="pay-nav-right"><span id="accountEmail">Memeriksa akun…</span><a href="panel.html">Kembali ke editor</a></div></header>
-<main class="pay-shell">
-<section class="pay-hero">
-<div><span class="eyebrow">CHECKOUT AMAN</span><h1>Selesaikan pembayaran undanganmu</h1><p>Pilih paket, periksa ringkasan, lalu lanjutkan ke kanal pembayaran resmi.</p></div>
-<ol class="steps" aria-label="Tahapan pembayaran"><li class="done"><b>1</b><span>Undangan</span></li><li class="done"><b>2</b><span>Login</span></li><li class="active"><b>3</b><span>Pembayaran</span></li><li><b>4</b><span>Aktif</span></li></ol>
-</section>
-<div class="pay-alert" id="payAlert" role="status" aria-live="polite">Memuat data pembayaran…</div>
-<section class="active-plan" id="activePlan" hidden><div><span class="active-icon">✓</span><div><small>PAKET AKTIF</small><h2 id="activeTitle">Paket aktif</h2><p id="activeMeta"></p></div></div><a class="button ghost" href="panel.html">Buka dashboard</a></section>
-<div class="pay-layout">
-<div class="pay-main">
-<section class="card"><div class="section-head"><div><span class="step-label">01</span><h2>Pilih paket</h2></div><p>Harga resmi dari sistem</p></div><div class="plan-grid" id="planGrid" aria-live="polite"></div></section>
-<section class="card"><div class="section-head"><div><span class="step-label">02</span><h2>Riwayat transaksi</h2></div><button class="text-button" id="refreshBtn" type="button">↻ Perbarui</button></div><div class="order-list" id="orderList"><div class="empty-state">Belum ada transaksi.</div></div></section>
-</div>
-<aside class="pay-side">
-<section class="card summary-card"><span class="step-label">RINGKASAN</span><h2 id="siteName">Undangan digital</h2><p class="site-slug" id="siteSlug">—</p><div class="summary-lines"><div><span>Paket</span><b id="sumPlan">—</b></div><div><span>Masa aktif</span><b id="sumDuration">—</b></div><div><span>Subtotal</span><b id="sumAmount">—</b></div><div class="total"><span>Total pembayaran</span><strong id="sumTotal">—</strong></div></div><label class="legal-check"><input id="legalAgree" type="checkbox"/><span>Saya menyetujui <a href="terms.html" target="_blank" rel="noopener">Syarat &amp; Ketentuan</a> dan <a href="privacy.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.</span></label><button class="button primary wide" id="payBtn" type="button" disabled>Lanjut bayar</button><p class="pay-message" id="payMessage" aria-live="polite"></p><div class="secure-note"><span>🔒</span><p><b>Pembayaran aman</b><br/>Transaksi diproses oleh Midtrans/Xendit. Undangan Studio tidak menyimpan nomor kartu, PIN, CVV, atau OTP.</p></div></section>
-<section class="support-card"><span>Butuh bantuan?</span><a href="mailto:benchscoretech@gmail.com">benchscoretech@gmail.com</a></section>
-</aside>
-</div>
+<a class="skip-link" href="#mainContent">Lewati ke konten pembayaran</a>
+<header class="pay-nav">
+  <a class="brand" href="panel.html" aria-label="Kembali ke Undangan Studio">
+    <span class="brand-mark" aria-hidden="true">✦</span>
+    <span>Undangan Studio</span>
+  </a>
+  <div class="pay-nav-right">
+    <span class="account-pill"><span class="account-dot" aria-hidden="true"></span><span id="accountEmail">Memeriksa akun…</span></span>
+    <a class="back-link" href="panel.html"><span aria-hidden="true">←</span> Kembali ke editor</a>
+  </div>
+</header>
+
+<main class="pay-shell" id="mainContent">
+  <section class="pay-hero" aria-labelledby="paymentTitle">
+    <div class="hero-copy">
+      <span class="eyebrow"><span aria-hidden="true">●</span> CHECKOUT AMAN</span>
+      <h1 id="paymentTitle">Aktifkan undanganmu</h1>
+      <p>Pilih paket yang sesuai, periksa detail, lalu lanjutkan ke kanal pembayaran resmi.</p>
+    </div>
+    <ol class="steps" aria-label="Tahapan aktivasi">
+      <li class="done"><b>1</b><span>Undangan</span></li>
+      <li class="done"><b>2</b><span>Login</span></li>
+      <li class="active" aria-current="step"><b>3</b><span>Pembayaran</span></li>
+      <li><b>4</b><span>Aktif</span></li>
+    </ol>
+  </section>
+
+  <section class="pay-alert loading" id="payAlert" role="status" aria-live="polite" aria-atomic="true">
+    <span class="alert-icon" id="alertIcon" aria-hidden="true"><span class="spinner"></span></span>
+    <div class="alert-copy">
+      <strong id="alertTitle">Memuat data pembayaran…</strong>
+      <span id="alertDetail">Menghubungkan akun dan undanganmu.</span>
+    </div>
+    <button class="alert-action" id="retryBtn" type="button" hidden>Coba lagi</button>
+  </section>
+
+  <section class="active-plan" id="activePlan" hidden>
+    <div>
+      <span class="active-icon" aria-hidden="true">✓</span>
+      <div><small>PAKET AKTIF</small><h2 id="activeTitle">Paket aktif</h2><p id="activeMeta"></p></div>
+    </div>
+    <a class="button ghost" href="panel.html">Buka dashboard</a>
+  </section>
+
+  <div class="pay-layout">
+    <section class="card plans-card" aria-labelledby="plansTitle">
+      <div class="section-head">
+        <div><span class="step-label">01</span><div><h2 id="plansTitle">Pilih paket</h2><p>Pilih paket untuk undangan ini</p></div></div>
+        <span class="system-price"><span aria-hidden="true">✓</span> Harga dari sistem</span>
+      </div>
+      <div class="plan-grid is-loading" id="planGrid" aria-live="polite" aria-busy="true">
+        <div class="plan-skeleton" aria-hidden="true"></div><div class="plan-skeleton" aria-hidden="true"></div><div class="plan-skeleton" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <aside class="pay-side" aria-label="Ringkasan pembayaran">
+      <section class="card summary-card">
+        <div class="summary-heading">
+          <span class="step-label">RINGKASAN</span>
+          <span class="summary-secure" aria-label="Koneksi aman"><span aria-hidden="true">⌁</span> Aman</span>
+        </div>
+        <h2 id="siteName">Undangan digital</h2>
+        <p class="site-slug" id="siteSlug">—</p>
+        <div class="summary-lines">
+          <div><span>Paket</span><b id="sumPlan">—</b></div>
+          <div><span>Masa aktif</span><b id="sumDuration">—</b></div>
+          <div><span>Subtotal</span><b id="sumAmount">—</b></div>
+          <div class="total"><span>Total pembayaran</span><strong id="sumTotal">—</strong></div>
+        </div>
+        <div class="channel-note"><span aria-hidden="true">↗</span><p>Pilihan metode pembayaran akan tampil di halaman resmi penyedia pembayaran.</p></div>
+        <label class="legal-check">
+          <input id="legalAgree" type="checkbox"/>
+          <span>Saya menyetujui <a href="terms.html" target="_blank" rel="noopener">Syarat &amp; Ketentuan</a> dan <a href="privacy.html" target="_blank" rel="noopener">Kebijakan Privasi</a>.</span>
+        </label>
+        <button class="button primary wide" id="payBtn" type="button" disabled><span id="payBtnLabel">Lanjut ke pembayaran</span><span aria-hidden="true">→</span></button>
+        <p class="pay-message" id="payMessage" aria-live="polite"></p>
+        <div class="secure-note">
+          <span class="secure-icon" aria-hidden="true">⌾</span>
+          <p><b>Data pembayaran tetap aman</b><br/>Nomor kartu, PIN, CVV, dan OTP diproses langsung oleh Midtrans/Xendit dan tidak disimpan oleh Undangan Studio.</p>
+        </div>
+      </section>
+      <section class="support-card">
+        <div><b>Butuh bantuan?</b><span>Kami siap membantu kendala pembayaran.</span></div>
+        <a href="mailto:benchscoretech@gmail.com">Hubungi dukungan <span aria-hidden="true">→</span></a>
+      </section>
+    </aside>
+
+    <section class="card history-card" aria-labelledby="historyTitle">
+      <div class="section-head">
+        <div><span class="step-label">02</span><div><h2 id="historyTitle">Riwayat transaksi</h2><p>Status transaksi terbaru untuk undangan ini</p></div></div>
+        <button class="text-button" id="refreshBtn" type="button"><span aria-hidden="true">↻</span> Perbarui</button>
+      </div>
+      <div class="order-list" id="orderList"><div class="empty-state"><span aria-hidden="true">⌁</span><b>Belum ada transaksi</b><p>Transaksi yang dibuat akan tampil di sini.</p></div></div>
+    </section>
+  </div>
 </main>
+
 <footer class="pay-footer"><span>© 2026 Undangan Studio</span><nav><a href="terms.html">Ketentuan</a><a href="privacy.html">Privasi</a></nav></footer>
 <script src="assets/js/payment-core.js"></script>
 </body>
