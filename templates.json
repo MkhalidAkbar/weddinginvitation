@@ -1,5 +1,5 @@
 {
-  "version": 11,
+  "version": 13,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -518,6 +518,60 @@
         "champagne-matinee"
       ],
       "sort": 19,
+      "active": true
+    },
+    {
+      "id": "kintsugi-nocturne",
+      "name": "Kintsugi Nocturne",
+      "file": "undangan-kintsugi.html",
+      "cover": "minimal",
+      "defaultLayout": "masonry",
+      "tags": [
+        "Kintsugi",
+        "Japanese",
+        "Sculptural"
+      ],
+      "theme": {
+        "cream": "#f2ede3",
+        "ink": "#171918",
+        "gold": "#ba8c39",
+        "sage": "#6e7569",
+        "blush": "#a95243"
+      },
+      "palettes": [
+        "urushi-gold",
+        "celadon-mend",
+        "vermilion-tea",
+        "ivory-sumi"
+      ],
+      "sort": 20,
+      "active": true
+    },
+    {
+      "id": "palais-astral",
+      "name": "Palais Astral",
+      "file": "undangan-astral.html",
+      "cover": "circle",
+      "defaultLayout": "grid",
+      "tags": [
+        "Celestial",
+        "Observatory",
+        "Regal"
+      ],
+      "theme": {
+        "cream": "#eee9df",
+        "ink": "#101528",
+        "gold": "#b7a36a",
+        "sage": "#41596f",
+        "blush": "#8b6b78"
+      },
+      "palettes": [
+        "midnight-orbit",
+        "sapphire-eclipse",
+        "aubergine-nebula",
+        "ivory-solstice"
+      ],
+      "sort": 21,
       "active": true
     }
   ]

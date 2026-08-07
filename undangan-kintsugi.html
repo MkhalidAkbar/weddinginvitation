@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#171918"/>
+  <title>Undangan Pernikahan — Kintsugi Nocturne</title>
+  <link rel="icon" href="data:,"/>
+  <link rel="stylesheet" href="assets/css/undangan-kintsugi.css"/>
+</head>
+<body class="locked">
+  <button id="musicBtn" title="Musik" aria-label="Putar atau hentikan musik">音</button><audio id="bgm" loop></audio><div id="petals" aria-hidden="true"></div><nav id="navdots" aria-label="Navigasi bagian undangan"></nav>
+  <div id="cover">
+    <div class="cover-scroll">
+      <div class="cover-kanji" aria-hidden="true"><span>金</span><span>継</span></div>
+      <div class="cover-shards" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+      <div class="cover-enso" aria-hidden="true"></div>
+      <div class="cover-copy"><p class="micro">KINTSUGI NOCTURNE · MMXXVI</p><p class="inv">A celebration of two imperfect stories</p><h1 class="names"><span>Sekar</span><em>&amp;</em><span>Bimo</span></h1><div class="cover-date"><b>12</b><span>DECEMBER<br/>SATURDAY · 2026</span></div></div>
+      <div class="cover-entry"><div><p class="kepada">A seat has been prepared for</p><p id="guestName">Bapak / Ibu / Saudara/i</p></div><button id="openBtn">Open the scroll <span>↗</span></button></div>
+    </div>
+  </div>
+
+  <section id="hero">
+    <div class="hero-ink" aria-hidden="true"><div class="ink-disc"></div><div class="gold-rift"></div><span>金継</span></div>
+    <div class="hero-paper"><div class="side-code">20 · KINTSUGI</div><p class="bism reveal">Bismillahirrahmanirrahim</p><p class="micro reveal">BEAUTY IN EVERY MENDED LINE</p><h1 class="names reveal"><span>Sekar</span><em>&amp;</em><span>Bimo</span></h1><p class="hero-date reveal">12 — 12 — 2026</p><p class="hero-note reveal">Kami mengundang Anda menyaksikan dua perjalanan yang dipertemukan, dipulihkan, dan disatukan menjadi sesuatu yang lebih berharga.</p></div>
+  </section>
+
+  <section id="quote">
+    <div class="quote-seal reveal">縁</div><div class="hanging-scroll reveal"><i></i><p class="ayat">“Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.”</p><p class="src">QS. AR-RUM · 21</p><b></b></div><div class="quote-note reveal">What is joined with care becomes more precious than before.</div>
+  </section>
+
+  <section id="couple">
+    <header class="section-title reveal"><span>一 · THE TWO PIECES</span><h2>Distinct stories.<br/><em>One golden seam.</em></h2></header>
+    <div class="couple-shoji">
+      <article class="person bride reveal"><div class="portrait"><img alt="" style="display:none"/><span>S</span><i></i></div><div class="person-copy"><p class="role">THE BRIDE · 花嫁</p><h3>Sekar Ayu Pramesti</h3><p>Putri pertama dari<br/>Bapak Suryanto &amp; Ibu Widati</p><a href="#">@sekar.ayu</a></div></article>
+      <div class="join-mark reveal">×</div>
+      <article class="person groom reveal"><div class="person-copy"><p class="role">THE GROOM · 花婿</p><h3>Bimo Arya Nugraha</h3><p>Putra kedua dari<br/>Bapak Hendra &amp; Ibu Lestari</p><a href="#">@bimo.arya</a></div><div class="portrait"><img alt="" style="display:none"/><span>B</span><i></i></div></article>
+    </div>
+  </section>
+
+  <section id="countdown">
+    <div class="count-intro reveal"><span>二 · THE WAIT</span><h2>Until the lacquer<br/>meets the gold.</h2><p>Waktu bergerak perlahan menuju hari ketika seluruh kepingan cerita dirayakan bersama.</p><a class="action" id="calBtn" href="#" target="_blank" rel="noopener">Add to calendar</a></div>
+    <div class="count-trays reveal"><div><b id="cd-d">0</b><span>HARI</span></div><div><b id="cd-h">00</b><span>JAM</span></div><div><b id="cd-m">00</b><span>MENIT</span></div><div><b id="cd-s">00</b><span>DETIK</span></div></div>
+  </section>
+
+  <section id="story">
+    <header class="section-title reveal"><span>三 · THE GOLDEN SEAM</span><h2>Three fragments<br/><em>of our becoming.</em></h2></header>
+    <div class="sash-story"><div class="sash-line" aria-hidden="true"></div>
+      <article class="tl-item reveal"><div class="year">2019</div><div class="story-copy"><span>破 · THE FIRST PIECE</span><h4>Pertama Bertemu</h4><p>Di antara rutinitas yang sederhana, sebuah percakapan kecil membuka ruang untuk cerita yang panjang.</p></div></article>
+      <article class="tl-item reveal"><div class="year">2022</div><div class="story-copy"><span>継 · THE MENDING</span><h4>Tumbuh Bersama</h4><p>Kami belajar bahwa cinta bukan tentang sempurna, melainkan tentang saling merawat setiap celah.</p></div></article>
+      <article class="tl-item reveal"><div class="year">2026</div><div class="story-copy"><span>金 · THE GOLDEN VOW</span><h4>Menuju Selamanya</h4><p>Dengan restu keluarga, kami memilih untuk menyatukan perjalanan dalam satu janji seumur hidup.</p></div></article>
+    </div>
+  </section>
+
+  <section id="events">
+    <header class="section-title reveal"><span>四 · THE CEREMONY</span><h2>Two rituals.<br/><em>One enduring promise.</em></h2></header>
+    <div class="lacquer-table"><article class="event-card reveal"><div class="event-no">壱</div><div><p class="micro">THE SACRED VOW</p><h3>Akad Nikah</h3><p class="when">08.00 — 10.00 WIB</p><p>Sabtu, 12 Desember 2026<br/>Masjid Agung Al-Azhar<br/>Jakarta Selatan</p><a href="https://maps.google.com" target="_blank" rel="noopener">Open map ↗</a></div></article><article class="event-card reveal"><div><p class="micro">THE CELEBRATION</p><h3>Resepsi</h3><p class="when">11.00 — 14.00 WIB</p><p>Sabtu, 12 Desember 2026<br/>The Dharmawangsa<br/>Jakarta Selatan</p><a href="https://maps.google.com" target="_blank" rel="noopener">Open map ↗</a></div><div class="event-no">弐</div></article></div>
+  </section>
+
+  <section id="gallery">
+    <div class="gallery-label reveal"><span>五 · SHARDS OF MEMORY</span><h2>Light caught<br/>between fragments.</h2></div>
+    <div class="shard-gallery reveal"><div class="cell"><img alt="" style="display:none"/><span>01</span></div><div class="cell"><img alt="" style="display:none"/><span>02</span></div><div class="cell"><img alt="" style="display:none"/><span>03</span></div><div class="cell"><img alt="" style="display:none"/><span>04</span></div><div class="cell"><img alt="" style="display:none"/><span>05</span></div><div class="cell"><img alt="" style="display:none"/><span>06</span></div></div>
+  </section>
+
+  <section id="rsvp">
+    <div class="ledger-mark" aria-hidden="true"><span>御</span><span>芳</span><span>名</span></div><div class="ledger reveal"><div class="ledger-head"><span>六 · GUEST LEDGER</span><h2>Your name,<br/>written in gold.</h2><p>Mohon konfirmasi kehadiran sebelum 5 Desember.</p></div><form id="rsvpForm"><div class="field"><label>Nama Lengkap</label><input id="rsvpName" type="text" placeholder="Nama Anda" required/></div><div class="two"><div class="field"><label>Kehadiran</label><select id="rsvpAttend" required><option value="">Pilih...</option><option>Hadir</option><option>Tidak Hadir</option></select></div><div class="field"><label>Jumlah Tamu</label><select id="rsvpCount"><option>1 Orang</option><option>2 Orang</option><option>3 Orang</option><option>4 Orang</option></select></div></div><button class="submit" type="submit">Seal attendance</button><p class="rsvp-note" id="rsvpNote"></p></form></div>
+  </section>
+
+  <section id="wishes">
+    <header class="section-title reveal"><span>七 · EMA WALL</span><h2>A wish to hang.<br/><em>A blessing to keep.</em></h2></header>
+    <div class="ema-wall"><form class="wish-form reveal" id="wishForm"><div class="field"><label>Nama</label><input id="wishName" type="text" placeholder="Nama pengirim" required/></div><div class="field"><label>Status Kehadiran</label><select id="wishAttend"><option value="Turut mendoakan">Turut mendoakan</option><option value="Insya Allah hadir">Insya Allah hadir</option><option value="Belum bisa hadir">Belum bisa hadir</option></select></div><div class="field"><label>Ucapan &amp; Doa</label><textarea id="wishMsg" placeholder="Tuliskan pesan Anda..." required></textarea></div><button class="submit" type="submit">Hang the wish</button></form><div class="ema-sample reveal"><i></i><span>願</span><p>May the golden line between you never fade.</p><b>S &amp; B</b></div></div><p class="wish-count" id="wishCount"></p><div class="wish-list" id="wishList"></div>
+  </section>
+
+  <section id="gift">
+    <header class="section-title reveal"><span>八 · A GOLDEN TOKEN</span><h2>Your presence<br/><em>is the rarest gift.</em></h2></header>
+    <div class="lacquer-gifts"><article class="gift-card reveal"><div class="lid"><span>金</span></div><div class="gift-copy"><p>Bank BCA</p><div class="no" id="acc1">1234 5678 90</div><span>a.n. Sekar Ayu Pramesti</span><button class="copy-btn" data-acc="acc1">Copy account</button></div></article><article class="gift-card reveal"><div class="lid"><span>継</span></div><div class="gift-copy"><p>Bank Mandiri</p><div class="no" id="acc2">0987 6543 21</div><span>a.n. Bimo Arya Nugraha</span><button class="copy-btn" data-acc="acc2">Copy account</button></div></article></div>
+  </section>
+
+  <section id="info">
+    <header class="section-title reveal"><span>九 · CEREMONY NOTES</span><h2>Small gestures.<br/><em>Thoughtfully observed.</em></h2></header>
+    <div class="info-fold"><article class="info-card reveal"><b>01</b><h4>Dress Palette</h4><p>Ivory, ink black, muted moss, vermilion, dan sentuhan emas.</p></article><article class="info-card reveal"><b>02</b><h4>Quiet Ceremony</h4><p>Mohon menonaktifkan nada dering selama prosesi akad berlangsung.</p></article><article class="info-card reveal"><b>03</b><h4>Warmest Gift</h4><p>Kehadiran dan doa tulus Anda adalah hadiah terbaik bagi kami.</p></article></div>
+  </section>
+
+  <section id="thanks">
+    <div class="closing-ink"><div class="closing-enso"></div><span>金継</span></div><div class="closing-copy"><p class="micro reveal">THE BEAUTY OF BECOMING ONE</p><h2 class="reveal">Mended by love.<br/>Held by promise.</h2><p class="reveal">Merupakan kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu.</p><h1 class="names reveal"><span>Sekar</span><em>&amp;</em><span>Bimo</span></h1><p class="fam reveal">Kel. Bapak Suryanto &amp; Kel. Bapak Hendra</p><div class="share reveal"><a class="share-btn" id="waShare" target="_blank" rel="noopener">Share invitation</a><button class="share-btn" id="copyInv" type="button">Copy link</button></div></div>
+  </section>
+  <script src="db-config.js"></script><script src="db.js"></script><script src="app.js"></script><div id="madeBy">Kintsugi Nocturne · A golden seam of two stories</div>
+</body>
+</html>
