@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -278,7 +278,9 @@
     {id:'pixel-love',name:'Pixel Love Arcade',style:'pixel-love',paletteId:'neon-arcade',kind:'frame',tags:['Pixel','Arcade','Playful'],tagline:'Undangan arcade 8-bit yang playful — title screen, player select, quest map, scoreboard countdown, mission cards, party chat, treasure chest, dan forever mode.',theme:{cream:'#090723',ink:'#f7f4ff',gold:'#ff3cac',sage:'#20e3d4',blush:'#34246f'}},
     {id:'bauhaus-love',name:'Bauhaus Love',style:'bauhaus-love',paletteId:'primary-stage',kind:'minimal',tags:['Bauhaus','Geometric','Modernist'],tagline:'Undangan modernis berani dengan bentuk primer — komposisi asimetris, tipografi monumental, portrait geometris, garis waktu modular, dan blok warna Bauhaus.',theme:{cream:'#f4efe3',ink:'#111111',gold:'#e44132',sage:'#175bb8',blush:'#f2c84b'}},
     {id:'vinyl-romance',name:'Vinyl Romance',style:'vinyl-romance',paletteId:'analog-wine',kind:'frame',tags:['Vinyl','Retro','Analog'],tagline:'Undangan retro-analog seperti album vinyl edisi khusus — cover sleeve terbelah, piringan hitam, tracklist kisah, equalizer countdown, live pass, record bin gallery, dan RSVP mixing console.',theme:{cream:'#f4ead8',ink:'#241a18',gold:'#e76b4d',sage:'#0e7674',blush:'#7a1f3d'}},
-    {id:'maison-amour',name:'Maison Amour',style:'maison-amour',paletteId:'ivory-soiree',kind:'arch',tags:['Couture','Monogram','Parisian'],tagline:'Undangan elegan bergaya rumah mode Paris — sampul invitation suite ber-arch, monogram couture, portrait cameo, silk-ribbon story, salon wall gallery, concierge RSVP, dan guest book dua halaman.',theme:{cream:'#f6f0e6',ink:'#1c1916',gold:'#b89a68',sage:'#8d7b6a',blush:'#ddd0bf'}}
+    {id:'maison-amour',name:'Maison Amour',style:'maison-amour',paletteId:'ivory-soiree',kind:'arch',tags:['Couture','Monogram','Parisian'],tagline:'Undangan elegan bergaya rumah mode Paris — sampul invitation suite ber-arch, monogram couture, portrait cameo, silk-ribbon story, salon wall gallery, concierge RSVP, dan guest book dua halaman.',theme:{cream:'#f6f0e6',ink:'#1c1916',gold:'#b89a68',sage:'#8d7b6a',blush:'#ddd0bf'}},
+    {id:'linea-vow',name:'Linea Vow',style:'linea-vow',paletteId:'vermillion-grid',kind:'minimal',tags:['Swiss','Monochrome','Grid'],tagline:'Minimalisme Swiss yang tegas dan lapang — cover placard, tipografi grotesk monumental, grid editorial, countdown ledger, contact sheet gallery, serta form bergaya arsip.',theme:{cream:'#f2f1ed',ink:'#171717',gold:'#d24b33',sage:'#727772',blush:'#d7d5ce'}},
+    {id:'opaline-reverie',name:'Opaline Reverie',style:'opaline-reverie',paletteId:'pearl-dawn',kind:'arch',tags:['Opaline','Pearl','Romantic'],tagline:'Keanggunan pearlescent yang bercahaya — invitation veil ber-arch, orb opal, portrait medallion, pearl countdown, ribbon story, ballroom cards, dan jewelry-box gift.',theme:{cream:'#f8f4ef',ink:'#353039',gold:'#bc986d',sage:'#9aa9a6',blush:'#d9c8d4'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -375,6 +377,18 @@
       {id:'rose-champagne',name:'Rose Champagne',colors:{cream:'#fbf4ef',ink:'#2d2222',gold:'#c49a7a',sage:'#9f7d78',blush:'#ead5cf'}},
       {id:'sage-atelier',name:'Sage Atelier',colors:{cream:'#f3f2e9',ink:'#24302b',gold:'#b49968',sage:'#788b7b',blush:'#dfe3d8'}},
       {id:'midnight-silk',name:'Midnight Silk',colors:{cream:'#18191c',ink:'#f1eadf',gold:'#c5a56d',sage:'#6f7780',blush:'#27262c'}}
+    ],
+    'linea-vow':[
+      {id:'vermillion-grid',name:'Vermillion Grid',colors:{cream:'#f2f1ed',ink:'#171717',gold:'#d24b33',sage:'#727772',blush:'#d7d5ce'}},
+      {id:'cobalt-index',name:'Cobalt Index',colors:{cream:'#f1f2ef',ink:'#15191d',gold:'#2155c7',sage:'#657484',blush:'#d5dae0'}},
+      {id:'olive-proof',name:'Olive Proof',colors:{cream:'#f3f0e7',ink:'#25261f',gold:'#8b4b32',sage:'#68705c',blush:'#d8d4c4'}},
+      {id:'inverse-noir',name:'Inverse Noir',colors:{cream:'#171717',ink:'#f1f0eb',gold:'#f05a43',sage:'#8a8d88',blush:'#2b2b2b'}}
+    ],
+    'opaline-reverie':[
+      {id:'pearl-dawn',name:'Pearl Dawn',colors:{cream:'#f8f4ef',ink:'#353039',gold:'#bc986d',sage:'#9aa9a6',blush:'#d9c8d4'}},
+      {id:'rose-opal',name:'Rose Opal',colors:{cream:'#fff6f4',ink:'#49383f',gold:'#c28e87',sage:'#b09d9f',blush:'#efcfd4'}},
+      {id:'aqua-moon',name:'Aqua Moon',colors:{cream:'#f2f8f7',ink:'#2e3d42',gold:'#a99773',sage:'#86aaa9',blush:'#cfe4e2'}},
+      {id:'violet-evening',name:'Violet Evening',colors:{cream:'#211d2a',ink:'#f5eff5',gold:'#cfad78',sage:'#8c86a1',blush:'#4a3a55'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -426,9 +440,9 @@
     var eye=((cover.eyebrow||'The Wedding Of')+'').trim()||'The Wedding Of';
     var guest=((cover.guestDefault||'Tamu Undangan')+'').trim()||'Tamu Undangan';
     var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
-    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance'||it.style==='maison-amour');
+    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance'||it.style==='maison-amour'||it.style==='linea-vow');
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-15" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-17" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap cap-'+esc(it.style)+'">'
         +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
         +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'

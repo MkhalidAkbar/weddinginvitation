@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 9,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -410,6 +410,60 @@
         "midnight-silk"
       ],
       "sort": 15,
+      "active": true
+    },
+    {
+      "id": "linea-vow",
+      "name": "Linea Vow",
+      "file": "undangan-linea.html",
+      "cover": "minimal",
+      "defaultLayout": "grid",
+      "tags": [
+        "Swiss",
+        "Monochrome",
+        "Grid"
+      ],
+      "theme": {
+        "cream": "#f2f1ed",
+        "ink": "#171717",
+        "gold": "#d24b33",
+        "sage": "#727772",
+        "blush": "#d7d5ce"
+      },
+      "palettes": [
+        "vermillion-grid",
+        "cobalt-index",
+        "olive-proof",
+        "inverse-noir"
+      ],
+      "sort": 16,
+      "active": true
+    },
+    {
+      "id": "opaline-reverie",
+      "name": "Opaline Reverie",
+      "file": "undangan-opaline.html",
+      "cover": "arch",
+      "defaultLayout": "polaroid",
+      "tags": [
+        "Opaline",
+        "Pearl",
+        "Romantic"
+      ],
+      "theme": {
+        "cream": "#f8f4ef",
+        "ink": "#353039",
+        "gold": "#bc986d",
+        "sage": "#9aa9a6",
+        "blush": "#d9c8d4"
+      },
+      "palettes": [
+        "pearl-dawn",
+        "rose-opal",
+        "aqua-moon",
+        "violet-evening"
+      ],
+      "sort": 17,
       "active": true
     }
   ]
