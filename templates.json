@@ -1,5 +1,5 @@
 {
-  "version": 9,
+  "version": 11,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -464,6 +464,60 @@
         "violet-evening"
       ],
       "sort": 17,
+      "active": true
+    },
+    {
+      "id": "riviera-eclat",
+      "name": "Riviera Éclat",
+      "file": "undangan-riviera.html",
+      "cover": "arch",
+      "defaultLayout": "masonry",
+      "tags": [
+        "Riviera",
+        "Resort",
+        "Destination"
+      ],
+      "theme": {
+        "cream": "#f2eadc",
+        "ink": "#1c302b",
+        "gold": "#c39a59",
+        "sage": "#5d7567",
+        "blush": "#d7aa87"
+      },
+      "palettes": [
+        "riviera-travertine",
+        "capri-azure",
+        "tuscan-sunset",
+        "nocturne-yacht"
+      ],
+      "sort": 18,
+      "active": true
+    },
+    {
+      "id": "velours-royale",
+      "name": "Velours Royale",
+      "file": "undangan-velours.html",
+      "cover": "frame",
+      "defaultLayout": "film",
+      "tags": [
+        "Opera",
+        "Velvet",
+        "Grand"
+      ],
+      "theme": {
+        "cream": "#f5ecdf",
+        "ink": "#2a0e18",
+        "gold": "#d0ad6c",
+        "sage": "#684053",
+        "blush": "#9d6875"
+      },
+      "palettes": [
+        "burgundy-curtain",
+        "emerald-opera",
+        "midnight-amethyst",
+        "champagne-matinee"
+      ],
+      "sort": 19,
       "active": true
     }
   ]
