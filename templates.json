@@ -1,5 +1,5 @@
 {
-  "version": 16,
+  "version": 17,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -734,6 +734,60 @@
         "moonlit-lavender"
       ],
       "sort": 27,
+      "active": true
+    },
+    {
+      "id": "camellia-rouge",
+      "name": "Camellia Rouge",
+      "file": "undangan-camellia.html",
+      "cover": "circle",
+      "defaultLayout": "collage",
+      "tags": [
+        "Camellia",
+        "Magnolia",
+        "Velvet Floral"
+      ],
+      "theme": {
+        "cream": "#f6ebe7",
+        "ink": "#4a2630",
+        "gold": "#b68a5b",
+        "sage": "#66705e",
+        "blush": "#bd5968"
+      },
+      "palettes": [
+        "rouge-camellia",
+        "porcelain-magnolia",
+        "wine-ranunculus",
+        "tea-camellia"
+      ],
+      "sort": 28,
+      "active": true
+    },
+    {
+      "id": "poppy-solstice",
+      "name": "Poppy Solstice",
+      "file": "undangan-poppy.html",
+      "cover": "circle",
+      "defaultLayout": "polaroid",
+      "tags": [
+        "Poppy",
+        "Cosmos",
+        "Sunlit Floral"
+      ],
+      "theme": {
+        "cream": "#f4ecd9",
+        "ink": "#392c28",
+        "gold": "#d6a13e",
+        "sage": "#697555",
+        "blush": "#d9583d"
+      },
+      "palettes": [
+        "vermilion-poppy",
+        "apricot-cosmos",
+        "burgundy-anemone",
+        "indigo-sweetpea"
+      ],
+      "sort": 29,
       "active": true
     }
   ]

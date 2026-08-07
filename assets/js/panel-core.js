@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html','eclat-nocturne':'undangan-eclat.html','casa-travertina':'undangan-travertina.html','dahlia-aurea':'undangan-dahlia.html','iris-cascade':'undangan-iris.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html','maison-amour':'undangan-maison.html','linea-vow':'undangan-linea.html','opaline-reverie':'undangan-opaline.html','riviera-eclat':'undangan-riviera.html','velours-royale':'undangan-velours.html','kintsugi-nocturne':'undangan-kintsugi.html','palais-astral':'undangan-astral.html','ivory-letterpress':'undangan-letterpress.html','porcelaine-bleue':'undangan-porcelaine.html','eclat-nocturne':'undangan-eclat.html','casa-travertina':'undangan-travertina.html','dahlia-aurea':'undangan-dahlia.html','iris-cascade':'undangan-iris.html','camellia-rouge':'undangan-camellia.html','poppy-solstice':'undangan-poppy.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -290,7 +290,9 @@
     {id:'eclat-nocturne',name:'Éclat Nocturne',style:'eclat-nocturne',paletteId:'obsidian-champagne',kind:'diamond',tags:['High Jewelry','Noir','Private Salon'],tagline:'Ultra-premium private jewelry salon — obsidian lacquer, champagne metal, faceted jewel cover, principal-stone portraits, watch countdown, provenance story, jewel cabinet, dan private appointment suite.',theme:{cream:'#f1eadb',ink:'#0a0c0f',gold:'#c7a86a',sage:'#284c45',blush:'#6e3f4c'}},
     {id:'casa-travertina',name:'Casa Travertina',style:'casa-travertina',paletteId:'travertine-silk',kind:'arch',tags:['Quiet Luxury','Travertine','Private Residence'],tagline:'Ultra-premium quiet-luxury residence — travertine facade, brass arch cover, architectural floor-plan hero, resident portraits, colonnade countdown, private collection, linen guest book, dan house treasury.',theme:{cream:'#e9e0d2',ink:'#363029',gold:'#a8895d',sage:'#6f745f',blush:'#c7ad9d'}},
     {id:'dahlia-aurea',name:'Dahlia Aurea',style:'dahlia-aurea',paletteId:'saffron-dahlia',kind:'circle',tags:['Dahlia','Maximal Floral','Warm Botanical'],tagline:'Taman bunga penuh bergaya floral tapestry — dahlia berlapis, zinnia, marigold, amaranthus, full-bloom cover, petal countdown, garland story, flower-hall events, dan woven floral gallery.',theme:{cream:'#f5ead7',ink:'#4b2b24',gold:'#c38a42',sage:'#6f7150',blush:'#d26f4f'}},
-    {id:'iris-cascade',name:'Iris Cascade',style:'iris-cascade',paletteId:'indigo-iris',kind:'arch',tags:['Iris','Wisteria','Water Garden'],tagline:'Taman bunga penuh bernuansa air — iris Jepang, wisteria, delphinium, cascading canopy, water-garden cover, ripple countdown, flowing story, floral pavilions, dan floating flower gallery.',theme:{cream:'#f1efe8',ink:'#233052',gold:'#a9986e',sage:'#6f7f7b',blush:'#7f7eb4'}}
+    {id:'iris-cascade',name:'Iris Cascade',style:'iris-cascade',paletteId:'indigo-iris',kind:'arch',tags:['Iris','Wisteria','Water Garden'],tagline:'Taman bunga penuh bernuansa air — iris Jepang, wisteria, delphinium, cascading canopy, water-garden cover, ripple countdown, flowing story, floral pavilions, dan floating flower gallery.',theme:{cream:'#f1efe8',ink:'#233052',gold:'#a9986e',sage:'#6f7f7b',blush:'#7f7eb4'}},
+    {id:'camellia-rouge',name:'Camellia Rouge',style:'camellia-rouge',paletteId:'rouge-camellia',kind:'circle',tags:['Camellia','Magnolia','Velvet Floral'],tagline:'Floral tapestry mewah bergaya Camellia Rouge — camellia beludru, magnolia porselen, ranunculus, freesia, velvet-bloom cover, petal countdown, garland story, dan flower-hall celebration.',theme:{cream:'#f6ebe7',ink:'#4a2630',gold:'#b68a5b',sage:'#66705e',blush:'#bd5968'}},
+    {id:'poppy-solstice',name:'Poppy Solstice',style:'poppy-solstice',paletteId:'vermilion-poppy',kind:'circle',tags:['Poppy','Cosmos','Sunlit Floral'],tagline:'Floral tapestry cerah penuh gerak — poppy vermilion, cosmos, anemone, sweet pea, sunlit-bloom cover, wildflower countdown, garland story, dan botanical celebration.',theme:{cream:'#f4ecd9',ink:'#392c28',gold:'#d6a13e',sage:'#697555',blush:'#d9583d'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -459,6 +461,18 @@
       {id:'wisteria-mist',name:'Wisteria Mist',colors:{cream:'#f3eff2',ink:'#423651',gold:'#aa906c',sage:'#75837a',blush:'#a989b3'}},
       {id:'celadon-delphinium',name:'Celadon Delphinium',colors:{cream:'#edf1eb',ink:'#29434b',gold:'#a79062',sage:'#6f8d82',blush:'#6685aa'}},
       {id:'moonlit-lavender',name:'Moonlit Lavender',colors:{cream:'#eeeaf1',ink:'#2d2b45',gold:'#a58c6c',sage:'#687675',blush:'#8d719f'}}
+    ],
+    'camellia-rouge':[
+      {id:'rouge-camellia',name:'Rouge Camellia',colors:{cream:'#f6ebe7',ink:'#4a2630',gold:'#b68a5b',sage:'#66705e',blush:'#bd5968'}},
+      {id:'porcelain-magnolia',name:'Porcelain Magnolia',colors:{cream:'#f7f0e9',ink:'#443439',gold:'#b39768',sage:'#77816f',blush:'#d2aaa6'}},
+      {id:'wine-ranunculus',name:'Wine Ranunculus',colors:{cream:'#f0e4e4',ink:'#3e202c',gold:'#b18459',sage:'#65715f',blush:'#984359'}},
+      {id:'tea-camellia',name:'Tea Camellia',colors:{cream:'#f4e8df',ink:'#52372f',gold:'#b98b55',sage:'#74765e',blush:'#c87970'}}
+    ],
+    'poppy-solstice':[
+      {id:'vermilion-poppy',name:'Vermilion Poppy',colors:{cream:'#f4ecd9',ink:'#392c28',gold:'#d6a13e',sage:'#697555',blush:'#d9583d'}},
+      {id:'apricot-cosmos',name:'Apricot Cosmos',colors:{cream:'#f6ead8',ink:'#493229',gold:'#cf9847',sage:'#727c62',blush:'#e38a62'}},
+      {id:'burgundy-anemone',name:'Burgundy Anemone',colors:{cream:'#f1e5dd',ink:'#3d292c',gold:'#bd9250',sage:'#68735d',blush:'#98433f'}},
+      {id:'indigo-sweetpea',name:'Indigo Sweet Pea',colors:{cream:'#eee9dd',ink:'#2d3344',gold:'#b99c59',sage:'#687967',blush:'#777aa0'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -512,7 +526,7 @@
     var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
     var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance'||it.style==='maison-amour'||it.style==='linea-vow'||it.style==='velours-royale'||it.style==='palais-astral'||it.style==='eclat-nocturne');
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-27" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-29" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap cap-'+esc(it.style)+'">'
         +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
         +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'
