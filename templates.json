@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -302,6 +302,33 @@
         "plum-press"
       ],
       "sort": 11,
+      "active": true
+    },
+    {
+      "id": "pixel-love",
+      "name": "Pixel Love Arcade",
+      "file": "undangan-pixel.html",
+      "cover": "frame",
+      "defaultLayout": "grid",
+      "tags": [
+        "Pixel",
+        "Arcade",
+        "Playful"
+      ],
+      "theme": {
+        "cream": "#090723",
+        "ink": "#f7f4ff",
+        "gold": "#ff3cac",
+        "sage": "#20e3d4",
+        "blush": "#34246f"
+      },
+      "palettes": [
+        "neon-arcade",
+        "cyber-lime",
+        "sunset-console",
+        "blue-player"
+      ],
+      "sort": 12,
       "active": true
     }
   ]

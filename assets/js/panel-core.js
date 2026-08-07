@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -274,7 +274,8 @@
     {id:'ocean-breeze',name:'Ocean Breeze',style:'ocean-breeze',paletteId:'ocean-teal',kind:'wave',tags:['Lagoon','Tidal','Seaside'],tagline:'Perayaan tepi laut bergaya tidal glass lagoon — horizon matahari, portrait shell, buoy countdown, pier pass, dan cinematic shoreline reel.',theme:{cream:'#effafa',ink:'#123a42',gold:'#e7b95b',sage:'#1f8790',blush:'#bfe9e8'}},
     {id:'javanese-heritage',name:'Javanese Heritage',style:'javanese-heritage',paletteId:'keraton-sogan',kind:'heritage',tags:['Javanese','Batik','Keraton'],tagline:'Keanggunan tradisi Jawa bergaya keraton — gerbang gunungan, portrait panggih, gong countdown, jalur batik, dan detail sogan yang berwibawa.',theme:{cream:'#f3ead8',ink:'#2b211b',gold:'#c49a5a',sage:'#8a522f',blush:'#d9bd91'}},
     {id:'cinematic-film',name:'Cinematic Film Reel',style:'cinematic-film',paletteId:'director-amber',kind:'frame',tags:['Cinema','Film Reel','Premiere'],tagline:'Undangan sinematik seperti pemutaran film — opening credits, timecode, cast poster, storyboard, tiket premiere, clapperboard RSVP, dan galeri film 35mm.',theme:{cream:'#111111',ink:'#f4ebdd',gold:'#f5b942',sage:'#b64a3a',blush:'#26211c'}},
-    {id:'wedding-gazette',name:'The Wedding Gazette',style:'wedding-gazette',paletteId:'press-red',kind:'minimal',tags:['Newspaper','Editorial','Broadsheet'],tagline:'Undangan bergaya koran edisi khusus — masthead broadsheet, headline besar, kolom editorial, arsip kisah, agenda kota, surat pembaca, dan classified wedding gift.',theme:{cream:'#f5f0e6',ink:'#151515',gold:'#b2261f',sage:'#315947',blush:'#d9c8aa'}}
+    {id:'wedding-gazette',name:'The Wedding Gazette',style:'wedding-gazette',paletteId:'press-red',kind:'minimal',tags:['Newspaper','Editorial','Broadsheet'],tagline:'Undangan bergaya koran edisi khusus — masthead broadsheet, headline besar, kolom editorial, arsip kisah, agenda kota, surat pembaca, dan classified wedding gift.',theme:{cream:'#f5f0e6',ink:'#151515',gold:'#b2261f',sage:'#315947',blush:'#d9c8aa'}},
+    {id:'pixel-love',name:'Pixel Love Arcade',style:'pixel-love',paletteId:'neon-arcade',kind:'frame',tags:['Pixel','Arcade','Playful'],tagline:'Undangan arcade 8-bit yang playful — title screen, player select, quest map, scoreboard countdown, mission cards, party chat, treasure chest, dan forever mode.',theme:{cream:'#090723',ink:'#f7f4ff',gold:'#ff3cac',sage:'#20e3d4',blush:'#34246f'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -347,6 +348,12 @@
       {id:'blue-daily',name:'Blue Daily',colors:{cream:'#f3efe5',ink:'#102c42',gold:'#c03a2b',sage:'#607b77',blush:'#d5c6ae'}},
       {id:'forest-edition',name:'Forest Edition',colors:{cream:'#f1ead9',ink:'#17372d',gold:'#c16632',sage:'#6d7d5b',blush:'#d8cbb1'}},
       {id:'plum-press',name:'Plum Press',colors:{cream:'#f5ecdf',ink:'#3d2432',gold:'#9b3f4a',sage:'#79606f',blush:'#dec9bd'}}
+    ],
+    'pixel-love':[
+      {id:'neon-arcade',name:'Neon Arcade',colors:{cream:'#090723',ink:'#f7f4ff',gold:'#ff3cac',sage:'#20e3d4',blush:'#34246f'}},
+      {id:'cyber-lime',name:'Cyber Lime',colors:{cream:'#071b18',ink:'#effff8',gold:'#d8ff4f',sage:'#21d4a7',blush:'#154b45'}},
+      {id:'sunset-console',name:'Sunset Console',colors:{cream:'#24102f',ink:'#fff1e8',gold:'#ff6b6b',sage:'#ffb84d',blush:'#5f275f'}},
+      {id:'blue-player',name:'Blue Player',colors:{cream:'#07152f',ink:'#eef6ff',gold:'#4f8cff',sage:'#39e3ff',blush:'#173d78'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -400,7 +407,7 @@
     var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
     var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film');
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-11" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-12" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap cap-'+esc(it.style)+'">'
         +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
         +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'
