@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta name="theme-color" content="#f5f0e6"/>
+<title>Undangan Pernikahan — The Wedding Gazette</title>
+<link href="data:," rel="icon"/>
+<link href="assets/css/undangan-gazette.css" rel="stylesheet"/>
+</head>
+<body class="locked">
+<button id="musicBtn" title="Musik" aria-label="Putar atau hentikan musik">♫</button>
+<audio id="bgm" loop></audio>
+<div id="petals" aria-hidden="true"></div>
+<nav id="navdots" aria-label="Navigasi bagian undangan"></nav>
+
+<div id="cover">
+  <div class="edition-bar"><span>Special Wedding Edition</span><span>Vol. XII · No. 26</span></div>
+  <div class="masthead"><small>The</small><strong>Wedding Gazette</strong><p>Stories of love, vows &amp; a lifetime together</p></div>
+  <div class="cover-grid">
+    <div class="cover-side"><span>Exclusive</span><b>Save<br/>The<br/>Date</b></div>
+    <div class="cover-lead">
+      <p class="the-wedding">Breaking News · We Are Getting Married</p>
+      <h1 class="names">Sekar <span class="amp">&amp;</span> Bimo</h1>
+      <p class="kepada">Edisi khusus untuk</p>
+      <p id="guestName">Bapak / Ibu / Saudara/i</p>
+      <button id="openBtn"><span class="ico">→</span> Baca Undangan</button>
+    </div>
+  </div>
+  <div class="cover-footer"><span>Jakarta · Sabtu</span><span>12 Desember 2026</span><span>Harga: Satu Doa</span></div>
+</div>
+
+<section id="hero">
+  <div class="news-ticker" aria-hidden="true"><span>Just Married</span><b>•</b><span>Love Wins</span><b>•</b><span>Special Edition</span><b>•</b><span>Forever Starts Here</span></div>
+  <header class="paper-head reveal"><span>Sabtu, 12 Desember 2026</span><strong>The Wedding Gazette</strong><span>Vol. XII · No. 26</span></header>
+  <div class="hero-layout">
+    <aside class="hero-aside reveal"><span>Exclusive</span><b>THE<br/>BIG<br/>DAY</b><p>Two families, one joyful headline.</p></aside>
+    <main class="hero-story">
+      <p class="bism reveal">Bismillahirrahmanirrahim</p>
+      <p class="hero-kicker reveal">Berita Bahagia Hari Ini</p>
+      <h1 class="names reveal">Sekar<span class="amp">&amp;</span>Bimo</h1>
+      <p class="date-pill reveal">Sabtu, 12 Desember 2026</p>
+      <p class="hero-caption reveal">Dengan sukacita mengumumkan awal perjalanan seumur hidup.</p>
+    </main>
+    <aside class="hero-note reveal"><span>Save This Issue</span><div class="date-stamp">12<small>DES<br/>2026</small></div><p>Undangan berlaku untuk dua hati yang ikut berbahagia.</p></aside>
+  </div>
+</section>
+
+<section id="quote">
+  <p class="label reveal"><span>01</span> Editorial · Tentang Cinta</p>
+  <div class="editorial-note reveal">
+    <div class="editor-mark">“</div>
+    <p class="ayat">Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.</p>
+    <p class="src">QS. Ar-Rum : 21</p>
+    <aside>Catatan redaksi: kisah terbaik adalah kisah yang dijalani, bukan sekadar dibaca.</aside>
+  </div>
+</section>
+
+<section id="couple">
+  <p class="label reveal"><span>02</span> Front Page · Tokoh Utama</p>
+  <div class="section-title reveal"><small>Exclusive Profile</small><h2>Dua Nama Menjadi Satu Cerita</h2><p>Mengenal lebih dekat dua insan di balik kabar bahagia hari ini.</p></div>
+  <div class="cpl">
+    <article class="person reveal"><div class="portrait-box"><span class="initial">S</span><em>Profil 01</em></div><p class="role">Putri Pertama</p><h3>Sekar Ayu Pramesti</h3><p class="parents">Putri dari<br/>Bapak Suryanto &amp; Ibu Widati</p><span class="social">@sekar.ayu</span></article>
+    <div class="amp-big reveal"><span>Special</span>&amp;<small>Edition</small></div>
+    <article class="person reveal"><div class="portrait-box"><span class="initial">B</span><em>Profil 02</em></div><p class="role">Putra Kedua</p><h3>Bimo Arya Nugraha</h3><p class="parents">Putra dari<br/>Bapak Hendra &amp; Ibu Lestari</p><span class="social">@bimo.arya</span></article>
+  </div>
+</section>
+
+<section id="countdown">
+  <p class="label reveal"><span>03</span> Bulletin · Hitung Mundur</p>
+  <div class="count-head reveal"><span>Breaking</span><h2>Menuju Hari yang Dinanti</h2></div>
+  <div class="cd reveal"><div><b id="cd-d">0</b><span>Hari</span></div><i>/</i><div><b id="cd-h">00</b><span>Jam</span></div><i>/</i><div><b id="cd-m">00</b><span>Menit</span></div><i>/</i><div><b id="cd-s">00</b><span>Detik</span></div></div>
+  <a class="save-date reveal" href="#" id="calBtn" rel="noopener" target="_blank">Tambahkan ke Kalender →</a>
+</section>
+
+<section id="story">
+  <p class="label reveal"><span>04</span> Archive · Jejak Cerita</p>
+  <div class="section-title reveal"><small>From The Archives</small><h2>Tiga Babak, Satu Tujuan</h2></div>
+  <div class="tl">
+    <article class="tl-item reveal"><span class="shot">Arsip 01</span><div class="yr">2019</div><h4>Pertama Bertemu</h4><p>Dipertemukan dalam satu kegiatan kampus. Sebuah perjumpaan sederhana yang kemudian menjadi halaman pertama.</p><small>Read time · 1 min</small></article>
+    <article class="tl-item reveal"><span class="shot">Arsip 02</span><div class="yr">2022</div><h4>Menjalin Hubungan</h4><p>Belajar saling menguatkan dalam suka dan duka, sambil menulis cerita yang semakin berarti.</p><small>Read time · 2 min</small></article>
+    <article class="tl-item reveal"><span class="shot">Arsip 03</span><div class="yr">2026</div><h4>Menuju Pernikahan</h4><p>Dua keluarga menyambut keputusan untuk melangkah bersama dalam ikatan suci pernikahan.</p><small>To be continued</small></article>
+  </div>
+</section>
+
+<section id="events">
+  <p class="label reveal"><span>05</span> City Desk · Agenda Utama</p>
+  <div class="event-banner reveal"><span>Today's Schedule</span><h2>Tempat &amp; Waktu Perayaan</h2><p>Mohon hadir tepat waktu untuk menjadi bagian dari berita terbaik kami.</p></div>
+  <div class="ev-wrap">
+    <article class="event-card reveal"><span class="ticket-code">Agenda · 01</span><div class="big">12 DES 2026</div><div class="event-copy"><p class="badge">Akad Nikah</p><h3>Akad Nikah</h3><p class="row">Pukul 08.00 - 10.00 WIB</p><p class="row">Masjid Al-Ikhlas, Jakarta</p></div><a class="map-btn" href="#" rel="noopener" target="_blank">Buka Peta →</a></article>
+    <article class="event-card reveal"><span class="ticket-code">Agenda · 02</span><div class="big">12 DES 2026</div><div class="event-copy"><p class="badge">Resepsi</p><h3>Resepsi Pernikahan</h3><p class="row">Pukul 11.00 - 14.00 WIB</p><p class="row">Ballroom Graha Mawar, Jakarta</p></div><a class="map-btn" href="#" rel="noopener" target="_blank">Buka Peta →</a></article>
+  </div>
+</section>
+
+<section id="gallery">
+  <p class="label reveal"><span>06</span> Photo Desk · Galeri Pilihan</p>
+  <div class="photo-head reveal"><h2>Moments Worth Printing</h2><div><span>Photo Essay</span><b>Issue 12/26</b></div></div>
+  <div class="gal-grid reveal"><div class="cell"><img alt="" style="display:none"/><span>Frame 01</span></div><div class="cell"><img alt="" style="display:none"/><span>Frame 02</span></div><div class="cell"><img alt="" style="display:none"/><span>Frame 03</span></div><div class="cell"><img alt="" style="display:none"/><span>Frame 04</span></div><div class="cell"><img alt="" style="display:none"/><span>Frame 05</span></div><div class="cell"><img alt="" style="display:none"/><span>Frame 06</span></div></div>
+</section>
+
+<section id="rsvp">
+  <p class="label reveal"><span>07</span> Subscriber Desk · RSVP</p>
+  <div class="form-intro reveal"><span>Reply Requested</span><h2>Konfirmasi Kehadiran</h2><p>Isi formulir singkat agar meja redaksi dapat mencatat kehadiran Anda.</p></div>
+  <form class="form-card reveal" id="rsvpForm"><div class="form-code">FORM RSVP · WG-1226</div><div class="field"><label>Nama Lengkap</label><input id="rsvpName" placeholder="Nama Anda" required type="text"/></div><div class="two"><div class="field"><label>Kehadiran</label><select id="rsvpAttend" required><option value="">Pilih...</option><option>Hadir</option><option>Tidak Hadir</option></select></div><div class="field"><label>Jumlah Tamu</label><select id="rsvpCount"><option>1 Orang</option><option>2 Orang</option><option>3 Orang</option><option>4 Orang</option></select></div></div><button class="submit" type="submit">Kirim Konfirmasi →</button><p class="rsvp-note" id="rsvpNote"></p></form>
+</section>
+
+<section id="wishes">
+  <p class="label reveal"><span>08</span> Letters · Surat Pembaca</p>
+  <div class="letters-grid">
+    <div class="letters-intro reveal"><span>Letters To The Couple</span><h2>Kirim Ucapan &amp; Doa</h2><p>Setiap pesan akan menjadi potongan kecil dari edisi pernikahan kami.</p></div>
+    <form class="wish-form reveal" id="wishForm"><div class="field"><label>Nama Anda</label><input id="wishName" placeholder="Nama pengirim" required type="text"/></div><div class="field"><label>Kehadiran</label><select id="wishAttend"><option value="Turut mendoakan">Turut mendoakan</option><option value="Insya Allah hadir">Insya Allah hadir</option><option value="Belum bisa hadir">Belum bisa hadir</option></select></div><div class="field"><label>Ucapan &amp; Doa</label><textarea id="wishMsg" placeholder="Tuliskan pesan Anda..." required></textarea></div><button class="submit" type="submit">Kirim ke Redaksi →</button></form>
+  </div>
+  <p class="wish-count" id="wishCount"></p><div class="wish-list" id="wishList"></div>
+</section>
+
+<section id="gift">
+  <p class="label reveal"><span>09</span> Classifieds · Wedding Gift</p>
+  <div class="classified-head reveal"><b>CLASSIFIED ADS</b><span>Digital Envelope · With Love</span></div>
+  <div class="gift-wrap"><article class="gift-card reveal"><span class="credit-role">LISTING 01 · BANK TRANSFER</span><p class="bank">Bank BCA</p><div class="no" id="acc1">1234 5678 90</div><p class="an">a.n. Sekar Ayu Pramesti</p><button class="copy-btn" data-acc="acc1">Salin Nomor</button></article><article class="gift-card reveal"><span class="credit-role">LISTING 02 · BANK TRANSFER</span><p class="bank">Bank Mandiri</p><div class="no" id="acc2">0987 6543 21</div><p class="an">a.n. Bimo Arya Nugraha</p><button class="copy-btn" data-acc="acc2">Salin Nomor</button></article></div>
+</section>
+
+<section id="info">
+  <p class="label reveal"><span>10</span> News Briefs · Informasi</p>
+  <div class="info-wrap"><article class="info-card reveal"><div class="ic">01</div><span>Dress Code</span><h4>Earth Tone</h4><p>Gunakan warna netral dan nyaman untuk merayakan hari bahagia.</p></article><article class="info-card reveal"><div class="ic">02</div><span>Wedding Gift</span><h4>Doa Terbaik</h4><p>Kehadiran dan doa Anda adalah hadiah terindah bagi kami.</p></article><article class="info-card reveal"><div class="ic">03</div><span>Access</span><h4>Area Parkir</h4><p>Area parkir tersedia luas di sekitar lokasi acara.</p></article></div>
+</section>
+
+<section id="thanks">
+  <div class="final-issue reveal"><span>Final Edition</span><b>Thank<br/>You</b><small>For Being Part of Our Story</small></div>
+  <div class="thanks-copy"><p class="eyebrow reveal">Penutup Redaksi</p><p class="reveal">Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p><h1 class="names reveal">Sekar <span class="amp">&amp;</span> Bimo</h1><p class="fam reveal">Kel. Bapak Suryanto &amp; Kel. Bapak Hendra</p><div class="share reveal"><a class="share-btn" id="waShare" rel="noopener" target="_blank">Bagikan via WhatsApp</a><button class="share-btn" id="copyInv" type="button">Salin Link</button></div></div>
+</section>
+
+<script src="db-config.js"></script><script src="db.js"></script><script src="app.js"></script>
+<div id="madeBy">The Wedding Gazette · diterbitkan dengan cinta oleh Undanganku</div>
+</body>
+</html>

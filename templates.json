@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -275,6 +275,33 @@
         "sepia-reel"
       ],
       "sort": 10,
+      "active": true
+    },
+    {
+      "id": "wedding-gazette",
+      "name": "The Wedding Gazette",
+      "file": "undangan-gazette.html",
+      "cover": "minimal",
+      "defaultLayout": "grid",
+      "tags": [
+        "Newspaper",
+        "Editorial",
+        "Broadsheet"
+      ],
+      "theme": {
+        "cream": "#f5f0e6",
+        "ink": "#151515",
+        "gold": "#b2261f",
+        "sage": "#315947",
+        "blush": "#d9c8aa"
+      },
+      "palettes": [
+        "press-red",
+        "blue-daily",
+        "forest-edition",
+        "plum-press"
+      ],
+      "sort": 11,
       "active": true
     }
   ]
