@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -383,6 +383,33 @@
         "midnight-record"
       ],
       "sort": 14,
+      "active": true
+    },
+    {
+      "id": "maison-amour",
+      "name": "Maison Amour",
+      "file": "undangan-maison.html",
+      "cover": "arch",
+      "defaultLayout": "collage",
+      "tags": [
+        "Couture",
+        "Monogram",
+        "Parisian"
+      ],
+      "theme": {
+        "cream": "#f6f0e6",
+        "ink": "#1c1916",
+        "gold": "#b89a68",
+        "sage": "#8d7b6a",
+        "blush": "#ddd0bf"
+      },
+      "palettes": [
+        "ivory-soiree",
+        "rose-champagne",
+        "sage-atelier",
+        "midnight-silk"
+      ],
+      "sort": 15,
       "active": true
     }
   ]
