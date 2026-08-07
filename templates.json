@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -329,6 +329,33 @@
         "blue-player"
       ],
       "sort": 12,
+      "active": true
+    },
+    {
+      "id": "bauhaus-love",
+      "name": "Bauhaus Love",
+      "file": "undangan-bauhaus.html",
+      "cover": "minimal",
+      "defaultLayout": "grid",
+      "tags": [
+        "Bauhaus",
+        "Geometric",
+        "Modernist"
+      ],
+      "theme": {
+        "cream": "#f4efe3",
+        "ink": "#111111",
+        "gold": "#e44132",
+        "sage": "#175bb8",
+        "blush": "#f2c84b"
+      },
+      "palettes": [
+        "primary-stage",
+        "emerald-sun",
+        "cobalt-coral",
+        "plum-mustard"
+      ],
+      "sort": 13,
       "active": true
     }
   ]
