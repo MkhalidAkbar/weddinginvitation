@@ -257,7 +257,7 @@
   }
   function bindPlans(host){ Array.prototype.forEach.call(host.querySelectorAll('[data-plan]'),function(b){ b.onclick=function(ev){ if(ev&&ev.stopPropagation)ev.stopPropagation(); var k=b.getAttribute('data-plan'); selPkg=k; updateBuy(); renderForm(); }; }); }
   /* ===== PERPUSTAKAAN: galeri template + preview per-template ===== */
-  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html'};
+  var TEMPLATES={'elegant-floral':'undangan-template-db.html','modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html','garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html','rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html','javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html','wedding-gazette':'undangan-gazette.html','pixel-love':'undangan-pixel.html','bauhaus-love':'undangan-bauhaus.html','vinyl-romance':'undangan-vinyl.html'};
   function templateFile(s){ return TEMPLATES[s]||'undangan-template-db.html'; }
   function syncPreviewSrc(){ if(!cur) return; var f=templateFile(cfg.style||'elegant-floral'), want=f+'?site='+encodeURIComponent(cur.slug), ifr=el('preview');
     if(ifr){ var base=(ifr.getAttribute('src')||'').split('?')[0]; if(base!==f){ ifr.onload=function(){ pushPreview(); setTimeout(pushPreview,700); setTimeout(pushPreview,1500); }; ifr.src=want; } }
@@ -276,7 +276,8 @@
     {id:'cinematic-film',name:'Cinematic Film Reel',style:'cinematic-film',paletteId:'director-amber',kind:'frame',tags:['Cinema','Film Reel','Premiere'],tagline:'Undangan sinematik seperti pemutaran film — opening credits, timecode, cast poster, storyboard, tiket premiere, clapperboard RSVP, dan galeri film 35mm.',theme:{cream:'#111111',ink:'#f4ebdd',gold:'#f5b942',sage:'#b64a3a',blush:'#26211c'}},
     {id:'wedding-gazette',name:'The Wedding Gazette',style:'wedding-gazette',paletteId:'press-red',kind:'minimal',tags:['Newspaper','Editorial','Broadsheet'],tagline:'Undangan bergaya koran edisi khusus — masthead broadsheet, headline besar, kolom editorial, arsip kisah, agenda kota, surat pembaca, dan classified wedding gift.',theme:{cream:'#f5f0e6',ink:'#151515',gold:'#b2261f',sage:'#315947',blush:'#d9c8aa'}},
     {id:'pixel-love',name:'Pixel Love Arcade',style:'pixel-love',paletteId:'neon-arcade',kind:'frame',tags:['Pixel','Arcade','Playful'],tagline:'Undangan arcade 8-bit yang playful — title screen, player select, quest map, scoreboard countdown, mission cards, party chat, treasure chest, dan forever mode.',theme:{cream:'#090723',ink:'#f7f4ff',gold:'#ff3cac',sage:'#20e3d4',blush:'#34246f'}},
-    {id:'bauhaus-love',name:'Bauhaus Love',style:'bauhaus-love',paletteId:'primary-stage',kind:'minimal',tags:['Bauhaus','Geometric','Modernist'],tagline:'Undangan modernis berani dengan bentuk primer — komposisi asimetris, tipografi monumental, portrait geometris, garis waktu modular, dan blok warna Bauhaus.',theme:{cream:'#f4efe3',ink:'#111111',gold:'#e44132',sage:'#175bb8',blush:'#f2c84b'}}
+    {id:'bauhaus-love',name:'Bauhaus Love',style:'bauhaus-love',paletteId:'primary-stage',kind:'minimal',tags:['Bauhaus','Geometric','Modernist'],tagline:'Undangan modernis berani dengan bentuk primer — komposisi asimetris, tipografi monumental, portrait geometris, garis waktu modular, dan blok warna Bauhaus.',theme:{cream:'#f4efe3',ink:'#111111',gold:'#e44132',sage:'#175bb8',blush:'#f2c84b'}},
+    {id:'vinyl-romance',name:'Vinyl Romance',style:'vinyl-romance',paletteId:'analog-wine',kind:'frame',tags:['Vinyl','Retro','Analog'],tagline:'Undangan retro-analog seperti album vinyl edisi khusus — cover sleeve terbelah, piringan hitam, tracklist kisah, equalizer countdown, live pass, record bin gallery, dan RSVP mixing console.',theme:{cream:'#f4ead8',ink:'#241a18',gold:'#e76b4d',sage:'#0e7674',blush:'#7a1f3d'}}
   ];
   /* Palet warna sesuai tiap template (dipilih di tab Tampilan). Font mengikuti desain template. */
   var TPL_PALETTES={
@@ -361,6 +362,12 @@
       {id:'emerald-sun',name:'Emerald Sun',colors:{cream:'#f5f0dd',ink:'#142d27',gold:'#e05a3f',sage:'#26705f',blush:'#efc84a'}},
       {id:'cobalt-coral',name:'Cobalt Coral',colors:{cream:'#f4eee7',ink:'#1d2340',gold:'#ef6654',sage:'#3264c8',blush:'#f1c65a'}},
       {id:'plum-mustard',name:'Plum Mustard',colors:{cream:'#f2eadf',ink:'#3b2438',gold:'#cb4d50',sage:'#7460a9',blush:'#d8a72f'}}
+    ],
+    'vinyl-romance':[
+      {id:'analog-wine',name:'Analog Wine',colors:{cream:'#f4ead8',ink:'#241a18',gold:'#e76b4d',sage:'#0e7674',blush:'#7a1f3d'}},
+      {id:'sunset-groove',name:'Sunset Groove',colors:{cream:'#fff0d5',ink:'#27181d',gold:'#f06b45',sage:'#2a8090',blush:'#b43d62'}},
+      {id:'mint-jukebox',name:'Mint Jukebox',colors:{cream:'#edf3df',ink:'#15312e',gold:'#ed6f42',sage:'#2e8b7d',blush:'#6b355f'}},
+      {id:'midnight-record',name:'Midnight Record',colors:{cream:'#15131b',ink:'#f6ead7',gold:'#ff7e57',sage:'#5fc2b4',blush:'#4a2146'}}
     ]
   };
   function tplPalettes(){ return TPL_PALETTES[cfg.style||'elegant-floral']||TPL_PALETTES['elegant-floral']; }
@@ -412,9 +419,9 @@
     var eye=((cover.eyebrow||'The Wedding Of')+'').trim()||'The Wedding Of';
     var guest=((cover.guestDefault||'Tamu Undangan')+'').trim()||'Tamu Undangan';
     var open=((cover.openButton||'Buka Undangan')+'').trim()||'Buka Undangan';
-    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film');
+    var darkThumb=(it.style==='modern-editorial'||it.style==='luxury-gold'||it.style==='midnight-luxe'||it.style==='javanese-heritage'||it.style==='cinematic-film'||it.style==='vinyl-romance');
     return '<div class="lib-shot '+(darkThumb?'thumb-dark':'thumb-light')+'" style="background:linear-gradient(160deg,'+esc(cream)+','+esc(blush)+')">'
-      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-13" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
+      +'<img class="lib-img" src="images/thumbs/'+esc(it.style)+'-dynamic.webp?v=20260807-14" alt="Latar template '+esc(it.name)+'" loading="lazy" decoding="async" onload="this.parentElement.classList.add(\'has-image\')" onerror="this.remove()">'
       +'<div class="lib-cap cap-'+esc(it.style)+'">'
         +'<div class="cap-eyebrow">'+esc(eye)+'</div>'
         +'<div class="cap-names"><span class="cap-bride">'+esc(n.b)+'</span><span class="cap-amp">&amp;</span><span class="cap-groom">'+esc(n.g)+'</span></div>'

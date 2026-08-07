@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -356,6 +356,33 @@
         "plum-mustard"
       ],
       "sort": 13,
+      "active": true
+    },
+    {
+      "id": "vinyl-romance",
+      "name": "Vinyl Romance",
+      "file": "undangan-vinyl.html",
+      "cover": "frame",
+      "defaultLayout": "film",
+      "tags": [
+        "Vinyl",
+        "Retro",
+        "Analog"
+      ],
+      "theme": {
+        "cream": "#f4ead8",
+        "ink": "#241a18",
+        "gold": "#e76b4d",
+        "sage": "#0e7674",
+        "blush": "#7a1f3d"
+      },
+      "palettes": [
+        "analog-wine",
+        "sunset-groove",
+        "mint-jukebox",
+        "midnight-record"
+      ],
+      "sort": 14,
       "active": true
     }
   ]
