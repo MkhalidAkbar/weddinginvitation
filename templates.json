@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-08-06",
+  "version": 2,
+  "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
     {
@@ -248,6 +248,33 @@
         "indigo-batik"
       ],
       "sort": 9,
+      "active": true
+    },
+    {
+      "id": "cinematic-film",
+      "name": "Cinematic Film Reel",
+      "file": "undangan-cinematic.html",
+      "cover": "frame",
+      "defaultLayout": "film",
+      "tags": [
+        "Cinema",
+        "Film Reel",
+        "Premiere"
+      ],
+      "theme": {
+        "cream": "#111111",
+        "ink": "#f4ebdd",
+        "gold": "#f5b942",
+        "sage": "#b64a3a",
+        "blush": "#26211c"
+      },
+      "palettes": [
+        "director-amber",
+        "silver-screen",
+        "noir-crimson",
+        "sepia-reel"
+      ],
+      "sort": 10,
       "active": true
     }
   ]

@@ -5,7 +5,8 @@
     'elegant-floral':'undangan-template-db.html',
     'modern-editorial':'undangan-modern.html','luxury-gold':'undangan-luxury-gold.html',
     'garden-botanical':'undangan-botani.html','midnight-luxe':'undangan-midnight.html',
-    'rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html'
+    'rustic-terracotta':'undangan-terracotta.html','blush-minimal':'undangan-blush.html','ocean-breeze':'undangan-ocean.html',
+    'javanese-heritage':'undangan-javanese.html','cinematic-film':'undangan-cinematic.html'
   };
   var DEFAULT='undangan-template-db.html';
   var DB=window.WEDDING_DB||{}, API=(DB.url||'').replace(/\/+$/,''), KEY=DB.anonKey||'';
