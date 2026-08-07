@@ -1,5 +1,5 @@
 {
-  "version": 13,
+  "version": 14,
   "updated": "2026-08-07",
   "note": "Registry template undangan. Setiap layout = 1 file HTML terpisah + shared app.js. panel.html & index.html membaca daftar ini (saat ini di-hardcode; roadmap: fetch dari Supabase tabel templates).",
   "templates": [
@@ -572,6 +572,60 @@
         "ivory-solstice"
       ],
       "sort": 21,
+      "active": true
+    },
+    {
+      "id": "ivory-letterpress",
+      "name": "Aurelia Letterpress",
+      "file": "undangan-letterpress.html",
+      "cover": "minimal",
+      "defaultLayout": "polaroid",
+      "tags": [
+        "Letterpress",
+        "Stationery",
+        "Heirloom"
+      ],
+      "theme": {
+        "cream": "#f4efe4",
+        "ink": "#2e2924",
+        "gold": "#a88a5e",
+        "sage": "#747b6b",
+        "blush": "#d8cec0"
+      },
+      "palettes": [
+        "ivory-emboss",
+        "sage-letter",
+        "dusty-rose-press",
+        "charcoal-cotton"
+      ],
+      "sort": 22,
+      "active": true
+    },
+    {
+      "id": "porcelaine-bleue",
+      "name": "Porcelaine Bleue",
+      "file": "undangan-porcelaine.html",
+      "cover": "circle",
+      "defaultLayout": "grid",
+      "tags": [
+        "Porcelain",
+        "Cobalt",
+        "French"
+      ],
+      "theme": {
+        "cream": "#f7f4ec",
+        "ink": "#17345c",
+        "gold": "#b49a62",
+        "sage": "#58708f",
+        "blush": "#dbe4ec"
+      },
+      "palettes": [
+        "cobalt-ivory",
+        "celadon-blue",
+        "royal-sapphire",
+        "rose-chinoiserie"
+      ],
+      "sort": 23,
       "active": true
     }
   ]
